@@ -1,0 +1,21 @@
+@startuml
+skinparam DefaultFontName Times New Roman
+skinparam actorStyle awesome
+Actor User
+User << User >> #DodgerBlue
+
+Actor Robot
+Robot << Robot >> #Yellow
+
+Actor Fleet_Manager
+Fleet_Manager << Fleet_Manager >> #IndianRed
+
+:User: -- (Use command line to control robots) #DodgerBlue
+:User: -- (Report Robots' failures) #DodgerBlue
+:Robot: -- (Use command line to control robots)
+:Robot: -- (Report Robots' failures)
+:Robot: -- (Return home after clean)
+:Robot: -- (Check robot alerts if mulfunction)
+:Fleet_Manager: -- (Use command line to control robots)#DodgerBlue
+:Fleet_Manager: -- (Check robot alerts if mulfunction) #DodgerBlue
+@enduml
