@@ -1,3 +1,2 @@
-# This is your design document's top level!
-
-This is where the core designs are started.
+# Use Cases
+This is where information about [Use cases](usecases/UseCases.md) can be found. 
