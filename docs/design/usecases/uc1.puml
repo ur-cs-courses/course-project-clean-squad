@@ -1,0 +1,25 @@
+@startuml
+skinparam DefaultFontName Times New Roman
+skinparam actorStyle awesome
+
+Actor User
+User << User >> #DodgerBlue
+
+Actor Database_Manager
+Database_Manager << Manager >> #LightSeaGreen
+
+package Data {
+    usecase "View robot's individual performance" as (robot_performance) #LightGrey
+    usecase "See paths/efficiency of robots" as (paths_efficiency) #LightGrey
+}
+
+package RobotList {
+    usecase "View active/free status of robots" as (active_free_status) #LightGrey
+    usecase "View broken status of robots" as (broken_status) #LightGrey
+}
+
+:User: --> (active_free_status) #DodgerBlue
+:User: --> (broken_status) #DodgerBlue
+:Database_Manager: --> (robot_performance) #LightSeaGreen
+:Database_Manager: --> (paths_efficiency) #LightSeaGreen
+@enduml
