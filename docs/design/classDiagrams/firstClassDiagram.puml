@@ -1,0 +1,42 @@
+@startuml RobotClassDiagram
+
+class Robot {
+    - isActive: bool
+    - isBroken: bool
+    - robotType: string
+    - robotSize: string
+    - batteryLife: int
+    - probFailure: int
+    - destination: Room
+    - currentTask: Task
+    - completedTasks: vector<Task>
+    # getActive(): bool
+    # getBrokenStatus(): bool
+    # setBrokenStatus(brokenStatus: bool): void
+    # getRobotType(): string
+    # getRobotSize(): string
+    # getBattery(): int
+    # charge(): void
+    # getDestination(): Room
+    # setDestination(destination: Room): void
+    # getCompletedTasks(): vector<Task>
+    # getTask(): Task
+    # setTask(task: Task): void
+}
+
+class Room {
+
+}
+
+class Task {
+
+}
+
+class Simulation {
+
+}
+
+Robot "0..." o--> "0...1" Room
+Robot "0..." o--> "0...1" Task
+
+@enduml
