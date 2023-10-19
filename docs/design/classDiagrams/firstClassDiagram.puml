@@ -33,7 +33,15 @@ class Task {
 }
 
 class Simulation {
-
+    - availableRobots: vector<Robot>
+    - unavailableRobots: vector<Robot>
+    - roomList: vector<Room>
+    # runSimulation(): void
+    # getInput(): void
+    # createTask(): Task
+    # getAvailableRobots(): vector<Robot>
+    # getUnavailableRobots(): vector<Robot>
+    # getRoomList(): vector<Room>
 }
 
 Robot "0..." o--> "0...1" Room
