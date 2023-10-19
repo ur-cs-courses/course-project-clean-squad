@@ -1,0 +1,20 @@
+@startuml Tasks
+class Task {
+  - numRobots: int
+  - workingRobots: vector<Robot>
+  - time: int
+  - taskLocation: Room
+  - isCompleted: boolean
+  + setNumRobots(numRobots: int)
+  + getNumRobots(): int
+  + addWorkingRobot(robot: Robot)
+  + removeWorkingRobot(robot: Robot)
+  + setTime(time: int)
+  + getTime(): int
+  + setTaskLocation(location: Room)
+  + getTaskLocation(): Room
+  + setIsCompleted(isCompleted: boolean)
+  + getIsCompleted(): boolean
+}
+
+@enduml
