@@ -25,6 +25,35 @@ class Robot {
 }
 
 class Room {
+    - int mopTime
+    - int vacuumTime
+    - int scrubTime
+    - int mopping
+    - int vacuum
+    - int scrubber
+    - string size
+    - int area
+    - vector<Room> waitingQueue
+    - vector<Room> cleaningRooms
+    - vector<Room> completeRooms
+
+
+    - generateRoom(): Room
+    - generateMopArea(): int
+    - generateVacuumArea(): int
+    - generateScrubArea(): int
+    + setSize(): void
+    + getSize(): int
+    + getMopTime(): int
+    + getVacuumTime(): int
+    + getScrubTime(): int
+    + getNumMopping(): int
+    + getNumVacuum(): int
+    + getNumScrubber(): int
+    + getWaitingRooms(): vector<Room>
+    + getCompletedRooms(): vector<Room>
+    + getCurrentCleaning(): vector<Room>
+    
 
 }
 
