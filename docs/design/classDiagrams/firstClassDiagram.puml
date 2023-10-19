@@ -1,4 +1,4 @@
-@startuml RobotClassDiagram
+@startuml classDiagrams
 
 class Robot {
     - isActive: bool
@@ -82,6 +82,24 @@ class Simulation {
     # getAvailableRobots(): vector<Robot>
     # getUnavailableRobots(): vector<Robot>
     # getRoomList(): vector<Room>
+}
+
+class Task {
+  - numRobots: int
+  - workingRobots: vector<Robot>
+  - time: int
+  - taskLocation: Room
+  - isCompleted: boolean
+  + setNumRobots(numRobots: int)
+  + getNumRobots(): int
+  + addWorkingRobot(robot: Robot)
+  + removeWorkingRobot(robot: Robot)
+  + setTime(time: int)
+  + getTime(): int
+  + setTaskLocation(location: Room)
+  + getTaskLocation(): Room
+  + setIsCompleted(isCompleted: boolean)
+  + getIsCompleted(): boolean
 }
 
 Robot "0..." o--> "0...1" Room
