@@ -5,5 +5,5 @@ This is a sequence diagram that is showing the steps the user would take to assi
 
 * Henry: We all talked through the sequence diagrams for assign task and during task. I created the sequence diagrams folder and the markdown files. I also coded the assign task plant uml file.
 * Lauren:
-* Zhengtao: 
+* Zhengtao: We discussed parts of the sequence diagrams. I coded uml file for the during-task sequence diagram.
 * Ditrick: 
