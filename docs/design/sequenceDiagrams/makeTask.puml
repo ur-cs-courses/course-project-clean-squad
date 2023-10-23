@@ -1,0 +1,20 @@
+start
+:input- Room taskLocation;
+:set neededTimes to times from taskLocation;
+:set potentialTimes to 0;
+
+while (potential times != needed times)
+
+  :query adding robot;
+  if (input robot is !active) then
+    :query different robot;
+   else
+     :check type of robot;
+     :Add input.time to needed time of that type;
+  endif
+:tell what robots are needed;
+
+
+endwhile
+
+end
