@@ -1,4 +1,3 @@
 10/26 Sprint Review
 
-For the first two weeks of this project, we focused on the design of the project. 
-We first started created a bunch of user stories and put them as cards in "New" in our project layout. 
+For the first two weeks of this project, we focused on the design of the project. We first started created a bunch of user stories and put them as cards in "New" in our project layout. From there, the four of us sat down and created our initial class diagram which consists of 4 classes: Robot, Simulation, Task, and Room. We then created two sequence diagrams to show the order how actors interact with each other when assigning a task and during a task. We also created a activity diagram to model the flow from one action to another while the simulation is making a task. Lastly we created all the folders and markdown files for these diagrams.
