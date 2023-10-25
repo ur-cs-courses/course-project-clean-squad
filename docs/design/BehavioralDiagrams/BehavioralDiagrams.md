@@ -1,11 +1,11 @@
 ## File for our behavioral diagrams
-![AssignTask Sequence Diagram](AssignTaskSQ.png)
+![AssignTask Sequence Diagram](AssignTaskSQ.png) <br>
 This is a sequence diagram that is showing the steps the user would take to assign a task to a robot and the robot to go start that task.
 
-![duringTask Sequence Diagram](duringTaskSQ.png)
+![duringTask Sequence Diagram](duringTaskSQ.png) <br>
 This is a sequence diagram that demonstrates basic steps for a robot will behave during its task, and its interactions with the room class.
 
-![makeTask Activity Diagram](makeTaskAD.png)
+![makeTask Activity Diagram](makeTaskAD.png) <br>
 This is a activity diagram that shows how the simulation assigns the correct robots for each task.
 
 
