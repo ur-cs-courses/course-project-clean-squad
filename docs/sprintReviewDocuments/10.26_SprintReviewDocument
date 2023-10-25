@@ -12,3 +12,13 @@ From there, the four of us sat down and created our initial class diagram which 
 We then created two sequence diagrams to show the order how actors interact with each other when assigning a task and during a task. 
 We also created a activity diagram to model the flow from one action to another while the simulation is making a task. 
 Lastly we created all the folders and markdown files for these diagrams.
+
+
+# Use Cases
+This is where information about [Use cases](usecases/UseCases.md) can be found. 
+
+# Class Diagrams
+This is where information about [Class diagrams](classDiagrams/ClassDiagrams.md) can be found. 
+
+# Sequence Diagrams & Activity Diagrams
+This is where information about [Behavioral diagrams](BehavioralDiagrams/BehavioralDiagrams.md) can be found. 
