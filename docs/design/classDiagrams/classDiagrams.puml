@@ -67,15 +67,21 @@ class Simulation {
 class Task {
   - numRobots: int
   - workingRobots: vector<Robot>
-  - time: int
+  - int mopTime
+  - int vacuumTime
+  - int scrubTime
   - taskLocation: Room
   - isCompleted: boolean
   + setNumRobots(numRobots: int)
   + getNumRobots(): int
   + addWorkingRobot(robot: Robot)
   + removeWorkingRobot(robot: Robot)
-  + setTime(time: int)
-  + getTime(): int
+  + setMopTime(): int
+  + setVacuumTime(): int
+  + setScrubTime(): int
+  + getMopTime(): int
+  + getVacuumTime(): int
+  + getScrubTime(): int
   + setTaskLocation(location: Room)
   + getTaskLocation(): Room
   + setIsCompleted(isCompleted: boolean)
