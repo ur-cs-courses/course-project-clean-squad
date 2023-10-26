@@ -1,0 +1,31 @@
+@startuml AssignTask
+skinparam DefaultFontName Times New Roman
+skinparam actorStyle awesome
+
+actor User #DodgerBlue
+participant Simulation #LightSeaGreen
+actor Robot #DarkRed
+
+loop findValidRobots
+    group checkFreeRobots
+        User -> Simulation: getFree
+        Simulation -> Simulation: put free Robots in List
+        Simulation -> User: returnFreeList
+    else No Free Robots
+        Simulation -> User: return0
+    end
+end
+
+group queryTask
+    User -> Simulation: queryTask
+    Simulation -> Simulation: check if specific robots are free
+        group ifTaskValid
+            Simulation -> Simulation: create the task
+            Simulation -> Robot: assign the task
+            Robot -> Robot: go to assigned room
+        else
+            Simulation -> User: report invalid task
+        end
+end
+
+@enduml

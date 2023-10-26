@@ -1,0 +1,11 @@
+@startuml
+Robot -> Room: Go to Room
+loop while roomClean
+Room -> Room: Decrease Timer
+    alt if not active
+    Robot -> Room -- : Go Home, end while loop
+    else else
+    Robot -> Robot: Clean
+    end
+end
+@enduml
