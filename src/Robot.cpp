@@ -1,6 +1,9 @@
 //Robot Class File
 
-#include "libhello/Robot.hpp"
+#include "Robot.hpp"
+#include "iostream"
+
+using namespace std;
 
 Robot::Robot(RobotType type, RobotSize size) :
         isActive(false),
@@ -69,3 +72,11 @@ Task getTask();
 void setTask();
 vector<Task> getCompletedTasks();
 */
+
+int main() {
+        Robot robot1 = Robot(RobotType::mopper, RobotSize::large);
+        cout << robot1.getActive() << endl;
+        robot1.getBattery();
+        robot1.setBrokenStatus(true);
+        cout << robot1.getBrokenStatus() << endl;
+}
