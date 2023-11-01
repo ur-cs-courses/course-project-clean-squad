@@ -1,5 +1,5 @@
-Here is our completed clas diagram.
-![Robot Class Diagram](classDiagram.png)
+Here is our completed class diagram.
+![Robot Class Diagram](classDiagrams.png)
 
 * Henry: We all drew a base of our class diagram. I created the branches for the folder and the class diagram. I then started putting the robot class in our diagram.
 * Lauren: I created the simulation classs in the classdiagrams.
