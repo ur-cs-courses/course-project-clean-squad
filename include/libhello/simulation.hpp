@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -13,6 +14,7 @@ class Simulation {
         //vector<Room> completeRooms;
     public:
         //Simulation(vector<Robot> robots,vector<Room> rooms);
+        Simulation();
         ~Simulation();
         
         void runSimulation();
