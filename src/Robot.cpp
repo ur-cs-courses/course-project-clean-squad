@@ -71,7 +71,6 @@ void setDestination(Room);
 Task getTask();
 void setTask();
 vector<Task> getCompletedTasks();
-*/
 
 int main() {
         Robot robot1 = Robot(RobotType::mopper, RobotSize::large);
@@ -80,3 +79,4 @@ int main() {
         robot1.setBrokenStatus(true);
         cout << robot1.getBrokenStatus() << endl;
 }
+*/
