@@ -6,6 +6,8 @@
 
 using namespace std;
 
+enum class RoomSize {small, medium, large};
+
 class Room {
 private:
     int mopTime;
@@ -14,15 +16,14 @@ private:
     int mopping;
     int vacuum;
     int scrubber;
-    string roomSize;
+    RoomSize roomSize;
     int area;
 
 public:
     Room();
 
-    void setRoomSize(const string& newSize);
-
-    string getRoomSize() const;
+    void setRoomSize(RoomSize newSize);
+    RoomSize getRoomSize() const;
     int getMopTime() const;
     int getVacuumTime() const;
     int getScrubTime() const;
