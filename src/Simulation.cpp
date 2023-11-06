@@ -48,12 +48,12 @@ Simulation::Simulation():
 Simulation::~Simulation(){}
 
 void Simulation::runSimulation();
-void Simulation::getInput();                                           //maybe can be in main
 
 /*
 Task Simulation::createTask(){
 
 }
+*/
 
 vector<Robot> Simulation::getAvailableRobots(){
     return availableRobots;
@@ -66,4 +66,26 @@ vector<Robot> Simulation::getUnavailableRobots(){
 vector<Room> Simulation::getRoomList(){
     return roomList;
 }
-*/
+
+vector<Robot> Simulation::printAvailableRobots(){
+    for (int i = 0; i < availableRobots.size(); i++) {
+        std::cout << "robot" << i << " size is " << availableRobots[i].getRobotSize();
+        std::cout << "robot" << i << " type is " << availableRobots[i].getRobotType();
+        std::cout << "\n"
+    }
+}
+
+vector<Robot> Simulation::printUnavailableRobots(){
+    for (int i = 0; i < unvailableRobots.size(); i++) {
+        std::cout << "robot" << i << " size is " << unvailableRobots[i].getRobotSize();
+        std::cout << "robot" << i << " type is " << unvailableRobots[i].getRobotType();
+        std::cout << "\n"
+    }
+}
+
+vector<Room> Simulation::printRoomList(){
+    for (int i = 0; i < roomList.size(); i++) {
+        std::cout << "room" << i << " size is " << roomList[i].getRoomSize();
+        std::cout << "\n"
+    }
+}
