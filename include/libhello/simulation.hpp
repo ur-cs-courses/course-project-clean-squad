@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "room.hpp"
+#include "Robot.hpp"
 
 using namespace std;
 
@@ -22,9 +24,12 @@ class Simulation {
 
         /*
         Task createTask(); 
+        */
         vector<Robot> getAvailableRobots();
         vector<Robot> getUnavailableRobots();
         vector<Room> getRoomList();
-        */
+        vector<Robot> printAvailableRobots();
+        vector<Robot> printUnavailableRobots();
+        vector<Room> printRoomList();
 
 };
