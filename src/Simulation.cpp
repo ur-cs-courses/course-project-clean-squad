@@ -1,5 +1,5 @@
 #include "libhello/simulation.hpp"
-
+/*
 Simulation::Simulation(vector<Robot> robots,vector<Room> rooms): 
     availableRobots(robots),
     unavailableRobots(),
@@ -8,7 +8,7 @@ Simulation::Simulation(vector<Robot> robots,vector<Room> rooms):
     cleaningRooms(),
     completeRooms();
 {}
-
+*/
 /*
 Simulation::Simulation(): 
     unavailableRobots(),
@@ -45,10 +45,10 @@ Simulation::Simulation():
 }
 */
 
-Simulation::~Simulation(){}
+//Simulation::~Simulation(){}
 
-void Simulation::runSimulation();
-void Simulation::getInput();                                           //maybe can be in main
+//void Simulation::runSimulation();
+//void Simulation::getInput();                                           //maybe can be in main
 
 /*
 Task Simulation::createTask(){

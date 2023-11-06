@@ -1,10 +1,10 @@
-add_executable(say_hello
-  say_hello.cpp
+add_executable(clean_app
+  clean_app.cpp
 )
 
-target_link_libraries(say_hello
+target_link_libraries(clean_app
   PRIVATE
-    libhello
+    libclean
 )
 
-target_compile_features(say_hello PRIVATE cxx_std_20)
+target_compile_features(clean_app PRIVATE cxx_std_20)

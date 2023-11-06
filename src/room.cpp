@@ -1,56 +1,39 @@
-#include "libhello/room.hpp"
+#include "libclean/Room.hpp" 
 #include <fmt/core.h>
 #include <string>
 #include <vector>
 
-using namespace std;
+Room::Room() 
+    : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize("small"), area(0) {}
 
-class Room {
-private:
-    int mopTime;
-    int vacuumTime;
-    int scrubTime;
-    int mopping;
-    int vacuum;
-    int scrubber;
-    string roomSize;
-    int area;
+void Room::setRoomSize(const std::string& newSize) {
+    roomSize = newSize;
+}
 
-    Room() : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize("small"), area(0) {}
+std::string Room::getRoomSize() const {
+    return roomSize;
+}
 
-public:
+int Room::getMopTime() const {
+    return mopTime;
+}
 
-    void setRoomSize(const string& newSize) {
-        roomSize = newSize;
-    }
+int Room::getVacuumTime() const {
+    return vacuumTime;
+}
 
-    string getRoomSize() const {
-        return roomSize;
-    }
+int Room::getScrubTime() const {
+    return scrubTime;
+}
 
-    int getMopTime() const {
-        return mopTime;
-    }
+int Room::getNumMopping() const {
+    return mopping;
+}
 
-    int getVacuumTime() const {
-        return vacuumTime;
-    }
+int Room::getNumVacuum() const {
+    return vacuum;
+}
 
-    int getScrubTime() const {
-        return scrubTime;
-    }
-
-    int getNumMopping() const {
-        return mopping;
-    }
-
-    int getNumVacuum() const {
-        return vacuum;
-    }
-
-    int getNumScrubber() const {
-        return scrubber;
-    }
-};
-
-#endif
+int Room::getNumScrubber() const {
+    return scrubber;
+}
