@@ -13,18 +13,17 @@ private:
     int mopping;
     int vacuum;
     int scrubber;
-    string roomSize;
+    RoomSize roomSize;
     int area;
 
-    Room() : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize("small"), area(0) {}
+    Room() : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize(RoomSize small), area(0) {}
 
 public:
-
-    void setRoomSize(const string& newSize) {
+    void setRoomSize(RoomSize newSize) {
         roomSize = newSize;
     }
 
-    string getRoomSize() const {
+    RoomSize getRoomSize() const {
         return roomSize;
     }
 
