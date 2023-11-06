@@ -1,6 +1,8 @@
 //Robot Class File
 
 #include "Robot.hpp"
+#include "Room.hpp"
+#include "Task.hpp"
 #include "iostream"
 
 using namespace std;
@@ -11,12 +13,10 @@ Robot::Robot(RobotType type, RobotSize size) :
         robotType(type),
         robotSize(size),
         batteryLife(100),
-        probFailure(0)
-        /*
-        destination;
-        currentTask;
-        completedTasks;
-        */
+        probFailure(0),
+        destination(Room()),
+        currentTask(Task()),
+        completedTasks(vector<Task>())
 {}
 
 Robot::Robot(const Robot& other) :
@@ -25,12 +25,10 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(100),
-        probFailure(0)
-        /*
-        destination;
-        currentTask;
-        completedTasks;
-        */
+        probFailure(0),
+        destination(Room()),
+        currentTask(Task()),
+        completedTasks(vector<Task>())
 {}
 
 
@@ -50,11 +48,11 @@ void Robot::setBrokenStatus(bool status) {
 }
 
 RobotType Robot::getRobotType() {
-        return robotType;
+        return this->robotType;
 }
 
 RobotSize Robot::getRobotSize() {
-        return robotSize;
+        return this->robotSize;
 }
 
 int Robot::getBattery() {
@@ -65,13 +63,30 @@ void Robot::charge() {
         this->batteryLife = 100;
         return;
 }
-/*
-Room getDestination();
-void setDestination(Room);
-Task getTask();
-void setTask();
-vector<Task> getCompletedTasks();
 
+Room Robot::getDestination() {
+        return this->destination;
+}
+
+void Robot::setDestination(Room newDest) {
+        this->destination = newDest;
+        return;
+}
+
+Task Robot::getTask() {
+        return currentTask;
+}
+
+void Robot::setTask(Task task) {
+        this->currentTask = task;
+        return;
+}
+
+vector<Task> Robot::getCompletedTasks() {
+        return this->completedTasks;
+}
+
+/*
 int main() {
         Robot robot1 = Robot(RobotType::mopper, RobotSize::large);
         cout << robot1.getActive() << endl;
