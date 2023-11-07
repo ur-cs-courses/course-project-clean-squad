@@ -1,13 +1,12 @@
-#include "libclean/Simulation.hpp"
-#include <fmt/core.h>
+
 
 Simulation::Simulation(vector<Robot> robots,vector<Room> rooms): 
-    availableRobots(),
+    availableRobots(robots),
     unavailableRobots(),
     roomList(rooms),
     waitingQueue(),
     cleaningRooms(),
-    completeRooms()
+    completeRooms(),
 {}
 
 /*
@@ -48,7 +47,7 @@ Simulation::Simulation():
 
 Simulation::~Simulation(){}
 
-void Simulation::runSimulation(){};
+void Simulation::runSimulation();
 
 /*
 Task Simulation::createTask(){
@@ -68,25 +67,25 @@ vector<Room> Simulation::getRoomList(){
     return roomList;
 }
 
-void Simulation::printAvailableRobots(){
+vector<Robot> Simulation::printAvailableRobots(){
     for (int i = 0; i < availableRobots.size(); i++) {
-        printf("Robot %d size is %d\n", i, availableRobots[i].getRobotSize());
-        printf("Robot %d type is %d\n", i, availableRobots[i].getRobotType());
-        std::cout << "\n";
+        std::cout << "robot" << i << " size is " << availableRobots[i].getRobotSize();
+        std::cout << "robot" << i << " type is " << availableRobots[i].getRobotType();
+        std::cout << "\n"
     }
 }
 
-void Simulation::printUnavailableRobots(){
-    for (int i = 0; i < unavailableRobots.size(); i++) {
-        printf("Robot %d type is %d\n", i, unavailableRobots[i].getRobotSize());
-        printf("Robot %d type is %d\n", i, unavailableRobots[i].getRobotType());
-        std::cout << "\n";
+vector<Robot> Simulation::printUnavailableRobots(){
+    for (int i = 0; i < unvailableRobots.size(); i++) {
+        std::cout << "robot" << i << " size is " << unvailableRobots[i].getRobotSize();
+        std::cout << "robot" << i << " type is " << unvailableRobots[i].getRobotType();
+        std::cout << "\n"
     }
 }
 
-void Simulation::printRoomList(){
+vector<Room> Simulation::printRoomList(){
     for (int i = 0; i < roomList.size(); i++) {
-        printf("Room %d size is %d\n", i, roomList[i].getRoomSize());
-        std::cout << "\n";
+        std::cout << "room" << i << " size is " << roomList[i].getRoomSize();
+        std::cout << "\n"
     }
 }

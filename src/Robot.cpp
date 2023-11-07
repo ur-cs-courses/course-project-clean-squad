@@ -1,9 +1,9 @@
 //Robot Class File
 
-#include "Robot.hpp"
-#include "Room.hpp"
-#include "Task.hpp"
-#include "iostream"
+#include "libclean/Robot.hpp"
+#include "libclean/Room.hpp"
+#include "libclean/Task.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -13,10 +13,12 @@ Robot::Robot(RobotType type, RobotSize size) :
         robotType(type),
         robotSize(size),
         batteryLife(100),
-        probFailure(0),
-        destination(Room()),
-        currentTask(Task()),
-        completedTasks(vector<Task>())
+        probFailure(0)
+        /*
+        destination;
+        currentTask;
+        completedTasks;
+        */
 {}
 
 Robot::Robot(const Robot& other) :
@@ -25,11 +27,14 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(100),
-        probFailure(0),
-        destination(Room()),
-        currentTask(Task()),
-        completedTasks(vector<Task>())
+        probFailure(0)
+        /*
+        destination;
+        currentTask;
+        completedTasks;
+        */
 {}
+
 
 
 Robot::~Robot() {}
@@ -40,7 +45,7 @@ bool Robot::getActive() {
 
 bool Robot::getBrokenStatus() {
         return this->isBroken;
-};
+}
 
 void Robot::setBrokenStatus(bool status) {
         this->isBroken = status;
@@ -63,7 +68,7 @@ void Robot::charge() {
         this->batteryLife = 100;
         return;
 }
-
+/*
 Room Robot::getDestination() {
         return this->destination;
 }
@@ -86,7 +91,8 @@ vector<Task> Robot::getCompletedTasks() {
         return this->completedTasks;
 }
 
-/*
+
+
 int main() {
         Robot robot1 = Robot(RobotType::mopper, RobotSize::large);
         cout << robot1.getActive() << endl;
