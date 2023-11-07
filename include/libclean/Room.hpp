@@ -1,5 +1,5 @@
-#ifndef LIBROOM_ROOM_HPP
-#define LIBROOM_ROOM_HPP
+#ifndef LIBCLEAN_ROOM_HPP
+#define LIBCLEAN_ROOM_HPP
 
 #include <string>
 #include <vector>
