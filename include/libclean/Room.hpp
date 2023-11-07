@@ -31,6 +31,8 @@ public:
     int getNumVacuum() const;
     int getNumScrubber() const;
 
+    void printRoom();
+
 };
 
 #endif
