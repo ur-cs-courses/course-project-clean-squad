@@ -1,8 +1,5 @@
 //Robot Class File
-
-#include "libclean/Robot.hpp"
-#include "libclean/Room.hpp"
-#include "libclean/Task.hpp"
+#include "libclean/Robot.hpp" 
 #include <iostream>
 
 using namespace std;
@@ -13,12 +10,10 @@ Robot::Robot(RobotType type, RobotSize size) :
         robotType(type),
         robotSize(size),
         batteryLife(100),
-        probFailure(0)
-        /*
-        destination;
-        currentTask;
-        completedTasks;
-        */
+        probFailure(0),
+        destination(Room()),
+        currentTask(Task()),
+        completedTasks(vector<Task>())
 {}
 
 Robot::Robot(const Robot& other) :
@@ -27,14 +22,11 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(100),
-        probFailure(0)
-        /*
-        destination;
-        currentTask;
-        completedTasks;
-        */
+        probFailure(0),
+        destination(Room()),
+        currentTask(Task()),
+        completedTasks(vector<Task>())
 {}
-
 
 
 Robot::~Robot() {}
@@ -45,7 +37,7 @@ bool Robot::getActive() {
 
 bool Robot::getBrokenStatus() {
         return this->isBroken;
-}
+};
 
 void Robot::setBrokenStatus(bool status) {
         this->isBroken = status;
@@ -68,7 +60,7 @@ void Robot::charge() {
         this->batteryLife = 100;
         return;
 }
-/*
+
 Room Robot::getDestination() {
         return this->destination;
 }
@@ -91,13 +83,18 @@ vector<Task> Robot::getCompletedTasks() {
         return this->completedTasks;
 }
 
+void Robot::printRobot() {
+        string size  = "";
+        string type = "";
 
+        if(this->robotSize == RobotSize::small) {size = "small";}
+                else if(this->robotSize == RobotSize::medium) {size = "medium";}
+                else if(this->robotSize == RobotSize::large) {size = "large";}
 
-int main() {
-        Robot robot1 = Robot(RobotType::mopper, RobotSize::large);
-        cout << robot1.getActive() << endl;
-        robot1.getBattery();
-        robot1.setBrokenStatus(true);
-        cout << robot1.getBrokenStatus() << endl;
+        if(this->robotType == RobotType::mopper) {type = "mopper";}
+                else if(this->robotType == RobotType::scrubber) {type = "scrubber";}
+                else if(this->robotType == RobotType::sweeper) {type = "sweeper";}
+
+        std::cout << "Robot Size: " << size << std::endl;
+        std::cout << "Robot Type: " << type << std::endl;
 }
-*/
