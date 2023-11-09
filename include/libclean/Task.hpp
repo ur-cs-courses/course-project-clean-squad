@@ -2,13 +2,13 @@
 #define TASK_HPP
 
 #include <vector>
-#include "Robot.hpp"
+//#include "Robot.hpp"
 #include "Room.hpp"
 
 class Task {
 private:
     int numRobots;
-    std::vector<Robot> workingRobots;
+    //std::vector<Robot> workingRobots;
     int mopTime;
     int vacuumTime;
     int scrubTime;
