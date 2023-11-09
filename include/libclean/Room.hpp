@@ -9,6 +9,8 @@ using namespace std;
 enum class RoomSize {small, medium, large};
 
 class Room {
+
+static int nextID;
 private:
     int mopTime;
     int vacuumTime;
@@ -20,7 +22,9 @@ private:
     int area;
 
 public:
+    int id; //unique ID for each room
     Room();
+    std::string getIDAsString() const; // Method to get the ID as a string
 
     void setRoomSize(RoomSize newSize);
     RoomSize getRoomSize() const;

@@ -4,6 +4,8 @@
 #include "libclean/Simulation.hpp"
 #include <iostream>
 #include <vector>
+#include <fstream> 
+ 
 
 int main() {
 
@@ -16,20 +18,6 @@ int main() {
     std::cout << "Enter the number of robots: ";
     std::cin >> numRobots;
 
-    /*
-    for(int i = 0; i < numRobots; i++){
-        std::cout << "What type of robot would you like to add";
-        std::cin >> robotType;
-        RobotType typeEnum = static_cast<RobotType>(robotType);
-
-        std::cout << "What size robot would you like to add";
-        std::cin >> robotSize;
-        RobotSize sizeEnum = static_cast<RobotSize>(robotSize);
-        
-        Robot newRobot(typeEnum, sizeEnum);
-        robots.push_back(newRobot);
-    }
-    */
 
     for(int i = 0; i < numRobots; i++){
         int typeInput, sizeInput;
@@ -96,12 +84,35 @@ int main() {
     newSimulation.printRoomList();
 
     
-    /*
-    Task myTask;
-    myTask.setNumRobots(20); 
-    int numberOfRobots = myTask.getNumRobots();
-    std::cout << "Number of robots: " << numberOfRobots << std::endl;
-    */
-    
-    return 0;
+    //writting to csv
+
+    std::ofstream csvFile("output.csv");
+
+    if (!csvFile) {
+        std::cerr << "Error opening output.csv for writing." << std::endl;
+        return 1;
+    }
+
+    // Writing headers to the CSV file
+    csvFile << "Robot Size,Robot Type,Number of Rooms,Room Size,Mop Time,Vacuum Time,Scrub Time" << std::endl;
+    for (const auto& robot : robots) {
+        csvFile << "medium" << "," << "mopper" <<  "," << rooms.size() <<  "," << "small"<<  "," <<45  << "," << 20 << "," << 15 << std::endl;
+   
 }
+
+
+    csvFile.close();
+
+return 0;
+}
+
+
+    
+
+
+
+
+
+
+
+

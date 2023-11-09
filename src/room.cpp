@@ -4,9 +4,9 @@
 #include <vector>
 #include <iostream>
 
-
+int Room::nextID = 0;
 Room::Room() 
-    : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize(RoomSize::small), area(0) {}
+    : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize(RoomSize::small),id(nextID++), area(0) {}
 
 void Room::setRoomSize(RoomSize newSize) {
     this->roomSize = newSize;
@@ -39,6 +39,11 @@ int Room::getNumVacuum() const {
 
 int Room::getNumScrubber() const {
     return scrubber;
+}
+
+
+std::string Room::getIDAsString() const {
+    return std::to_string(id); // Convert the integer ID to a string
 }
 
 void Room::printRoom() {
