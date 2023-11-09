@@ -9,9 +9,12 @@ Room::Room()
     : mopTime(0), vacuumTime(0), scrubTime(0), mopping(0), vacuum(0), scrubber(0), roomSize(RoomSize::small),id(nextID++), area(0) {}
 
 
-Room::Room(mopTime(0), vacuumTime(0), scrubTime(0), roomSize(RoomSize::small), area(0))
+Room::Room(int mop, int vacuum, int scrub, RoomSize room)
     : mopping(0), vacuum(0), scrubber(0), id(nextID++), area(0) {
-        
+        this-> mopTime = mop;
+        this-> vacuumTime = vacuum;
+        this-> scrubTime = srub;
+        this-> roomSize = room;
     }
 
 void Room::setRoomSize(RoomSize newSize) {
