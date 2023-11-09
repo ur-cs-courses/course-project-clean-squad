@@ -2,7 +2,7 @@
 #include <fmt/core.h>
 
 Simulation::Simulation(vector<Robot> robots,vector<Room> rooms): 
-    availableRobots(),
+    availableRobots(robots),
     unavailableRobots(),
     roomList(rooms),
     waitingQueue(),
@@ -70,23 +70,21 @@ vector<Room> Simulation::getRoomList(){
 
 void Simulation::printAvailableRobots(){
     for (int i = 0; i < availableRobots.size(); i++) {
-        printf("Robot %d size is %d\n", i, availableRobots[i].getRobotSize());
-        printf("Robot %d type is %d\n", i, availableRobots[i].getRobotType());
+        availableRobots[i].printRobot();
         std::cout << "\n";
     }
 }
 
 void Simulation::printUnavailableRobots(){
     for (int i = 0; i < unavailableRobots.size(); i++) {
-        printf("Robot %d type is %d\n", i, unavailableRobots[i].getRobotSize());
-        printf("Robot %d type is %d\n", i, unavailableRobots[i].getRobotType());
+        unavailableRobots[i].printRobot();
         std::cout << "\n";
     }
 }
 
 void Simulation::printRoomList(){
     for (int i = 0; i < roomList.size(); i++) {
-        printf("Room %d size is %d\n", i, roomList[i].getRoomSize());
+        roomList[i].printRoom();
         std::cout << "\n";
     }
 }

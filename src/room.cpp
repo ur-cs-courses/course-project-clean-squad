@@ -13,7 +13,7 @@ Room::Room(int mop, int vacuum, int scrub, RoomSize room)
     : mopping(0), vacuum(0), scrubber(0), id(nextID++), area(0) {
         this-> mopTime = mop;
         this-> vacuumTime = vacuum;
-        this-> scrubTime = srub;
+        this-> scrubTime = scrub;
         this-> roomSize = room;
     }
 

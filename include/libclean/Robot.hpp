@@ -31,8 +31,8 @@ class Robot {
         bool getActive();
         bool getBrokenStatus();
         void setBrokenStatus(bool);
-        RobotType getRobotType();
-        RobotSize getRobotSize();
+        RobotType getRobotType() const;
+        RobotSize getRobotSize() const;
         int getBattery();
         void charge();
         

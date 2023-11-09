@@ -44,11 +44,11 @@ void Robot::setBrokenStatus(bool status) {
         return;
 }
 
-RobotType Robot::getRobotType() {
+RobotType Robot::getRobotType() const{
         return this->robotType;
 }
 
-RobotSize Robot::getRobotSize() {
+RobotSize Robot::getRobotSize() const{
         return this->robotSize;
 }
 
