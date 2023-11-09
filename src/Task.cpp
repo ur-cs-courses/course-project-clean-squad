@@ -1,4 +1,5 @@
 #include "libclean/Task.hpp"
+#include <iostream>
 
 // Constructor
 Task::Task()
@@ -44,4 +45,10 @@ void Task::setScrubTime(int scrubTime) {
 
 void Task::setIsCompleted(bool isCompleted) {
     this->isCompleted = isCompleted;
+}
+
+void Task::printTask() {
+    std::cout << "Required Mop Time: " << this->mopTime << std::endl;
+    std::cout << "Required Scrub Time: " << this->scrubTime << std::endl;
+    std::cout << "Required Vacuum Time: " << this->vacuumTime << std::endl;
 }

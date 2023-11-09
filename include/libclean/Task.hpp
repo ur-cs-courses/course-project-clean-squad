@@ -29,6 +29,8 @@ public:
     void setVacuumTime(int vacuumTime);
     void setScrubTime(int scrubTime);
     void setIsCompleted(bool isCompleted);
+
+    void printTask();
 };
 #endif
 
