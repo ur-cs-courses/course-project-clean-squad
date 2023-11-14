@@ -10,10 +10,12 @@ Robot::Robot(RobotType type, RobotSize size) :
         robotType(type),
         robotSize(size),
         batteryLife(100),
-        probFailure(0),
+        probFailure(0)
+        /*
         destination(Room()),
         currentTask(Task()),
         completedTasks(vector<Task>())
+        */
 {}
 
 Robot::Robot(const Robot& other) :
@@ -22,10 +24,12 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(100),
-        probFailure(0),
+        probFailure(0)
+        /*
         destination(Room()),
         currentTask(Task()),
         completedTasks(vector<Task>())
+        */
 {}
 
 
@@ -61,6 +65,7 @@ void Robot::charge() {
         return;
 }
 
+/*
 Room Robot::getDestination() {
         return this->destination;
 }
@@ -82,6 +87,7 @@ void Robot::setTask(Task task) {
 vector<Task> Robot::getCompletedTasks() {
         return this->completedTasks;
 }
+*/
 
 void Robot::printRobot() {
         string size  = "";
