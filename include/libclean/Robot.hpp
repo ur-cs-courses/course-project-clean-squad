@@ -3,8 +3,9 @@
 
 #include <string>
 #include <vector>
-#include "Room.hpp"
-#include "Task.hpp"
+//#include "Room.hpp"
+//#include "Task.hpp"
+
 
 using namespace std;
 
@@ -19,9 +20,11 @@ class Robot {
         RobotSize   robotSize;
         int         batteryLife;
         int         probFailure;
+        /*
         Room        destination;
         Task        currentTask;
         vector<Task>  completedTasks;
+        */
 
     public:
         Robot(RobotType type, RobotSize size);
@@ -36,11 +39,13 @@ class Robot {
         int getBattery();
         void charge();
         
+        /*
         Room getDestination();
         void setDestination(Room);
         Task getTask();
         void setTask(Task);
         vector<Task> getCompletedTasks();
+        */
 
         void printRobot();
 };

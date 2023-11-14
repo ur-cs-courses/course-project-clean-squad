@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "Robot.hpp"
 
 using namespace std;
 
@@ -37,7 +38,6 @@ public:
     int getNumScrubber() const;
 
     void printRoom();
-
 };
 
 #endif
