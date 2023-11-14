@@ -13,6 +13,7 @@ int main() {
     
     vector<Robot> robots;
     vector<Room> rooms;
+    int count = 0;
 
     // Ask the user for the number of robots
     std::cout << "Enter the number of robots: ";
@@ -23,7 +24,7 @@ int main() {
         int typeInput, sizeInput;
         RobotType typeEnum;
         RobotSize sizeEnum;
-
+        std::cout << "\nInput for Robot " << count << std::endl;
         std::cout << "Enter the type of robot (1: mopper, 2: sweeper, 3: scrubber): ";
         std::cin >> typeInput;
 
@@ -62,16 +63,52 @@ int main() {
 
         Robot newRobot(typeEnum, sizeEnum);
         robots.push_back(newRobot);
+        count++;
     }
 
     
     // Ask the user for the number of rooms
-    std::cout << "Enter the number of rooms: ";
+    std::cout << "\nEnter the number of rooms: ";
     std::cin >> numRooms;
+    count = 0;
 
-    for(int i = 0; i < numRooms; i++){      
-        Room newRoom;
+    for(int i = 0; i < numRooms; i++){  
+
+        int mopTime, vacuumTime, scrubTime, sizeInput;
+        RoomSize sizeEnum;
+
+        std::cout << "\nInput for Room " << count << std::endl;
+
+        std::cout << "Enter the mop time needed when not clean: ";
+        std::cin >> mopTime;
+
+        std::cout << "Enter the vacuum time needed when not clean: ";
+        std::cin >> vacuumTime;
+
+        std::cout << "Enter the scrub time needed when not clean: ";
+        std::cin >> scrubTime;
+
+        std::cout << "Enter the type of room (1: small, 2: medium, 3: large): ";
+        std::cin >> sizeInput;
+
+        switch (sizeInput) {
+            case 1:
+                sizeEnum = RoomSize::small;
+                break;
+            case 2:
+                sizeEnum = RoomSize::medium;
+                break;
+            case 3:
+                sizeEnum = RoomSize::large;
+                break;
+            default:
+                std::cerr << "Invalid robot type entered.\n";
+                continue;
+            }
+
+        Room newRoom(mopTime, vacuumTime, scrubTime, sizeEnum);
         rooms.push_back(newRoom);
+        count++;
     }
 
     Simulation newSimulation(robots, rooms);
