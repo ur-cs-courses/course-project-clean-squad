@@ -1,6 +1,7 @@
 //Robot Class File
 #include "libclean/Robot.hpp" 
 #include <iostream>
+#include <random>
 
 using namespace std;
 
@@ -9,28 +10,38 @@ Robot::Robot(RobotType type, RobotSize size) :
         isBroken(false),
         robotType(type),
         robotSize(size),
-        batteryLife(100),
-        probFailure(0)
+        batteryLife(100)
         /*
         destination(Room()),
         currentTask(Task()),
         completedTasks(vector<Task>())
         */
-{}
+        {
+                std::random_device randNum;
+                std::mt19937 gen(randNum());
+                std::uniform_real_distribution<> distribution(0,100);
+                int output = distribution(gen);
+                probFailure = output;
+        }
 
 Robot::Robot(const Robot& other) :
         isActive(false),
         isBroken(false),
         robotType(other.robotType),
         robotSize(other.robotSize),
-        batteryLife(100),
-        probFailure(0)
+        batteryLife(100)
         /*
         destination(Room()),
         currentTask(Task()),
         completedTasks(vector<Task>())
         */
-{}
+        {
+                std::random_device randNum;
+                std::mt19937 gen(randNum());
+                std::uniform_real_distribution<> distribution(0,100);
+                int output = distribution(gen);
+                probFailure = output;
+        }
 
 
 Robot::~Robot() {}
@@ -103,4 +114,5 @@ void Robot::printRobot() {
 
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
+        std::cout << "Prob Failure: " << probFailure << std::endl;
 }
