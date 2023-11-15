@@ -5,12 +5,14 @@
 
 using namespace std;
 
+int Robot::nextRobotID = 0;
 Robot::Robot(RobotType type, RobotSize size) :
         isActive(false),
         isBroken(false),
         robotType(type),
         robotSize(size),
-        batteryLife(100)
+        batteryLife(100),
+        robotID(nextRobotID++)
         /*
         destination(Room()),
         currentTask(Task()),
@@ -29,7 +31,8 @@ Robot::Robot(const Robot& other) :
         isBroken(false),
         robotType(other.robotType),
         robotSize(other.robotSize),
-        batteryLife(100)
+        batteryLife(100),
+        robotID(other.robotID)
         /*
         destination(Room()),
         currentTask(Task()),
@@ -100,6 +103,10 @@ vector<Task> Robot::getCompletedTasks() {
 }
 */
 
+std::string Robot::getRobotID() const {
+    return std::to_string(robotID);
+}
+
 void Robot::printRobot() {
         string size  = "";
         string type = "";
@@ -114,5 +121,6 @@ void Robot::printRobot() {
 
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
+        std::cout << "Robot ID: " << robotID << std::endl;
         std::cout << "Prob Failure: " << probFailure << std::endl;
 }

@@ -13,7 +13,9 @@ enum class RobotType {mopper, sweeper, scrubber};
 enum class RobotSize {small, medium, large};
 
 class Robot {
+
     private:
+        static int nextRobotID;
         bool        isActive;
         bool        isBroken;
         RobotType   robotType;
@@ -30,6 +32,7 @@ class Robot {
         Robot(RobotType type, RobotSize size);
         Robot(const Robot& other);
         ~Robot();
+        int robotID;
 
         bool getActive();
         bool getBrokenStatus();
@@ -38,6 +41,7 @@ class Robot {
         RobotSize getRobotSize() const;
         int getBattery();
         void charge();
+        std::string getRobotID() const;
         
         /*
         Room getDestination();
