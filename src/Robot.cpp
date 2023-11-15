@@ -1,5 +1,6 @@
 //Robot Class File
-#include "libclean/Robot.hpp" 
+#include "libclean/Robot.hpp"
+#include "libclean/Room.hpp" 
 #include <iostream>
 #include <random>
 
@@ -12,9 +13,9 @@ Robot::Robot(RobotType type, RobotSize size) :
         robotType(type),
         robotSize(size),
         batteryLife(100),
-        robotID(nextRobotID++)
+        robotID(nextRobotID++),
+        destination(nullptr)
         /*
-        destination(Room()),
         currentTask(Task()),
         completedTasks(vector<Task>())
         */
@@ -32,9 +33,9 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(100),
-        robotID(other.robotID)
+        robotID(other.robotID),
+        destination(nullptr)
         /*
-        destination(Room()),
         currentTask(Task()),
         completedTasks(vector<Task>())
         */
