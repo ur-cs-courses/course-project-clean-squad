@@ -50,11 +50,37 @@ Simulation::~Simulation(){}
 
 void Simulation::runSimulation(){};
 
-/*
-Task Simulation::createTask(){
+Task Simulation::createTask(Room taskLocation){
+    int potentialMop = potentialScrub = potentialVacuum = newRobot = 0; 
+    int neededMop = taskLocation.getMopTime();
+    int neededScrub = taskLocation.getScrubTime();
+    int neededVacuum = taskLocation.getVacuumTime();
+
+    while((potentialMop < neededMop) && (potentialScrub < neededScrub) && (potentialVacuum <neededVacuum)){
+        std::cout << "What kind of robot would you like to add?";
+        std::cout << "Mopper (1)" << std::endl;
+        std::cout << "Scrubber (2)" << std::endl;
+        std::cout << "Vacuum (3)" << std::endl;
+        std::cin >> newRobot;
+
+        switch (newRobot) {
+        case 1:
+            std::cout << "You chose option 1." << std::endl;
+            break;
+        case 2:
+            std::cout << "You chose option 2." << std::endl;
+            break;
+        case 3:
+            std::cout << "You chose option 3." << std::endl;
+            break;
+        default:
+            std::cout << "Invalid choice." << std::endl;
+    }
+
+
+    }
 
 }
-*/
 
 vector<Robot> Simulation::getAvailableRobots(){
     return availableRobots;
