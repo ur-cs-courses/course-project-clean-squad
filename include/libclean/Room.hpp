@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "Robot.hpp"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ private:
     int scrubber;
     RoomSize roomSize;
     int area;
+    vector<Robot> currentRobots;
 
 public:
     int id; //unique ID for each room
@@ -37,7 +39,7 @@ public:
     int getNumScrubber() const;
 
     void printRoom();
-
+    void printCurrentRobots();
 };
 
 #endif

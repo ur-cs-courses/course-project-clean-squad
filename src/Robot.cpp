@@ -1,20 +1,31 @@
 //Robot Class File
-#include "libclean/Robot.hpp" 
+#include "libclean/Robot.hpp"
+#include "libclean/Room.hpp" 
 #include <iostream>
+#include <random>
 
 using namespace std;
 
+int Robot::nextRobotID = 0;
 Robot::Robot(RobotType type, RobotSize size) :
         isActive(false),
         isBroken(false),
         robotType(type),
         robotSize(size),
         batteryLife(100),
-        probFailure(0),
-        destination(Room()),
+        robotID(nextRobotID++),
+        destination(nullptr)
+        /*
         currentTask(Task()),
         completedTasks(vector<Task>())
-{}
+        */
+        {
+                std::random_device randNum;
+                std::mt19937 gen(randNum());
+                std::uniform_real_distribution<> distribution(0,100);
+                int output = distribution(gen);
+                probFailure = output;
+        }
 
 Robot::Robot(const Robot& other) :
         isActive(false),
@@ -22,11 +33,19 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(100),
-        probFailure(0),
-        destination(Room()),
+        robotID(other.robotID),
+        destination(nullptr)
+        /*
         currentTask(Task()),
         completedTasks(vector<Task>())
-{}
+        */
+        {
+                std::random_device randNum;
+                std::mt19937 gen(randNum());
+                std::uniform_real_distribution<> distribution(0,100);
+                int output = distribution(gen);
+                probFailure = output;
+        }
 
 
 Robot::~Robot() {}
@@ -61,6 +80,7 @@ void Robot::charge() {
         return;
 }
 
+/*
 Room Robot::getDestination() {
         return this->destination;
 }
@@ -82,6 +102,11 @@ void Robot::setTask(Task task) {
 vector<Task> Robot::getCompletedTasks() {
         return this->completedTasks;
 }
+*/
+
+std::string Robot::getRobotID() const {
+    return std::to_string(robotID);
+}
 
 void Robot::printRobot() {
         string size  = "";
@@ -97,4 +122,6 @@ void Robot::printRobot() {
 
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
+        std::cout << "Robot ID: " << robotID << std::endl;
+        std::cout << "Prob Failure: " << probFailure << std::endl;
 }
