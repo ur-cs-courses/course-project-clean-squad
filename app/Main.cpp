@@ -163,7 +163,7 @@ int main() {
     }
 
     // Writing headers to the CSV file
-    csvFile << "Robot Size,Robot Type,Number of Rooms,Room Size,Mop Time,Vacuum Time,Scrub Time" << std::endl;
+    csvFile << "Robot Size,Robot Type,Number of Rooms,Room Size,Mop Time, Sweep Time,Scrub Time" << std::endl;
     for (const auto& robot : robots) {
         csvFile << "medium" << "," << "mopper" <<  "," << rooms.size() <<  "," << "small"<<  "," <<45  << "," << 20 << "," << 15 << std::endl;
    
