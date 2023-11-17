@@ -50,11 +50,80 @@ Simulation::~Simulation(){}
 
 void Simulation::runSimulation(){};
 
-/*
-Task Simulation::createTask(){
+Task Simulation::createTask(Room taskLocation){
+    int potentialMop = potentialScrub = potentialSweep = newRobot = 0; 
+    int neededMop = taskLocation.getMopTime();
+    int neededScrub = taskLocation.getScrubTime();
+    int neededSweep = taskLocation.getSweepTime();
+    vector<Robot> taskRobots;
+
+    while((potentialMop < neededMop) && (potentialScrub < neededScrub) && (potentialSweep <neededSweep)){
+        std::cout << "What kind of robot would you like to add?";
+        std::cout << "Mopper (1)" << std::endl;
+        std::cout << "Scrubber (2)" << std::endl;
+        std::cout << "Sweep (3)" << std::endl;
+        std::cin >> newRobot;
+
+        switch (newRobot) {
+        case 1:
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
+                if(addingRobot.getRobotType == RobotType::mopper){
+                    cout<< "Mopper robot added!";
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialMop += (addingRobot.getBattery() - 10);
+                    break;
+                }
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
+                if(addingRobot.getRobotType == RobotType::scrubber){
+                    cout<< "Scrubber robot added!";
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialScrub += (addingRobot.getBattery() - 10);
+                    break;
+                }
+            }
+            break;
+        case 3:
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
+                if(addingRobot.getRobotType == RobotType::sweeper){
+                    cout<< "Sweeper robot added!";
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialSweep += (addingRobot.getBattery() - 10);
+                    break;
+                }
+            }
+            break;
+        default:
+            std::cout << "Invalid choice." << std::endl;
+
+        std::cout << "There is still" << neededMop - potentialMop << " time left for Mopping, " 
+            << neededScrub - potentialScrub << " time left for scrubbing, and " << neededSweep - potentialSweep 
+            << " time left for sweeping.";
+    }
+
+    Task newTask(taskRobots, taskLocation);
+    return newTask;
+    }
 
 }
-*/
 
 vector<Robot> Simulation::getAvailableRobots(){
     return availableRobots;
