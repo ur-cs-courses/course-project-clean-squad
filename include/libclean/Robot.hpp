@@ -52,6 +52,24 @@ class Robot {
         */
 
         void printRobot();
+
+        //A method to convert enum robotType to string
+        std::string getRobotTypeString() const {
+        switch(robotType) {
+            case RobotType::mopper: return "mopper";
+            case RobotType::sweeper: return "sweeper";
+            case RobotType::scrubber: return "scrubber";
+            default: return "unknown";
+              }}
+
+        //A method to convert enum roboSize to string
+       std::string getRobotSizeString() const {
+        switch(robotSize) {
+            case RobotSize::small: return "small";
+            case RobotSize::medium: return "medium";
+            case RobotSize::large: return "large";
+            default: return "unknown";
+             }}
 };
 
 #endif // LIBCLEAN_ROBOT_HPP
