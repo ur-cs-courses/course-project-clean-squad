@@ -66,33 +66,47 @@ Task Simulation::createTask(Room taskLocation){
 
         switch (newRobot) {
         case 1:
-            for (Robot addingRobot : availableRobots) {
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType == RobotType::mopper){
                     cout<< "Mopper robot added!";
-                    taskRobots.push(addingRobot);
-                    //figure out how to move addingRobot to unavailable robots
-                    potentialMop += addingRobot.getBattery();
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialMop += (addingRobot.getBattery() - 10);
                     break;
                 }
             }
             break;
 
         case 2:
-            for (Robot addingRobot : availableRobots) {
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType == RobotType::scrubber){
                     cout<< "Scrubber robot added!";
-                    taskRobots.push(addingRobot);
-                    potentialScrub += addingRobot.getBattery();
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialScrub += (addingRobot.getBattery() - 10);
                     break;
                 }
             }
             break;
         case 3:
-            for (Robot addingRobot : availableRobots) {
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType == RobotType::sweeper){
                     cout<< "Sweeper robot added!";
-                    taskRobots.push(addingRobot);
-                    potentialSweep += addingRobot.getBattery();
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialSweep += (addingRobot.getBattery() - 10);
                     break;
                 }
             }
