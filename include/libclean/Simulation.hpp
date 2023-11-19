@@ -3,6 +3,7 @@
 #include <vector>
 #include "Room.hpp"
 #include "Robot.hpp"
+#include "Task.hpp"
 
 using namespace std;
 
@@ -31,5 +32,6 @@ class Simulation {
         void printAvailableRobots();
         void printUnavailableRobots();
         void printRoomList();
+        Task createTask(Room taskLocation);
 
 };

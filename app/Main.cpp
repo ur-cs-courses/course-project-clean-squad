@@ -67,7 +67,7 @@ int main() {
                 typeEnum = RobotType::mopper;
                 break;
             case 2:
-                typeEnum = RobotType::sweeper;
+                typeEnum = RobotType::vacuum;
                 break;
             case 3:
                 typeEnum = RobotType::scrubber;

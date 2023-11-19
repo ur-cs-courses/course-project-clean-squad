@@ -9,7 +9,7 @@ class Room;
 
 using namespace std;
 
-enum class RobotType {mopper, sweeper, scrubber};
+enum class RobotType {mopper, vacuum, scrubber};
 enum class RobotSize {small, medium, large};
 
 class Robot {
@@ -57,7 +57,7 @@ class Robot {
         std::string getRobotTypeString() const {
         switch(robotType) {
             case RobotType::mopper: return "mopper";
-            case RobotType::sweeper: return "sweeper";
+            case RobotType::vacuum: return "vacuum";
             case RobotType::scrubber: return "scrubber";
             default: return "unknown";
               }}

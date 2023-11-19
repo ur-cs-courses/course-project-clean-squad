@@ -2,8 +2,18 @@
 #include <iostream>
 
 // Constructor
+/*
 Task::Task()
     : numRobots(0), mopTime(0), vacuumTime(0), scrubTime(0), isCompleted(false) {}
+*/
+Task::Task(std::vector<Robot> robots, Room taskLocation):robots(robots), taskLocation(taskLocation) {
+    this->numRobots = robots.size();
+    this->mopTime = taskLocation.getMopTime();
+    this->vacuumTime = taskLocation.getVacuumTime();
+    this->scrubTime = taskLocation.getScrubTime();
+    this->isCompleted = false;
+}
+
 
 // Getters
 int Task::getNumRobots() const {
