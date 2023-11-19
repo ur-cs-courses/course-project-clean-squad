@@ -118,7 +118,7 @@ void Robot::printRobot() {
 
         if(this->robotType == RobotType::mopper) {type = "mopper";}
                 else if(this->robotType == RobotType::scrubber) {type = "scrubber";}
-                else if(this->robotType == RobotType::sweeper) {type = "sweeper";}
+                else if(this->robotType == RobotType::vacuum) {type = "vacuum";}
 
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
