@@ -59,7 +59,7 @@ int main() {
         RobotType typeEnum;
         RobotSize sizeEnum;
         std::cout << "\nInput for Robot " << count << std::endl;
-        std::cout << "Enter the type of robot (1: mopper, 2: sweeper, 3: scrubber): ";
+        std::cout << "Enter the type of robot (1: mopper, 2: vacuum, 3: scrubber): ";
         std::cin >> typeInput;
 
         switch (typeInput) {

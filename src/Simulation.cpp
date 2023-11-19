@@ -67,13 +67,13 @@ Task Simulation::createTask(Room taskLocation){
         std::cout << "What kind of robot would you like to add?";
         std::cout << "Mopper (1)" << std::endl;
         std::cout << "Scrubber (2)" << std::endl;
-        std::cout << "Sweep (3)" << std::endl;
+        std::cout << "vacuum (3)" << std::endl;
         std::cin >> newRobot;
 
         switch (newRobot) {
         case 1:
             for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
-                Robot addingRobot = this->availableRobots[i];
+                Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType() == RobotType::mopper){
                     cout<< "Mopper robot added!";
                     taskRobots.push_back(addingRobot);
@@ -107,7 +107,7 @@ Task Simulation::createTask(Room taskLocation){
             for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
                 Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType() == RobotType::vacuum){
-                    cout<< "Sweeper robot added!";
+                    cout<< "Vacuum robot added!";
                     taskRobots.push_back(addingRobot);
 
                     unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
