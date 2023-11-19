@@ -66,7 +66,6 @@ int Room::getNumScrubber() const {
     return scrubber;
 }
 
-
 std::string Room::getIDAsString() const {
     return std::to_string(id); // Convert the integer ID to a string
 }

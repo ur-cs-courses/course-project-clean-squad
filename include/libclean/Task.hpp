@@ -14,7 +14,9 @@ private:
     int scrubTime;
     bool isCompleted;
     std::vector<Robot> robots;
+    std::vector<string> robotIDs;
     Room taskLocation;
+    string roomID;
 
 public:
     Task();

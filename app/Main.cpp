@@ -43,10 +43,11 @@ void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms
 
 int main() {
 
-    int numRobots, numRooms, robotType, robotSize;
+    int numRobots, numRooms, robotType, robotSize, numTasks;
     
     vector<Robot> robots;
     vector<Room> rooms;
+    vector<Task> tasks;
     int count = 0;
 
     // Ask the user for the number of robots
@@ -108,7 +109,7 @@ int main() {
 
     for(int i = 0; i < numRooms; i++){  
 
-        int mopTime, sweepTime, scrubTime, sizeInput;
+        int mopTime, vacuumTime, scrubTime, sizeInput;
         RoomSize sizeEnum;
 
         std::cout << "\nInput for Room " << count << std::endl;
@@ -117,7 +118,7 @@ int main() {
         std::cin >> mopTime;
 
         std::cout << "Enter the vacuum time needed when not clean: ";
-        std::cin >> sweepTime;
+        std::cin >> vacuumTime;
 
         std::cout << "Enter the scrub time needed when not clean: ";
         std::cin >> scrubTime;
@@ -140,12 +141,12 @@ int main() {
                 continue;
             }
 
-        Room newRoom(mopTime, sweepTime, scrubTime, sizeEnum);
+        Room newRoom(mopTime, vacuumTime, scrubTime, sizeEnum);
         rooms.push_back(newRoom);
         count++;
     }
 
-    Simulation newSimulation(robots, rooms);
+    Simulation newSimulation(robots, rooms, tasks);
 
 // Write initial state to CSV
 writeToCSV(robots, rooms, "output.csv");
@@ -174,8 +175,9 @@ do {
 
     switch(mmInput) {
         case 1:
-            std::cout << "Task simulation is coming" << std::endl;
-            //task stuffs
+            std::cout << "Task creation:" << std::endl;
+            newSimulation.createTask();
+            newSimulation.printTaskList();
             break;
         case 2:
             std::cout << "Here are the robots:\n";
