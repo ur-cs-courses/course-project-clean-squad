@@ -80,32 +80,12 @@ void Robot::charge() {
         return;
 }
 
-/*
-Room Robot::getDestination() {
-        return this->destination;
-}
-
-void Robot::setDestination(Room newDest) {
-        this->destination = newDest;
-        return;
-}
-
-Task Robot::getTask() {
-        return currentTask;
-}
-
-void Robot::setTask(Task task) {
-        this->currentTask = task;
-        return;
-}
-
-vector<Task> Robot::getCompletedTasks() {
-        return this->completedTasks;
-}
-*/
-
 std::string Robot::getRobotID() const {
     return std::to_string(robotID);
+}
+
+int Robot::getID() {
+        return this->robotID;
 }
 
 void Robot::printRobot() {
@@ -120,8 +100,8 @@ void Robot::printRobot() {
                 else if(this->robotType == RobotType::scrubber) {type = "scrubber";}
                 else if(this->robotType == RobotType::vacuum) {type = "vacuum";}
 
+        std::cout << "Robot ID: " << robotID << std::endl;
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
-        std::cout << "Robot ID: " << robotID << std::endl;
         std::cout << "Prob Failure: " << probFailure << std::endl;
 }

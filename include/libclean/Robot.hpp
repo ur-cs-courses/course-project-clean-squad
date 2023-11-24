@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-//#include "Task.hpp"
 
 class Room;
 
@@ -23,10 +22,6 @@ class Robot {
         int         batteryLife;
         int         probFailure;
         Room*       destination;
-        /*
-        Task        currentTask;
-        vector<Task>  completedTasks;
-        */
 
     public:
         Robot(RobotType type, RobotSize size);
@@ -42,15 +37,9 @@ class Robot {
         int getBattery();
         void charge();
         std::string getRobotID() const;
+        int getID();
            
         Room getDestination();
-        /*
-        void setDestination(Room);
-        Task getTask();
-        void setTask(Task);
-        vector<Task> getCompletedTasks();
-        */
-
         void printRobot();
 
         //A method to convert enum robotType to string
