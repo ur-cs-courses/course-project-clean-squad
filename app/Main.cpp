@@ -107,6 +107,9 @@ int main() {
     std::cin >> numRooms;
     count = 0;
 
+    Room newRoom(RoomSize::home);
+    rooms.push_back(newRoom);
+
     for(int i = 0; i < numRooms; i++){  
 
         int sizeInput;
@@ -142,10 +145,10 @@ writeToCSV(robots, rooms, "output.csv");
 bool simEnd = false;
 int mmInput = 0;
 
+std::cout << "" << std::endl;
 do {
     //will be updating the csv file after every operation that modifies room,robots, or tasks by just calling
     //writeToCSV(robots, rooms, "output.csv");
-    std::cout << "" << std::endl;
     std::cout << "Main Menu" << std::endl;
     std::cout << "Create new task (1)" << std::endl;
     std::cout << "Print Available Robots (2)" << std::endl;
@@ -171,11 +174,11 @@ do {
             newSimulation.printTaskList();
             break;
         case 2:
-            std::cout << "Here are the robots:\n";
+            std::cout << "Here are the robots:\n" << std::endl;
             newSimulation.printAvailableRobots(); 
             break;
         case 3:
-            std::cout << "Here are the rooms:\n";
+            std::cout << "Here are the rooms:\n" << std::endl;
             newSimulation.printRoomList();
             break;
         case 4:
@@ -194,11 +197,6 @@ do {
 
 return 0;
 }
-
-
-    
-
-
 
 
 

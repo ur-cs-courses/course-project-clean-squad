@@ -38,7 +38,12 @@ Room::Room(RoomSize room) :
             mopTime = 200;
             vacuumTime = 200;
             scrubTime = 200;
+        } else if(room == RoomSize::home) {
+            mopTime = 0;
+            vacuumTime = 0;
+            scrubTime = 0;
         }
+
         this-> roomSize = room;
         nextID++;
         }
@@ -85,11 +90,14 @@ void Room::printRoom() {
         if(this->roomSize == RoomSize::small) {size = "small";}
                 else if(this->roomSize == RoomSize::medium) {size = "medium";}
                 else if(this->roomSize == RoomSize::large) {size = "large";}
+                else if(this->roomSize == RoomSize::home) {size = "Robot Home";}
         std::cout << "RoomID: " << this->id << std::endl;
         std::cout << "Room Size: " << size << std::endl;
-        std::cout << "Mop Time: " << this->mopTime << std::endl;
-        std::cout << "Vacuum Time: " << this->vacuumTime << std::endl;
-        std::cout << "Scrub Time: " << this->scrubTime << std::endl;
+        if(this->roomSize != RoomSize::home) {
+            std::cout << "Mop Time: " << this->mopTime << std::endl;
+            std::cout << "Vacuum Time: " << this->vacuumTime << std::endl;
+            std::cout << "Scrub Time: " << this->scrubTime << std::endl;         
+        }
 }
 
 void Room::printCurrentRobots() {
