@@ -109,19 +109,8 @@ int main() {
 
     for(int i = 0; i < numRooms; i++){  
 
-        int mopTime, vacuumTime, scrubTime, sizeInput;
+        int sizeInput;
         RoomSize sizeEnum;
-
-        std::cout << "\nInput for Room " << count << std::endl;
-
-        std::cout << "Enter the mop time needed when not clean: ";
-        std::cin >> mopTime;
-
-        std::cout << "Enter the vacuum time needed when not clean: ";
-        std::cin >> vacuumTime;
-
-        std::cout << "Enter the scrub time needed when not clean: ";
-        std::cin >> scrubTime;
 
         std::cout << "Enter the type of room (1: small, 2: medium, 3: large): ";
         std::cin >> sizeInput;
@@ -141,7 +130,7 @@ int main() {
                 continue;
             }
 
-        Room newRoom(mopTime, vacuumTime, scrubTime, sizeEnum);
+        Room newRoom(sizeEnum);
         rooms.push_back(newRoom);
         count++;
     }
@@ -165,6 +154,8 @@ do {
     std::cout << "Exit App / Simulation (5)" << std::endl;
     std::cout << "Enter what you would like to do: ";
     std::cin >> mmInput;
+
+    std::cout << "\n";
 
     if(std::cin.fail()) {
         std::cin.clear(); // Clears the error flags

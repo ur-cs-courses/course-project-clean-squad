@@ -26,7 +26,7 @@ private:
 public:
     int id; //unique ID for each room
     Room();
-    Room(int mop, int vacuum, int scrub, RoomSize room);
+    Room(RoomSize room);
     std::string getIDAsString() const; // Method to get the ID as a string
 
     void setRoomSize(RoomSize newSize);
