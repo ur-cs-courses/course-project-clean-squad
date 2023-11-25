@@ -6,9 +6,9 @@
 
 int Room::nextID = 0;
 Room::Room() : 
-        mopTime(0), 
-        vacuumTime(0), 
-        scrubTime(0), 
+        mopTime(100), 
+        vacuumTime(100), 
+        scrubTime(100), 
         mopping(0), 
         vacuum(0), 
         scrubber(0), 
@@ -19,19 +19,29 @@ Room::Room() :
     }
 
 
-Room::Room(int mop, int vacuum, int scrub, RoomSize room) : 
+Room::Room(RoomSize room) : 
         mopping(0), 
         vacuum(0), 
         scrubber(0), 
         id(nextID), 
         currentRobots(vector<Robot>()), 
         area(0) {
-        this-> mopTime = mop;
-        this-> vacuumTime = vacuum;
-        this-> scrubTime = scrub;
+        if(room == RoomSize::small) {
+            mopTime = 100;
+            vacuumTime = 100;
+            scrubTime = 100;
+        } else if(room == RoomSize::medium) {
+            mopTime = 150;
+            vacuumTime = 150;
+            scrubTime = 150;
+        } else if(room == RoomSize::large) {
+            mopTime = 200;
+            vacuumTime = 200;
+            scrubTime = 200;
+        }
         this-> roomSize = room;
         nextID++;
-    }
+        }
 
 void Room::setRoomSize(RoomSize newSize) {
     this->roomSize = newSize;
