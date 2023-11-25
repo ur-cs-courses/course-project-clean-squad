@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum class RoomSize {small, medium, large};
+enum class RoomSize {small, medium, large, home};
 
 class Room {
 
