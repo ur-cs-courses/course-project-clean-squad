@@ -11,7 +11,7 @@ Task::Task(std::vector<Robot> robots, Room taskLocation) {
     this->mopTime = taskLocation.getMopTime();
     this->vacuumTime = taskLocation.getVacuumTime();
     this->scrubTime = taskLocation.getScrubTime();
-    this->isCompleted = false;
+    this->isCompleted = taskLocation.getClean();
     /*
     this->roomID = taskLocation.getIDAsString();
     for (const auto& robot : robots) {

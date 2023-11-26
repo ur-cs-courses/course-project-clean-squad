@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <random>
 
 int Room::nextID = 0;
 Room::Room() : 
@@ -16,6 +17,18 @@ Room::Room() :
         id(nextID), 
         area(0) {
         nextID++;
+
+        std::random_device rd;                                                                     //random number generator
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distribution(0, 1);
+        int random_number = distribution(gen);
+        if (random_number == 0){
+            clean = true;
+        }
+        else{
+            clean = false;
+        }
+        
     }
 
 
@@ -46,7 +59,18 @@ Room::Room(RoomSize room) :
 
         this-> roomSize = room;
         nextID++;
+
+        std::random_device rd;                                                                     //random number generator
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distribution(0, 1);
+        int random_number = distribution(gen);
+        if (random_number == 0){
+            clean = true;
         }
+        else{
+            clean = false;
+        }
+    }
 
 void Room::setRoomSize(RoomSize newSize) {
     this->roomSize = newSize;
@@ -80,6 +104,11 @@ int Room::getNumVacuum() const {
 int Room::getNumScrubber() const {
     return scrubber;
 }
+
+bool Room::getClean() const{
+    return clean;
+}
+
 
 std::string Room::getIDAsString() const {
     return std::to_string(id); // Convert the integer ID to a string
