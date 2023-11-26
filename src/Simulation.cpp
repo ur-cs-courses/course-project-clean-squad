@@ -1,10 +1,15 @@
 #include "libclean/Simulation.hpp"
+#include "libclean/Room.hpp"
+#include "libclean/Robot.hpp"
+#include "libclean/Task.hpp"
 #include <fmt/core.h>
+#include <stdexcept> //for runtime_error
 
-Simulation::Simulation(vector<Robot> robots,vector<Room> rooms): 
+Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks): 
     availableRobots(robots),
-    unavailableRobots(),
+    unavailableRobots(robots),
     roomList(rooms),
+    taskList(tasks),
     waitingQueue(),
     cleaningRooms(),
     completeRooms()
@@ -50,11 +55,101 @@ Simulation::~Simulation(){}
 
 void Simulation::runSimulation(){};
 
-/*
-Task Simulation::createTask(){
+Task Simulation::createTaskHelper(Room taskLocation){
+    vector<Robot> taskRobots;
+
+    if(taskLocation.getClean()){
+        std::cout << "This room is already clean!"
+        
+        Task newTask(taskRobots, taskLocation);
+        return newTask;
+    }
+
+    int potentialMop = 0;
+    int potentialScrub = 0;
+    int potentialVacuum = 0;
+    int neededMop = taskLocation.getMopTime();
+    int neededScrub = taskLocation.getScrubTime();
+    int neededVacuum = taskLocation.getVacuumTime();
+
+    while((potentialMop < neededMop) && (potentialScrub < neededScrub) && (potentialVacuum < neededVacuum)){
+        int newRobot;
+        std::cout << "What kind of robot would you like to add? (1: mopper, 2: vacuum, 3: scrubber): ";
+        std::cin >> newRobot;
+
+        switch (newRobot) {
+        case 1:
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
+                if(addingRobot.getRobotType() == RobotType::mopper){
+                    std::cout << "Mopper robot added!\n";
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialMop += (addingRobot.getBattery() - 10);
+                    break;
+                }
+            }
+            break;
+
+        case 2:
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
+                if(addingRobot.getRobotType() == RobotType::scrubber){
+                    std::cout << "Scrubber robot added!\n";
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialScrub += (addingRobot.getBattery() - 10);
+                    break;
+                }
+            }
+            break;
+
+        case 3:
+            for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
+                Robot addingRobot = availableRobots[i];
+                if(addingRobot.getRobotType() == RobotType::vacuum){
+                    std::cout << "Vacuum robot added!\n";
+                    taskRobots.push_back(addingRobot);
+
+                    unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
+                    this->availableRobots.erase(availableRobots.begin() + i);
+
+                    potentialVacuum += (addingRobot.getBattery() - 10);
+                    break;
+                }
+            }
+            break;
+        default:
+            std::cout << "Invalid choice." << std::endl;
+
+        std::cout << "There is still" << neededMop - potentialMop << " time left for Mopping, " 
+            << neededScrub - potentialScrub << " time left for scrubbing, and " << neededVacuum - potentialVacuum 
+            << " time left for sweeping.";
+    }
+
+    Task newTask(taskRobots, taskLocation);
+    taskList.push_back(newTask);
+    return newTask;
+    }
+    throw std::runtime_error("Failed to create a valid task"); //throws an error message when there are paths that do not hit the return inside the while loop
 
 }
-*/
+
+void Simulation::createTask(){
+    int inputRoomID;
+    if (roomList.empty()){
+        std::cout << "You need to have a room for robot destination!" << std::endl;
+    }
+    std::cout << "Enter the ID for room to clean: ";
+    std::cin >> inputRoomID;
+    Task newTask = createTaskHelper(roomList[inputRoomID]);
+}
 
 vector<Robot> Simulation::getAvailableRobots(){
     return availableRobots;
@@ -85,6 +180,13 @@ void Simulation::printUnavailableRobots(){
 void Simulation::printRoomList(){
     for (int i = 0; i < roomList.size(); i++) {
         roomList[i].printRoom();
+        std::cout << "\n";
+    }
+}
+
+void Simulation::printTaskList(){
+    for (int i = 0; i < taskList.size(); i++) {
+        taskList[i].printTask();
         std::cout << "\n";
     }
 }
