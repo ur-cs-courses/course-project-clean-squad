@@ -107,21 +107,13 @@ int main() {
     std::cin >> numRooms;
     count = 0;
 
+    Room newRoom(RoomSize::home);
+    rooms.push_back(newRoom);
+
     for(int i = 0; i < numRooms; i++){  
 
-        int mopTime, vacuumTime, scrubTime, sizeInput;
+        int sizeInput;
         RoomSize sizeEnum;
-
-        std::cout << "\nInput for Room " << count << std::endl;
-
-        std::cout << "Enter the mop time needed when not clean: ";
-        std::cin >> mopTime;
-
-        std::cout << "Enter the vacuum time needed when not clean: ";
-        std::cin >> vacuumTime;
-
-        std::cout << "Enter the scrub time needed when not clean: ";
-        std::cin >> scrubTime;
 
         std::cout << "Enter the type of room (1: small, 2: medium, 3: large): ";
         std::cin >> sizeInput;
@@ -141,7 +133,7 @@ int main() {
                 continue;
             }
 
-        Room newRoom(mopTime, vacuumTime, scrubTime, sizeEnum);
+        Room newRoom(sizeEnum);
         rooms.push_back(newRoom);
         count++;
     }
@@ -153,10 +145,10 @@ writeToCSV(robots, rooms, "output.csv");
 bool simEnd = false;
 int mmInput = 0;
 
+std::cout << "" << std::endl;
 do {
     //will be updating the csv file after every operation that modifies room,robots, or tasks by just calling
     //writeToCSV(robots, rooms, "output.csv");
-    std::cout << "" << std::endl;
     std::cout << "Main Menu" << std::endl;
     std::cout << "Create new task (1)" << std::endl;
     std::cout << "Print Available Robots (2)" << std::endl;
@@ -165,6 +157,8 @@ do {
     std::cout << "Exit App / Simulation (5)" << std::endl;
     std::cout << "Enter what you would like to do: ";
     std::cin >> mmInput;
+
+    std::cout << "\n";
 
     if(std::cin.fail()) {
         std::cin.clear(); // Clears the error flags
@@ -180,11 +174,11 @@ do {
             newSimulation.printTaskList();
             break;
         case 2:
-            std::cout << "Here are the robots:\n";
+            std::cout << "Here are the robots:\n" << std::endl;
             newSimulation.printAvailableRobots(); 
             break;
         case 3:
-            std::cout << "Here are the rooms:\n";
+            std::cout << "Here are the rooms:\n" << std::endl;
             newSimulation.printRoomList();
             break;
         case 4:
@@ -203,11 +197,6 @@ do {
 
 return 0;
 }
-
-
-    
-
-
 
 
 
