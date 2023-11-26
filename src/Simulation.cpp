@@ -55,13 +55,21 @@ Simulation::~Simulation(){}
 void Simulation::runSimulation(){};
 
 Task Simulation::createTaskHelper(Room taskLocation){
+    vector<Robot> taskRobots;
+
+    if(taskLocation.getClean()){
+        std::cout << "This room is already clean!"
+        
+        Task newTask(taskRobots, taskLocation);
+        return newTask;
+    }
+
     int potentialMop = 0;
     int potentialScrub = 0;
     int potentialVacuum = 0;
     int neededMop = taskLocation.getMopTime();
     int neededScrub = taskLocation.getScrubTime();
     int neededVacuum = taskLocation.getVacuumTime();
-    vector<Robot> taskRobots;
 
     while((potentialMop < neededMop) && (potentialScrub < neededScrub) && (potentialVacuum < neededVacuum)){
         int newRobot;
@@ -73,7 +81,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
             for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
                 Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType() == RobotType::mopper){
-                    cout<< "Mopper robot added!\n";
+                    std::cout << "Mopper robot added!\n";
                     taskRobots.push_back(addingRobot);
 
                     unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
@@ -89,7 +97,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
             for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
                 Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType() == RobotType::scrubber){
-                    cout<< "Scrubber robot added!\n";
+                    std::cout << "Scrubber robot added!\n";
                     taskRobots.push_back(addingRobot);
 
                     unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
@@ -105,7 +113,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
             for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available mop robot to add to task
                 Robot addingRobot = availableRobots[i];
                 if(addingRobot.getRobotType() == RobotType::vacuum){
-                    cout<< "Vacuum robot added!\n";
+                    std::cout << "Vacuum robot added!\n";
                     taskRobots.push_back(addingRobot);
 
                     unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
