@@ -3,6 +3,7 @@
 #include "libclean/Robot.hpp"
 #include "libclean/Task.hpp"
 #include <fmt/core.h>
+#include <stdexcept> //for runtime_error
 
 Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks): 
     availableRobots(robots),
@@ -136,6 +137,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
     taskList.push_back(newTask);
     return newTask;
     }
+    throw std::runtime_error("Failed to create a valid task"); //throws an error message when there are paths that do not hit the return inside the while loop
 
 }
 
