@@ -5,50 +5,14 @@
 #include <iostream>
 #include <vector>
 #include <fstream> 
-
-void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms, const std::string& filename) {
-    std::ofstream csvFile(filename, std::ofstream::trunc);  // Open in truncate mode to overwrite existing contents
-
-    if (!csvFile) {
-        std::cerr << "Error opening " << filename << " for writing." << std::endl;
-        return;
-    }
-
-     // Writing headers to the CSV file for Robots
-    csvFile << "Robot ID,Robot Type,Robot Size\n";
-
-    // Write robot details to the CSV
-    for (const auto& robot : robots) {
-        csvFile << robot.getRobotID() << ","
-                << robot.getRobotTypeString() << ","
-                << robot.getRobotSizeString()<< "\n";
-    }
-
-    // Writing headers to the CSV file for Rooms
-    csvFile << "\nRoom ID,Mop Time,Sweep Time,Scrub Time\n";
-
-    // Write room details to the CSV
-    for (size_t i = 0; i < rooms.size(); ++i) {
-        csvFile << i << ","  // Assuming room ID is its index in the room vector
-                << rooms[i].getMopTime() << ","
-                << rooms[i].getVacuumTime() << ","
-                << rooms[i].getScrubTime() << "\n";
-    }
-
-    
-    csvFile.close();
-}
-
  
 
 int main() {
 
-    int numRobots, numRooms, robotType, robotSize, numTasks;
+    int numRobots, numRooms, robotType, robotSize;
     
     vector<Robot> robots;
     vector<Room> rooms;
-    vector<Task> tasks;
-    int count = 0;
 
     // Ask the user for the number of robots
     std::cout << "Enter the number of robots: ";
@@ -59,8 +23,8 @@ int main() {
         int typeInput, sizeInput;
         RobotType typeEnum;
         RobotSize sizeEnum;
-        std::cout << "\nInput for Robot " << count << std::endl;
-        std::cout << "Enter the type of robot (1: mopper, 2: vacuum, 3: scrubber): ";
+
+        std::cout << "Enter the type of robot (1: mopper, 2: sweeper, 3: scrubber): ";
         std::cin >> typeInput;
 
         switch (typeInput) {
@@ -68,7 +32,7 @@ int main() {
                 typeEnum = RobotType::mopper;
                 break;
             case 2:
-                typeEnum = RobotType::vacuum;
+                typeEnum = RobotType::sweeper;
                 break;
             case 3:
                 typeEnum = RobotType::scrubber;
@@ -98,105 +62,86 @@ int main() {
 
         Robot newRobot(typeEnum, sizeEnum);
         robots.push_back(newRobot);
-        count++;
     }
 
     
     // Ask the user for the number of rooms
-    std::cout << "\nEnter the number of rooms: ";
+    std::cout << "Enter the number of rooms: ";
     std::cin >> numRooms;
-    count = 0;
 
-    Room newRoom(RoomSize::home);
-    rooms.push_back(newRoom);
-
-    for(int i = 0; i < numRooms; i++){  
-
-        int sizeInput;
-        RoomSize sizeEnum;
-
-        std::cout << "Enter the type of room (1: small, 2: medium, 3: large): ";
-        std::cin >> sizeInput;
-
-        switch (sizeInput) {
-            case 1:
-                sizeEnum = RoomSize::small;
-                break;
-            case 2:
-                sizeEnum = RoomSize::medium;
-                break;
-            case 3:
-                sizeEnum = RoomSize::large;
-                break;
-            default:
-                std::cerr << "Invalid robot type entered.\n";
-                continue;
-            }
-
-        Room newRoom(sizeEnum);
+    for(int i = 0; i < numRooms; i++){      
+        Room newRoom;
         rooms.push_back(newRoom);
-        count++;
     }
 
-    Simulation newSimulation(robots, rooms, tasks);
+    Simulation newSimulation(robots, rooms);
 
-// Write initial state to CSV
-writeToCSV(robots, rooms, "output.csv");
-bool simEnd = false;
-int mmInput = 0;
+    bool simEnd = false;
+    int mmInput = 0;
+    std::cout << "" << std::endl;
+    while(simEnd == false) {
+        std::cout << "Main Menu" << std::endl;
+        std::cout << "Create new task (1)" << std::endl;
+        std::cout << "Print Available Robots (2)" << std::endl;
+        std::cout << "Print Available Rooms (3)" << std::endl;
+        std::cout << "Add Robot to Fleet (4)" << std::endl;
+        std::cout << "Exit App / Simulation (5) \n" << std::endl;
 
-std::cout << "" << std::endl;
-do {
-    //will be updating the csv file after every operation that modifies room,robots, or tasks by just calling
-    //writeToCSV(robots, rooms, "output.csv");
-    std::cout << "Main Menu" << std::endl;
-    std::cout << "Create new task (1)" << std::endl;
-    std::cout << "Print Available Robots (2)" << std::endl;
-    std::cout << "Print Available Rooms (3)" << std::endl;
-    std::cout << "Add Robot to Fleet (4)" << std::endl;
-    std::cout << "Exit App / Simulation (5)" << std::endl;
-    std::cout << "Enter what you would like to do: ";
-    std::cin >> mmInput;
+        std::cout << "Enter what you would lke to do: ";
+        std::cin >> mmInput;
 
-    std::cout << "\n";
-
-    if(std::cin.fail()) {
-        std::cin.clear(); // Clears the error flags
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards the input buffer
-        std::cout << "Invalid input, please choose from the displayed options." << std::endl;
-        continue;
-    }
-
-    switch(mmInput) {
-        case 1:
-            std::cout << "Task creation:" << std::endl;
-            newSimulation.createTask();
-            newSimulation.printTaskList();
-            break;
-        case 2:
-            std::cout << "Here are the robots:\n" << std::endl;
+        if (mmInput == 1) {
+            std::cout << "" << std::endl;
+            continue;
+        }
+        else if (mmInput == 2) {
+            std::cout << "Here are the robots:\n";
             newSimulation.printAvailableRobots(); 
-            break;
-        case 3:
-            std::cout << "Here are the rooms:\n" << std::endl;
+        }
+        else if (mmInput == 3) {
+            std::cout << "Here are the rooms:\n";
             newSimulation.printRoomList();
-            break;
-        case 4:
+        }
+        else if (mmInput == 4) {
             std::cout << "we should add an 'add robot' method" << std::endl;
             std::cout << "" << std::endl;
-            break;
-        case 5:
+        }
+        else if (mmInput == 5) {
             std::cout << "Closing Application" << std::endl;
             simEnd = true;
-            break;
-        default:
-            std::cout << "Invalid option. Please enter a number between 1 and 5." << std::endl;
-            break;
+        }
+        else {
+            continue;
+        }
     }
-} while(!simEnd);
+
+    
+    //writting to csv
+
+    std::ofstream csvFile("output.csv");
+
+    if (!csvFile) {
+        std::cerr << "Error opening output.csv for writing." << std::endl;
+        return 1;
+    }
+
+    // Writing headers to the CSV file
+    csvFile << "Robot Size,Robot Type,Number of Rooms,Room Size,Mop Time,Vacuum Time,Scrub Time" << std::endl;
+    for (const auto& robot : robots) {
+        csvFile << "medium" << "," << "mopper" <<  "," << rooms.size() <<  "," << "small"<<  "," <<45  << "," << 20 << "," << 15 << std::endl;
+   
+}
+
+
+    csvFile.close();
 
 return 0;
 }
+
+
+    
+
+
 
 
 

@@ -2,24 +2,8 @@
 #include <iostream>
 
 // Constructor
-/*
 Task::Task()
     : numRobots(0), mopTime(0), vacuumTime(0), scrubTime(0), isCompleted(false) {}
-*/
-Task::Task(std::vector<Robot> robots, Room taskLocation) {
-    this->numRobots = robots.size();
-    this->mopTime = taskLocation.getMopTime();
-    this->vacuumTime = taskLocation.getVacuumTime();
-    this->scrubTime = taskLocation.getScrubTime();
-    this->isCompleted = taskLocation.getClean();
-    /*
-    this->roomID = taskLocation.getIDAsString();
-    for (const auto& robot : robots) {
-        this->robotIDs.push_back(robot.getRobotID());
-    }
-    */
-}
-
 
 // Getters
 int Task::getNumRobots() const {
@@ -64,15 +48,7 @@ void Task::setIsCompleted(bool isCompleted) {
 }
 
 void Task::printTask() {
-    std::cout << "Here's tasks info:\n";
-    std::cout << "Room ID: " << roomID << std::endl;
     std::cout << "Required Mop Time: " << this->mopTime << std::endl;
     std::cout << "Required Scrub Time: " << this->scrubTime << std::endl;
     std::cout << "Required Vacuum Time: " << this->vacuumTime << std::endl;
-    /*
-    std::cout << "Assigned Robots: ";
-    for (string robotID : robotIDs) {
-        std::cout << robotID << " ";
-    }
-    */
 }

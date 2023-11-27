@@ -2,7 +2,7 @@
 #define TASK_HPP
 
 #include <vector>
-#include "Robot.hpp"
+//#include "Robot.hpp"
 #include "Room.hpp"
 
 class Task {
@@ -13,14 +13,9 @@ private:
     int vacuumTime;
     int scrubTime;
     bool isCompleted;
-    std::vector<Robot> robots;
-    std::vector<string> robotIDs;
-    Room taskLocation;
-    string roomID;
 
 public:
     Task();
-    Task(std::vector<Robot> robots, Room taskLocation);
 
     // Getters
     int getNumRobots() const;
@@ -35,7 +30,7 @@ public:
     void setVacuumTime(int vacuumTime);
     void setScrubTime(int scrubTime);
     void setIsCompleted(bool isCompleted);
-    
+
     void printTask();
 };
 #endif

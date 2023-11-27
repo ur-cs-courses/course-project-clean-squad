@@ -1,52 +1,32 @@
 //Robot Class File
-#include "libclean/Robot.hpp"
-#include "libclean/Room.hpp" 
+#include "libclean/Robot.hpp" 
 #include <iostream>
-#include <random>
 
 using namespace std;
 
-int Robot::nextRobotID = 0;
 Robot::Robot(RobotType type, RobotSize size) :
         isActive(false),
         isBroken(false),
         robotType(type),
         robotSize(size),
-        robotID(nextRobotID++),
-        destination(nullptr)
-        {
-                std::random_device randNum;
-                std::mt19937 gen(randNum());
-                std::uniform_real_distribution<> distribution(0,5);
-                int output = distribution(gen);
-                probFailure = output;
-
-                if(size == RobotSize::small) {
-                        batteryLife = 50;
-                } else if(size == RobotSize::medium) {
-                        batteryLife = 100;
-                } else if (size == RobotSize::large) {
-                        batteryLife = 200;
-                } else {
-                        batteryLife = 0;
-                }
-        }
+        batteryLife(100),
+        probFailure(0),
+        destination(Room()),
+        currentTask(Task()),
+        completedTasks(vector<Task>())
+{}
 
 Robot::Robot(const Robot& other) :
         isActive(false),
         isBroken(false),
         robotType(other.robotType),
         robotSize(other.robotSize),
-        batteryLife(other.batteryLife),
-        robotID(other.robotID),
-        destination(nullptr)
-        {
-                std::random_device randNum;
-                std::mt19937 gen(randNum());
-                std::uniform_real_distribution<> distribution(0,5);
-                int output = distribution(gen);
-                probFailure = output;
-        }
+        batteryLife(100),
+        probFailure(0),
+        destination(Room()),
+        currentTask(Task()),
+        completedTasks(vector<Task>())
+{}
 
 
 Robot::~Robot() {}
@@ -81,12 +61,26 @@ void Robot::charge() {
         return;
 }
 
-std::string Robot::getRobotID() const {
-    return std::to_string(robotID);
+Room Robot::getDestination() {
+        return this->destination;
 }
 
-int Robot::getID() {
-        return this->robotID;
+void Robot::setDestination(Room newDest) {
+        this->destination = newDest;
+        return;
+}
+
+Task Robot::getTask() {
+        return currentTask;
+}
+
+void Robot::setTask(Task task) {
+        this->currentTask = task;
+        return;
+}
+
+vector<Task> Robot::getCompletedTasks() {
+        return this->completedTasks;
 }
 
 void Robot::printRobot() {
@@ -99,10 +93,8 @@ void Robot::printRobot() {
 
         if(this->robotType == RobotType::mopper) {type = "mopper";}
                 else if(this->robotType == RobotType::scrubber) {type = "scrubber";}
-                else if(this->robotType == RobotType::vacuum) {type = "vacuum";}
+                else if(this->robotType == RobotType::sweeper) {type = "sweeper";}
 
-        std::cout << "Robot ID: " << robotID << std::endl;
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
-        std::cout << "Prob Failure: " << probFailure << std::endl;
 }

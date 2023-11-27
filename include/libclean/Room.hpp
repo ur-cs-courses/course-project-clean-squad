@@ -3,11 +3,10 @@
 
 #include <string>
 #include <vector>
-#include "Robot.hpp"
 
 using namespace std;
 
-enum class RoomSize {small, medium, large, home};
+enum class RoomSize {small, medium, large};
 
 class Room {
 
@@ -21,13 +20,11 @@ private:
     int scrubber;
     RoomSize roomSize;
     int area;
-    vector<Robot> currentRobots;
-    bool clean;                                                                                    //clean = 1; dirty = 0
 
 public:
     int id; //unique ID for each room
     Room();
-    Room(RoomSize room);
+    Room(int mop, int vacuum, int scrub, RoomSize room);
     std::string getIDAsString() const; // Method to get the ID as a string
 
     void setRoomSize(RoomSize newSize);
@@ -38,10 +35,9 @@ public:
     int getNumMopping() const;
     int getNumVacuum() const;
     int getNumScrubber() const;
-    bool getClean() const;
 
     void printRoom();
-    void printCurrentRobots();
+
 };
 
 #endif
