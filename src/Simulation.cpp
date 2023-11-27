@@ -88,7 +88,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
         }
     }
 
-    for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available scrubber robot to add to task
+    for (int i = 0; i < availableRobots.size(); i++) {                                     //find available scrubber robots to add to task
         Robot addingRobot = availableRobots[i];
         if(addingRobot.getRobotType() == RobotType::scrubber){
             std::cout<< "Scrubber robot added!\n";
@@ -105,7 +105,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
         }
     }
 
-    for (int i = 0; i < availableRobots.size(); i++) {                                     //find an available vacuum robot to add to task
+    for (int i = 0; i < availableRobots.size(); i++) {                                     //find available vacuum robots to add to task
         Robot addingRobot = availableRobots[i];
         if(addingRobot.getRobotType() == RobotType::vacuum){
             std::cout<< "Vacuum robot added!\n";
