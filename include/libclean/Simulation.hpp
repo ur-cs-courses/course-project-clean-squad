@@ -17,16 +17,10 @@ class Simulation {
         vector<Room> cleaningRooms;
         vector<Room> completeRooms;
     public:
-        //Simulation(vector<Robot> robots,vector<Room> rooms);
         Simulation(std::vector<Robot> robots, std::vector<Room> rooms, std::vector<Task> tasks);
         ~Simulation();
         
         void runSimulation();
-        //void getInput();                                           //maybe can be in main
-
-        /*
-        Task createTask(); 
-        */
         vector<Robot> getAvailableRobots();
         vector<Robot> getUnavailableRobots();
         vector<Room> getRoomList();

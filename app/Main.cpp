@@ -129,7 +129,7 @@ int main() {
                 sizeEnum = RoomSize::large;
                 break;
             default:
-                std::cerr << "Invalid robot type entered.\n";
+                std::cerr << "Invalid room type entered.\n";
                 continue;
             }
 
