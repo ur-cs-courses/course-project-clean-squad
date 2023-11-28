@@ -30,5 +30,7 @@ class Simulation {
         void printTaskList();
         void createTask();
         Task createTaskHelper(Room taskLocation);
+        void start();
+        void timeThread(int);        
 
 };

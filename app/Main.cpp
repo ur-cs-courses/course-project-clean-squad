@@ -145,6 +145,8 @@ writeToCSV(robots, rooms, "output.csv");
 bool simEnd = false;
 int mmInput = 0;
 
+newSimulation.start();
+
 std::cout << "" << std::endl;
 do {
     //will be updating the csv file after every operation that modifies room,robots, or tasks by just calling
