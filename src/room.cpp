@@ -20,7 +20,7 @@ Room::Room() :
 
         std::random_device rd;                                                                     //random number generator
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> distribution(0, 1);
+        std::uniform_int_distribution<int> distribution(0, 2);
         int random_number = distribution(gen);
         if (random_number == 0){
             clean = true;
@@ -125,7 +125,12 @@ void Room::printRoom() {
         if(this->roomSize != RoomSize::home) {
             std::cout << "Mop Time: " << this->mopTime << std::endl;
             std::cout << "Vacuum Time: " << this->vacuumTime << std::endl;
-            std::cout << "Scrub Time: " << this->scrubTime << std::endl;         
+            std::cout << "Scrub Time: " << this->scrubTime << std::endl;
+            if(this->clean == true) {
+                std::cout << "Clean" << std::endl;
+            } else {
+                std::cout << "Dirty" << std::endl;
+            }
         }
 }
 

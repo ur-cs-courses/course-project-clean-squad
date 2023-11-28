@@ -4,10 +4,14 @@
 #include "libclean/Task.hpp"
 #include <fmt/core.h>
 #include <stdexcept> //for runtime_error
+#include <map>
+#include <thread>
+#include <iostream>
+#include <cstdlib>
 
 Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks): 
     availableRobots(robots),
-    unavailableRobots(robots),
+    unavailableRobots(),
     roomList(rooms),
     taskList(tasks),
     waitingQueue(),
@@ -15,41 +19,46 @@ Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Tas
     completeRooms()
 {}
 
-/*
-Simulation::Simulation(): 
-    unavailableRobots(),
-    waitingQueue(),
-    cleaningRooms(),
-    completeRooms();
-{
-    int check = 1;
-    int type = size = 0;
-    while(check != 0){
-        cout << "Press 0 to stop adding robots. Press any other key to add a robot.";
-        cin >> check;
+std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY LIFE - 10 >
+std::map<int, int> helperDict; //tester
+vector<Robot> helpVector;
+int id = 0;
+int myTime = 0; // logical time
 
-        cout << "What type of robot is it?";
-        cin >> type;
+void Simulation::timeThread(int time) {
+    while(true) {
+        vector<Robot> helper = this->getUnavailableRobots(); //this needs to be unavailable robots but cannot test that
+        for(int i = 0; i < helper.size(); i++) {
+            id = helper[i].getID();
+            if(dict.find(id) == dict.end()) {
+                dict[id] = myTime + helper[i].getBattery() - 10;
+            }
+        }
+        helperDict = dict;
+        for(const auto& entry: helperDict) {
+            if(entry.second == myTime) {
+                helpVector = unavailableRobots;
+                for(int q = 0; q < helpVector.size(); q++) {
+                    Robot tRobot = helpVector[q];
+                    if(tRobot.getID() == entry.first) {
+                        availableRobots.push_back(tRobot);     //move mop robot from available to unavailable    
+                        this->unavailableRobots.erase(this->unavailableRobots.begin() + q);
+                        dict.erase(entry.first);
+                    }
+                }
+            }
+        }
 
-        cout << "What is the size of the robot?";
-        cin >> size;
-
-        Robot newRobot(type, size);
-        availableRobots.push_back(newRobot);
+        myTime = myTime + 10;
+        //std::cout << myTime << std::endl;
+        std::system("sleep 1");
     }
-
-    check = 1;
-
-    while(check != 0){
-        cout << "Press 0 to stop adding rooms. Press any other key to add a room.";
-        cin >> check;
-
-        Room newRoom();
-        availableRobots.push_back(newRoom);
-    }
-
 }
-*/
+
+std::thread time_thread;
+void Simulation::start() {
+    time_thread = std::thread(std::bind(&Simulation::timeThread, this, 10));
+}
 
 Simulation::~Simulation(){}
 
@@ -59,7 +68,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
     vector<Robot> taskRobots;
 
     if(taskLocation.getClean()){
-        std::cout << "This room is already clean!"
+        std::cout << "This room is already clean!\n";
         
         Task newTask(taskRobots, taskLocation);
         return newTask;
@@ -105,7 +114,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
             }
         }
     }
-    throw std::runtime_error("Failed to create a valid task"); //throws an error message when there are paths that do not hit the return inside the while loop
+    //throw std::runtime_error("Failed to create a valid task"); //throws an error message when there are paths that do not hit the return inside the while loop
 
     for (int i = 0; i < availableRobots.size(); i++) {                                     //find available vacuum robots to add to task
         Robot addingRobot = availableRobots[i];
