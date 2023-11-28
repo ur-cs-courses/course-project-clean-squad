@@ -67,8 +67,8 @@ void Simulation::runSimulation(){};
 Task Simulation::createTaskHelper(Room taskLocation){
     vector<Robot> taskRobots;
 
-    if(taskLocation.getClean()){
-        std::cout << "This room is already clean!\n";
+    if(taskLocation.getClean() != cleanStatus::dirty){
+        std::cout << "This room does not need to be cleaned! \n";
         
         Task newTask(taskRobots, taskLocation);
         return newTask;
