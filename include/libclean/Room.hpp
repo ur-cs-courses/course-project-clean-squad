@@ -8,6 +8,7 @@
 using namespace std;
 
 enum class RoomSize {small, medium, large, home};
+enum class cleanStatus {clean, dirty, doNotClean, cleaning};
 
 class Room {
 
@@ -22,7 +23,7 @@ private:
     RoomSize roomSize;
     int area;
     vector<Robot> currentRobots;
-    bool clean;                                                                                    //clean = 1; dirty = 0
+    cleanStatus clean;
 
 public:
     int id; //unique ID for each room
