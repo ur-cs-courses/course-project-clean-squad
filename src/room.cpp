@@ -23,10 +23,10 @@ Room::Room() :
         std::uniform_int_distribution<int> distribution(0, 2);
         int random_number = distribution(gen);
         if (random_number == 0){
-            clean = true;
+            clean = cleanStatus::clean;
         }
         else{
-            clean = false;
+            clean = cleanStatus::dirty;
         }
         
     }
@@ -126,11 +126,15 @@ void Room::printRoom() {
             std::cout << "Mop Time: " << this->mopTime << std::endl;
             std::cout << "Vacuum Time: " << this->vacuumTime << std::endl;
             std::cout << "Scrub Time: " << this->scrubTime << std::endl;
-            if(this->clean == true) {
+            if(this->clean == cleanStatus::clean) {
                 std::cout << "Clean" << std::endl;
-            } else {
+            } else if(this->clean == cleanStatus::dirty){
                 std::cout << "Dirty" << std::endl;
-            }
+            } else if(this->clean == cleanStatus::cleaning){
+                std::cout << "Being cleaned" << std::endl;
+            } else{
+                std::cout << "Room designated not to clean" << std::endl;
+            }                    
         }
 }
 
