@@ -134,6 +134,13 @@ int main() {
             }
 
         Room newRoom(sizeEnum);
+
+        std::cout <<"Would you like to prevent the robots from cleaning this room? (1: yes)" ;
+        std::cin >> sizeInput;
+        if(sizeInput == 1){
+            newRoom.setClean(cleanStatus::doNotClean);
+        }
+
         rooms.push_back(newRoom);
         count++;
     }
@@ -156,7 +163,8 @@ do {
     std::cout << "Print Available Robots (2)" << std::endl;
     std::cout << "Print Available Rooms (3)" << std::endl;
     std::cout << "Add Robot to Fleet (4)" << std::endl;
-    std::cout << "Exit App / Simulation (5)" << std::endl;
+    std::cout << "Make all clean rooms dirty (5)" << std::endl;
+    std::cout << "Exit App / Simulation (6)" << std::endl;
     std::cout << "Enter what you would like to do: ";
     std::cin >> mmInput;
 
@@ -188,6 +196,14 @@ do {
             std::cout << "" << std::endl;
             break;
         case 5:
+            vector<Room> simRooms = newSimulation.getRoomList();
+            for(int i = 0; i < simRooms.size(); i++){
+                if(simRooms[i].getClean() == cleanStatus::clean){
+                    simRooms[i].setClean(cleanStatus::dirty);
+                }
+            }
+            break;
+        case 6:
             std::cout << "Closing Application" << std::endl;
             simEnd = true;
             break;

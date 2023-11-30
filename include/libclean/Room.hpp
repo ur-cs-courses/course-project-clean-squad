@@ -23,7 +23,7 @@ private:
     RoomSize roomSize;
     int area;
     vector<Robot> currentRobots;
-    cleanStatus clean;
+    cleanStatus cleanLevel;
 
 public:
     int id; //unique ID for each room
@@ -39,7 +39,8 @@ public:
     int getNumMopping() const;
     int getNumVacuum() const;
     int getNumScrubber() const;
-    bool getClean() const;
+    cleanStatus getClean() const;
+    void setClean(cleanStatus level);
 
     void printRoom();
     void printCurrentRobots();
