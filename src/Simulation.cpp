@@ -9,15 +9,18 @@
 #include <iostream>
 #include <cstdlib>
 
-Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks): 
-    availableRobots(robots),
-    unavailableRobots(),
+Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks):
+    allRobots(robots),
     roomList(rooms),
     taskList(tasks),
     waitingQueue(),
     cleaningRooms(),
     completeRooms()
-{}
+    {
+            for(int i = 0; i < robots.size(); i++) {
+                availableMap[robots[i].getID()] = true;
+            }
+    }
 
 std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY LIFE - 10 >
 std::map<int, int> helperDict; //tester
@@ -27,25 +30,16 @@ int myTime = 0; // logical time
 
 void Simulation::timeThread(int time) {
     while(true) {
-        vector<Robot> helper = this->getUnavailableRobots(); //this needs to be unavailable robots but cannot test that
-        for(int i = 0; i < helper.size(); i++) {
-            id = helper[i].getID();
-            if(dict.find(id) == dict.end()) {
-                dict[id] = myTime + helper[i].getBattery() - 10;
+        for(const auto& id: availableMap) {
+            if(dict.find(id.first) == dict.end()) {
+                dict[id.first] = myTime + this->idToRobot(id.first).getBattery() - 10;
             }
         }
         helperDict = dict;
-        for(const auto& entry: helperDict) {
-            if(entry.second == myTime) {
-                helpVector = unavailableRobots;
-                for(int q = 0; q < helpVector.size(); q++) {
-                    Robot tRobot = helpVector[q];
-                    if(tRobot.getID() == entry.first) {
-                        availableRobots.push_back(tRobot);     //move mop robot from available to unavailable    
-                        this->unavailableRobots.erase(this->unavailableRobots.begin() + q);
-                        dict.erase(entry.first);
-                    }
-                }
+        for(const auto& helperEntry : helperDict) {
+            if(helperEntry.second == myTime) {
+                availableMap[helperEntry.first] = true;
+                dict.erase(helperEntry.first);
             }
         }
 
@@ -81,63 +75,32 @@ Task Simulation::createTaskHelper(Room taskLocation){
     int neededScrub = taskLocation.getScrubTime();
     int neededVacuum = taskLocation.getVacuumTime();
 
-    for (int i = 0; i < availableRobots.size(); i++) {                                     //find available mop robots to add to task
-        Robot addingRobot = availableRobots[i];
-        if(addingRobot.getRobotType() == RobotType::mopper){
-            std::cout<< "Mopper robot added!\n";
-            taskRobots.push_back(addingRobot);
+    vector<int> addedID;
 
-            unavailableRobots.push_back(addingRobot);                                      //move mop robot from available to unavailable
-            this->availableRobots.erase(availableRobots.begin() + i);
-
+    int size = allRobots.size();
+    for (int i = 0; i < size; i++) {                                     //find available mop robots to add to task
+        Robot addingRobot = allRobots[i];
+        if(addingRobot.getRobotType() == RobotType::mopper && potentialMop < neededMop && availableMap[addingRobot.getID()] == true){
+            availableMap[addingRobot.getID()] = false;
+            addedID.push_back(addingRobot.getID());
             potentialMop += (addingRobot.getBattery() - 10);
         }
-
-        if (potentialMop >= neededMop){
-            break;
-        }
-    }
-
-    for (int i = 0; i < availableRobots.size(); i++) {                                     //find available scrubber robots to add to task
-        Robot addingRobot = availableRobots[i];
-        if(addingRobot.getRobotType() == RobotType::scrubber){
-            std::cout<< "Scrubber robot added!\n";
-            taskRobots.push_back(addingRobot);
-
-            unavailableRobots.push_back(addingRobot);                                      //move scrubber robot from available to unavailable
-            this->availableRobots.erase(availableRobots.begin() + i);
-
+        else if(addingRobot.getRobotType() == RobotType::scrubber && potentialScrub < neededScrub && availableMap[addingRobot.getID()] == true){
+            availableMap[addingRobot.getID()] = false;
+            addedID.push_back(addingRobot.getID());
             potentialScrub += (addingRobot.getBattery() - 10);
-
-            if (potentialScrub >= neededScrub){
-                break;
-            }
         }
-    }
-    //throw std::runtime_error("Failed to create a valid task"); //throws an error message when there are paths that do not hit the return inside the while loop
-
-    for (int i = 0; i < availableRobots.size(); i++) {                                     //find available vacuum robots to add to task
-        Robot addingRobot = availableRobots[i];
-        if(addingRobot.getRobotType() == RobotType::vacuum){
-            std::cout<< "Vacuum robot added!\n";
-            taskRobots.push_back(addingRobot);
-
-            unavailableRobots.push_back(addingRobot);                                      //move vacuum robot from available to unavailable
-            this->availableRobots.erase(availableRobots.begin() + i);
-
+        else if(addingRobot.getRobotType() == RobotType::vacuum && potentialVacuum < neededVacuum && availableMap[addingRobot.getID()] == true){
+            availableMap[addingRobot.getID()] = false;
+            addedID.push_back(addingRobot.getID());
             potentialVacuum += (addingRobot.getBattery() - 10);
-
-            if (potentialVacuum >= neededVacuum){
-                break;
-            }
         }
     }
 
     if((potentialMop < neededMop) || (potentialScrub < neededScrub) || (potentialVacuum < neededVacuum)){      //if there's not enough robots
         std::cout << "There are not enough robots to clean this room. \n";
-        for(int i = 0; i < taskRobots.size(); i++){
-            unavailableRobots.push_back(availableRobots.back());                                               //put all the robots back in the correct vector         
-            availableRobots.pop_back();
+        for(int i = 0; i < addedID.size(); i++){
+            availableMap[addedID[i]] = true;
         }
         taskRobots.clear(); 
         Task newTask(taskRobots, taskLocation);                                                                //still have to return something, but don't add to taskList
@@ -161,12 +124,8 @@ void Simulation::createTask(){
     Task newTask = createTaskHelper(roomList[inputRoomID]);
 }
 
-vector<Robot> Simulation::getAvailableRobots(){
-    return availableRobots;
-}
-
-vector<Robot> Simulation::getUnavailableRobots(){
-    return unavailableRobots;
+map<int, bool> Simulation::getAvailableMap(){
+    return availableMap;
 }
 
 vector<Room> Simulation::getRoomList(){
@@ -174,16 +133,20 @@ vector<Room> Simulation::getRoomList(){
 }
 
 void Simulation::printAvailableRobots(){
-    for (int i = 0; i < availableRobots.size(); i++) {
-        availableRobots[i].printRobot();
-        std::cout << "\n";
+    for (const auto& entry: this->availableMap) {
+        if(entry.second == true) {
+            this->idToRobot(entry.first).printRobot();
+            std::cout << "\n";
+        }
     }
 }
 
 void Simulation::printUnavailableRobots(){
-    for (int i = 0; i < unavailableRobots.size(); i++) {
-        unavailableRobots[i].printRobot();
-        std::cout << "\n";
+    for (const auto& entry: this->availableMap) {
+        if(entry.second == false) {
+            this->idToRobot(entry.first).printRobot();
+            std::cout << "\n";
+        }
     }
 }
 
@@ -199,4 +162,14 @@ void Simulation::printTaskList(){
         taskList[i].printTask();
         std::cout << "\n";
     }
+}
+
+Robot Simulation::idToRobot(int id) {
+    int helper = 0;
+    for(int i = 0; i < allRobots.size(); i++) {
+        if(id == allRobots[i].getID()) {
+            helper = i;
+        }
+    }
+    return allRobots[helper];
 }

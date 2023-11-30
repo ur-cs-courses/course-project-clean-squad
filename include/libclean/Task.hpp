@@ -8,7 +8,6 @@
 class Task {
 private:
     int numRobots;
-    //std::vector<Robot> workingRobots;
     int mopTime;
     int vacuumTime;
     int scrubTime;
@@ -16,7 +15,8 @@ private:
     std::vector<Robot> robots;
     std::vector<string> robotIDs;
     Room taskLocation;
-    string roomID;
+    int roomID;
+    int id;
 
 public:
     Task();
