@@ -33,6 +33,6 @@ class Simulation {
         Task createTaskHelper(Room taskLocation);
         void start();
         void timeThread(int);    
-        Robot idToRobot(int);    
-
+        Robot idToRobot(int);
+        void setRoomsDirty();  
 };

@@ -196,11 +196,7 @@ do {
             std::cout << "" << std::endl;
             break;
         case 5:
-            for(int i = 0; i < newSimulation.getRoomList().size(); i++){
-                if(newSimulation.getRoomList()[i].getClean() == cleanStatus::clean){
-                    newSimulation.getRoomList()[i].setClean(cleanStatus::dirty);
-                }
-            }
+            newSimulation.setRoomsDirty();
             break;
         case 6:
             std::cout << "Closing Application" << std::endl;

@@ -164,6 +164,14 @@ void Simulation::printTaskList(){
     }
 }
 
+void Simulation::setRoomsDirty() {
+    for(int i = 0; i < roomList.size(); i++) {
+        if(roomList[i].getClean() == cleanStatus::clean) {
+            roomList[i].setClean(cleanStatus::dirty);
+        }
+    }
+}
+
 Robot Simulation::idToRobot(int id) {
     int helper = 0;
     for(int i = 0; i < allRobots.size(); i++) {

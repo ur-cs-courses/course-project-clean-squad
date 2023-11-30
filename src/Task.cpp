@@ -71,10 +71,4 @@ void Task::printTask() {
     std::cout << "Required Mop Time: " << this->mopTime << std::endl;
     std::cout << "Required Scrub Time: " << this->scrubTime << std::endl;
     std::cout << "Required Vacuum Time: " << this->vacuumTime << std::endl;
-    /*
-    std::cout << "Assigned Robots: ";
-    for (string robotID : robotIDs) {
-        std::cout << robotID << " ";
-    }
-    */
 }
