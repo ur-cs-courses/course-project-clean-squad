@@ -72,6 +72,10 @@ Room::Room(RoomSize room) :
         }
     }
 
+int Room::getID() const {
+    return id;
+}
+
 void Room::setRoomSize(RoomSize newSize) {
     this->roomSize = newSize;
 }

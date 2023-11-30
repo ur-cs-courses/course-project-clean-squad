@@ -172,7 +172,7 @@ do {
 
     if(std::cin.fail()) {
         std::cin.clear(); // Clears the error flags
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards the input buffer
+        //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards the input buffer
         std::cout << "Invalid input, please choose from the displayed options." << std::endl;
         continue;
     }
@@ -196,10 +196,9 @@ do {
             std::cout << "" << std::endl;
             break;
         case 5:
-            vector<Room> simRooms = newSimulation.getRoomList();
-            for(int i = 0; i < simRooms.size(); i++){
-                if(simRooms[i].getClean() == cleanStatus::clean){
-                    simRooms[i].setClean(cleanStatus::dirty);
+            for(int i = 0; i < newSimulation.getRoomList().size(); i++){
+                if(newSimulation.getRoomList()[i].getClean() == cleanStatus::clean){
+                    newSimulation.getRoomList()[i].setClean(cleanStatus::dirty);
                 }
             }
             break;
@@ -215,9 +214,3 @@ do {
 
 return 0;
 }
-
-
-
-
-
-

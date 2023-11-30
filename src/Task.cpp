@@ -13,11 +13,14 @@ Task::Task(std::vector<Robot> robots, Room taskLocation) {
     this->mopTime = taskLocation.getMopTime();
     this->vacuumTime = taskLocation.getVacuumTime();
     this->scrubTime = taskLocation.getScrubTime();
-    this->isCompleted = taskLocation.getClean();
+    if(taskLocation.getClean() == cleanStatus::dirty){
+        this->isCompleted = false;
+    }
+    else{this->isCompleted = false;}
+
     id = nextID;
     nextID++;
 }
-
 
 // Getters
 int Task::getNumRobots() const {

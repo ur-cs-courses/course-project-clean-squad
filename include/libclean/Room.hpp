@@ -29,8 +29,8 @@ public:
     int id; //unique ID for each room
     Room();
     Room(RoomSize room);
-    int getID(); 
 
+    int getID() const; 
     void setRoomSize(RoomSize newSize);
     RoomSize getRoomSize() const;
     int getMopTime() const;
@@ -41,10 +41,10 @@ public:
     int getNumScrubber() const;
     cleanStatus getClean() const;
     void setClean(cleanStatus level);
+    string getIDAsString() const;
 
     void printRoom();
     void printCurrentRobots();
 };
 
 #endif
-
