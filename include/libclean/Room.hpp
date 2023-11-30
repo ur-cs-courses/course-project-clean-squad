@@ -29,7 +29,7 @@ public:
     int id; //unique ID for each room
     Room();
     Room(RoomSize room);
-    std::string getIDAsString() const; // Method to get the ID as a string
+    int getID(); 
 
     void setRoomSize(RoomSize newSize);
     RoomSize getRoomSize() const;

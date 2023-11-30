@@ -110,8 +110,8 @@ bool Room::getClean() const{
 }
 
 
-std::string Room::getIDAsString() const {
-    return std::to_string(id); // Convert the integer ID to a string
+int Room::getID()  {
+    return id; 
 }
 
 void Room::printRoom() {
