@@ -61,8 +61,8 @@ void Simulation::runSimulation(){};
 Task Simulation::createTaskHelper(Room taskLocation){
     vector<Robot> taskRobots;
 
-    if(taskLocation.getClean()){
-        std::cout << "This room is already clean!\n";
+    if(taskLocation.getClean() != cleanStatus::dirty){
+        std::cout << "This room does not need to be cleaned! \n";
         
         Task newTask(taskRobots, taskLocation);
         return newTask;
@@ -161,6 +161,14 @@ void Simulation::printTaskList(){
     for (int i = 0; i < taskList.size(); i++) {
         taskList[i].printTask();
         std::cout << "\n";
+    }
+}
+
+void Simulation::setRoomsDirty() {
+    for(int i = 0; i < roomList.size(); i++) {
+        if(roomList[i].getClean() == cleanStatus::clean) {
+            roomList[i].setClean(cleanStatus::dirty);
+        }
     }
 }
 

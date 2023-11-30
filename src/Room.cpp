@@ -114,7 +114,7 @@ cleanStatus Room::getClean() const{
 }
 
 void Room::setClean(cleanStatus level){
-    this->cleanLevel = level;
+    cleanLevel = level;
 }
 
 std::string Room::getIDAsString() const {
@@ -123,7 +123,6 @@ std::string Room::getIDAsString() const {
 
 void Room::printRoom() {
     string size = "";
-    string clean1 = "";
         if(this->roomSize == RoomSize::small) {size = "small";}
                 else if(this->roomSize == RoomSize::medium) {size = "medium";}
                 else if(this->roomSize == RoomSize::large) {size = "large";}
@@ -133,12 +132,7 @@ void Room::printRoom() {
         if(this->roomSize != RoomSize::home) {
             std::cout << "Mop Time: " << this->mopTime << std::endl;
             std::cout << "Vacuum Time: " << this->vacuumTime << std::endl;
-            std::cout << "Scrub Time: " << this->scrubTime << std::endl;
-            if(this->cleanLevel == cleanStatus::clean) {clean1 = "Clean";}
-                else if(this->cleanLevel == cleanStatus::dirty) {clean1 = "Dirty";}
-                else if(this->cleanLevel == cleanStatus::cleaning) {clean1 = "Cleaning";}
-                else if(this->cleanLevel == cleanStatus::doNotClean) {clean1 = "Do Not Clean";}
-            std::cout << "Clean Status: " << clean1 << std::endl;         
+            std::cout << "Scrub Time: " << this->scrubTime << std::endl;         
         }
 }
 

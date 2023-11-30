@@ -8,6 +8,7 @@
 using namespace std;
 
 enum class RoomSize {small, medium, large, home};
+enum class cleanStatus {clean, dirty, doNotClean, cleaning};
 
 class Room {
 
@@ -22,14 +23,14 @@ private:
     RoomSize roomSize;
     int area;
     vector<Robot> currentRobots;
-    bool clean;                                                                                    //clean = 1; dirty = 0
+    cleanStatus cleanLevel;
 
 public:
     int id; //unique ID for each room
     Room();
     Room(RoomSize room);
-    int getID(); 
 
+    int getID() const; 
     void setRoomSize(RoomSize newSize);
     RoomSize getRoomSize() const;
     int getMopTime() const;
@@ -38,11 +39,12 @@ public:
     int getNumMopping() const;
     int getNumVacuum() const;
     int getNumScrubber() const;
-    bool getClean() const;
+    cleanStatus getClean() const;
+    void setClean(cleanStatus level);
+    string getIDAsString() const;
 
     void printRoom();
     void printCurrentRobots();
 };
 
 #endif
-
