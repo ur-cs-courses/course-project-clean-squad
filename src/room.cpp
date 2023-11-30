@@ -20,13 +20,13 @@ Room::Room() :
 
         std::random_device rd;                                                                     //random number generator
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> distribution(0, 2);
+        std::uniform_int_distribution<int> distribution(0, 1);
         int random_number = distribution(gen);
         if (random_number == 0){
-            clean = cleanStatus::clean;
+            cleanLevel = cleanStatus::clean;
         }
         else{
-            clean = cleanStatus::dirty;
+            cleanLevel = cleanStatus::dirty;
         }
         
     }
@@ -65,12 +65,16 @@ Room::Room(RoomSize room) :
         std::uniform_int_distribution<int> distribution(0, 1);
         int random_number = distribution(gen);
         if (random_number == 0){
-            clean = true;
+            cleanLevel = cleanStatus::clean;
         }
         else{
-            clean = false;
+            cleanLevel = cleanStatus::dirty;
         }
     }
+
+int Room::getID() const {
+    return id;
+}
 
 void Room::setRoomSize(RoomSize newSize) {
     this->roomSize = newSize;
@@ -105,13 +109,16 @@ int Room::getNumScrubber() const {
     return scrubber;
 }
 
-bool Room::getClean() const{
-    return clean;
+cleanStatus Room::getClean() const{
+    return cleanLevel;
 }
 
+void Room::setClean(cleanStatus level){
+    cleanLevel = level;
+}
 
-int Room::getID()  {
-    return id; 
+std::string Room::getIDAsString() const {
+    return std::to_string(id); // Convert the integer ID to a string
 }
 
 void Room::printRoom() {
@@ -125,16 +132,7 @@ void Room::printRoom() {
         if(this->roomSize != RoomSize::home) {
             std::cout << "Mop Time: " << this->mopTime << std::endl;
             std::cout << "Vacuum Time: " << this->vacuumTime << std::endl;
-            std::cout << "Scrub Time: " << this->scrubTime << std::endl;
-            if(this->clean == cleanStatus::clean) {
-                std::cout << "Clean" << std::endl;
-            } else if(this->clean == cleanStatus::dirty){
-                std::cout << "Dirty" << std::endl;
-            } else if(this->clean == cleanStatus::cleaning){
-                std::cout << "Being cleaned" << std::endl;
-            } else{
-                std::cout << "Room designated not to clean" << std::endl;
-            }                    
+            std::cout << "Scrub Time: " << this->scrubTime << std::endl;         
         }
 }
 
