@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <functional>
 #include "Room.hpp"
 #include "Robot.hpp"
 #include "Task.hpp"
