@@ -24,14 +24,13 @@ Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Tas
 
 std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY LIFE - 10 >
 std::map<int, int> helperDict; //tester
-vector<Robot> helpVector;
 int id = 0;
 int myTime = 0; // logical time
 
 void Simulation::timeThread(int time) {
     while(true) {
-        for(const auto& id: availableMap) {
-            if(dict.find(id.first) == dict.end()) {
+        for(const auto& id : availableMap) {
+            if(dict.find(id.first) == dict.end() && id.second == false) {
                 dict[id.first] = myTime + this->idToRobot(id.first).getBattery() - 10;
             }
         }
@@ -44,7 +43,6 @@ void Simulation::timeThread(int time) {
         }
 
         myTime = myTime + 10;
-        //std::cout << myTime << std::endl;
         std::system("sleep 1");
     }
 }
@@ -109,6 +107,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
 
     else{
         Task newTask(taskRobots, taskLocation);                                                                //create the task and add it to taskList
+        roomList[taskLocation.getID()].setClean(cleanStatus::cleaning);
         taskList.push_back(newTask);
         return newTask;
     }
