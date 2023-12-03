@@ -5,7 +5,7 @@ include(dependencies.cmake)
 
 add_library(libclean
   src/Robot.cpp
-  src/Room.cpp
+  src/room.cpp
   src/Task.cpp
   src/Simulation.cpp
 )

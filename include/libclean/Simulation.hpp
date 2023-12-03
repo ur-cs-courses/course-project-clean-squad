@@ -1,34 +1,29 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <functional>
 #include "Room.hpp"
 #include "Robot.hpp"
 #include "Task.hpp"
+#include <map>
 
 using namespace std;
 
 class Simulation {
     private:
-        vector<Robot> availableRobots;
-        vector<Robot> unavailableRobots;
+        map<int, bool> availableMap;
+        vector<Robot> allRobots; 
         vector<Room> roomList; 
         vector<Task> taskList;
         vector<Room> waitingQueue;
         vector<Room> cleaningRooms;
         vector<Room> completeRooms;
     public:
-        //Simulation(vector<Robot> robots,vector<Room> rooms);
         Simulation(std::vector<Robot> robots, std::vector<Room> rooms, std::vector<Task> tasks);
         ~Simulation();
         
         void runSimulation();
-        //void getInput();                                           //maybe can be in main
-
-        /*
-        Task createTask(); 
-        */
-        vector<Robot> getAvailableRobots();
-        vector<Robot> getUnavailableRobots();
+        map<int, bool> getAvailableMap();
         vector<Room> getRoomList();
         void printAvailableRobots();
         void printUnavailableRobots();
@@ -36,5 +31,8 @@ class Simulation {
         void printTaskList();
         void createTask();
         Task createTaskHelper(Room taskLocation);
-
+        void start();
+        void timeThread(int);    
+        Robot idToRobot(int);
+        void setRoomsDirty();  
 };
