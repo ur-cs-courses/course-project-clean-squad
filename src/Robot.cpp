@@ -17,9 +17,9 @@ Robot::Robot(RobotType type, RobotSize size) :
         {
                 std::random_device randNum;
                 std::mt19937 gen(randNum());
-                std::uniform_real_distribution<> distribution(0,5);
+                std::uniform_real_distribution<> distribution(0,100);
                 int output = distribution(gen);
-                probFailure = output;
+                probFailure = output;                                                              // sets probFailure to random %
 
                 if(size == RobotSize::small) {
                         batteryLife = 50;
@@ -45,7 +45,7 @@ Robot::Robot(const Robot& other) :
                 std::mt19937 gen(randNum());
                 std::uniform_real_distribution<> distribution(0,5);
                 int output = distribution(gen);
-                probFailure = output;
+                probFailure = output;                                                              // sets probFailure to random %
         }
 
 
@@ -105,4 +105,13 @@ void Robot::printRobot() {
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
         std::cout << "Prob Failure: " << probFailure << std::endl;
+}
+
+bool Robot::checkFail(){
+        std::random_device randNum;
+        std::mt19937 gen(randNum());
+        std::uniform_real_distribution<> distribution(0,100);
+        int fail = distribution(gen);
+
+        return (fail <= this-> probFailure);
 }
