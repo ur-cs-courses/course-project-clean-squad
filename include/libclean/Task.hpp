@@ -6,6 +6,9 @@
 #include "Room.hpp"
 
 class Task {
+    
+static int nextID;
+
 private:
     int numRobots;
     int mopTime;
@@ -37,6 +40,7 @@ public:
     void setIsCompleted(bool isCompleted);
     
     void printTask();
+    int getID();
 };
 #endif
 
