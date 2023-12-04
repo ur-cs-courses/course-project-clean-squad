@@ -51,6 +51,10 @@ void Task::setNumRobots(int numRobots) {
 void Task::setMopTime(int mopTime) {
     this->mopTime = mopTime;
 }
+int Task::getId() const {
+    return nextID;
+}
+int Task::getRoomID() const { return roomID; }
 
 void Task::setVacuumTime(int vacuumTime) {
     this->vacuumTime = vacuumTime;
