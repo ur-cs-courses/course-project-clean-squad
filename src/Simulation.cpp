@@ -154,6 +154,11 @@ vector<Room> Simulation::getRoomList(){
     return roomList;
 }
 
+// Getter for the task list
+const std::vector<Task>& Simulation::getTasks() const {
+    return taskList;
+}
+
 void Simulation::printAvailableRobots(){
     for (const auto& entry: this->availableMap) {
         if(entry.second == true) {
