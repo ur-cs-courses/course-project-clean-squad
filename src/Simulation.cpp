@@ -45,14 +45,11 @@ void Simulation::timeThread(int time) {
                 dict.erase(helperEntry.first);
             }
         }
-        bool tester = false;
         for(auto& task : taskMap) {
             if(task.second.size() != 0) {
                 helperVect = helperRobots;
-                tester = false;
                 for(int i = 0; i < task.second.size(); i++) {
                     if(dict.find(task.second[i].getID()) != dict.end()) {
-                        tester = true;
                         helperVect.push_back(task.second[i]);
                     }
                 }
