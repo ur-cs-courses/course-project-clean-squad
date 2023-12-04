@@ -38,10 +38,10 @@ class Robot {
         std::string getRobotID() const;
         int getID();
         void charge();                                                                             // sets battery to 100
-        bool checkFail();                                                                               // returns true if the robot fails
+        bool checkFail();                                                                          // returns true if the robot fails
            
         Room getDestination();
-        void printRobot();
+        void printRobot();                                                                         //prints ID, size, type, and failure probability
 
         //A method to convert enum robotType to string
         std::string getRobotTypeString() const {

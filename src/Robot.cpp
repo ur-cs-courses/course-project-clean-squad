@@ -89,7 +89,7 @@ int Robot::getID() {
         return this->robotID;
 }
 
-void Robot::printRobot() {
+void Robot::printRobot() {                                                                         //prints ID, size, type, and failure probability
         string size  = "";
         string type = "";
 
@@ -107,7 +107,7 @@ void Robot::printRobot() {
         std::cout << "Prob Failure: " << probFailure << std::endl;
 }
 
-bool Robot::checkFail(){
+bool Robot::checkFail(){                                                                           //returns true if the robot fails
         std::random_device randNum;
         std::mt19937 gen(randNum());
         std::uniform_real_distribution<> distribution(0,100);
