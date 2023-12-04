@@ -48,7 +48,7 @@ void Simulation::timeThread(int time) {
         bool tester = false;
         for(auto& task : taskMap) {
             if(task.second.size() != 0) {
-                helperVect = task.second;
+                helperVect = helperRobots;
                 tester = false;
                 for(int i = 0; i < task.second.size(); i++) {
                     if(dict.find(task.second[i].getID()) != dict.end()) {
@@ -56,8 +56,7 @@ void Simulation::timeThread(int time) {
                         helperVect.push_back(task.second[i]);
                     }
                 }
-                taskMap[task.first] = helperVect; // does not work
-                if(!tester) {
+                if(helperVect.size() == 0) {
                     roomList[task.first].setClean(cleanStatus::clean);
                     taskMap[task.first] = helperRobots;
                 }
@@ -65,6 +64,7 @@ void Simulation::timeThread(int time) {
         }
 
         myTime = myTime + 10;
+        //std::cout << myTime << std::endl;
         std::system("sleep 1");
     }
 }
