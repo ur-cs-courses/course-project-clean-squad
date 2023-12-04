@@ -215,7 +215,7 @@ do {
             simEnd = true;
             break;
         default:
-            std::cout << "Invalid option. Please enter a number between 1 and 5." << std::endl;
+            std::cout << "Invalid option. Please enter a number between 1 and 6." << std::endl;
             break;
     }
 } while(!simEnd);

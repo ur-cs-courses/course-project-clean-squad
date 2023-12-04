@@ -12,6 +12,7 @@ using namespace std;
 class Simulation {
     private:
         map<int, bool> availableMap;
+        map<int, vector<Robot>> taskMap;
         vector<Robot> allRobots; 
         vector<Room> roomList; 
         vector<Task> taskList;
@@ -35,5 +36,6 @@ class Simulation {
         void start();
         void timeThread(int);    
         Robot idToRobot(int);
+        Room idToRoom(int);
         void setRoomsDirty();  
 };
