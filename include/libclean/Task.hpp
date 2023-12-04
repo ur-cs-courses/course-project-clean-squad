@@ -32,6 +32,8 @@ public:
     // Setters
     void setNumRobots(int numRobots);
     void setMopTime(int mopTime);
+    int getId() const;
+    int getRoomID() const;
     void setVacuumTime(int vacuumTime);
     void setScrubTime(int scrubTime);
     void setIsCompleted(bool isCompleted);
