@@ -29,6 +29,7 @@ class Simulation {
         void printUnavailableRobots();
         void printRoomList();
         void printTaskList();
+        const std::vector<Task>& getTasks() const;
         void createTask();
         Task createTaskHelper(Room taskLocation);
         void start();
