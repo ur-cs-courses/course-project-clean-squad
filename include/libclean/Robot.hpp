@@ -20,7 +20,7 @@ class Robot {
         RobotType   robotType;
         RobotSize   robotSize;
         int         batteryLife;
-        int         probFailure;
+        int         probFailure;                                                                   // higher number = higher chance of failure (must be < 5)
         Room*       destination;
 
     public:
@@ -35,12 +35,13 @@ class Robot {
         RobotType getRobotType() const;
         RobotSize getRobotSize() const;
         int getBattery();
-        void charge();
         std::string getRobotID() const;
         int getID();
+        void charge();                                                                             // sets battery to 100
+        int failGrade();                                                                           // grade of failure from 1-5s
            
         Room getDestination();
-        void printRobot();
+        void printRobot();                                                                         // prints ID, size, type, and failure probability
 
         //A method to convert enum robotType to string
         std::string getRobotTypeString() const {
