@@ -6,7 +6,7 @@
 #include <vector>
 #include <fstream> 
 
-void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms, const std::string& filename) {
+void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms,const std::vector<Task>& tasks,const std::string& filename) {
     std::ofstream csvFile(filename, std::ofstream::trunc);  // Open in truncate mode to overwrite existing contents
 
     if (!csvFile) {
@@ -33,6 +33,18 @@ void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms
                 << rooms[i].getMopTime() << ","
                 << rooms[i].getVacuumTime() << ","
                 << rooms[i].getScrubTime() << "\n";
+    }
+    // Writing headers to the CSV file for Tasks
+    csvFile << "\nTask ID,Room ID,Mop Time,Vacuum Time,Scrub Time,Is Completed,Assigned Robots\n";
+
+    // Iterate over the tasks and write their details
+    for (const Task& task : tasks) {
+        csvFile << task.getId() << ","
+                << task.getRoomID()<< ","
+                << task.getMopTime() << ","
+                << task.getVacuumTime() << ","
+                << task.getScrubTime() << ","
+                << (task.getIsCompleted() ? "Completed" : "Not Completed") << "\n";
     }
 
     
@@ -145,11 +157,9 @@ int main() {
             if(sizeInput == 1){
                 newRoom.setClean(cleanStatus::doNotClean);
             }
-
             rooms.push_back(newRoom);
             count++;
         }
-
     }
     
     else{
@@ -206,7 +216,7 @@ int main() {
     Simulation newSimulation(robots, rooms, tasks);
 
 // Write initial state to CSV
-writeToCSV(robots, rooms, "output.csv");
+writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
 bool simEnd = false;
 int mmInput = 0;
 
@@ -214,13 +224,11 @@ newSimulation.start();
 
 std::cout << "" << std::endl;
 do {
-    //will be updating the csv file after every operation that modifies room,robots, or tasks by just calling
-    //writeToCSV(robots, rooms, "output.csv");
     std::cout << "Main Menu" << std::endl;
     std::cout << "Create new task (1)" << std::endl;
     std::cout << "Print Available Robots (2)" << std::endl;
     std::cout << "Print Available Rooms (3)" << std::endl;
-    std::cout << "Add Robot to Fleet (4)" << std::endl;
+    std::cout << "Set Room To DO NOT CLEAN (4)" << std::endl;
     std::cout << "Make all clean rooms dirty (5)" << std::endl;
     std::cout << "Exit App / Simulation (6)" << std::endl;
     std::cout << "Enter what you would like to do: ";
@@ -230,7 +238,7 @@ do {
 
     if(std::cin.fail()) {
         std::cin.clear(); // Clears the error flags
-        //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards the input buffer
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discards the input buffer
         std::cout << "Invalid input, please choose from the displayed options." << std::endl;
         continue;
     }
@@ -240,6 +248,7 @@ do {
             std::cout << "Task creation:" << std::endl;
             newSimulation.createTask();
             newSimulation.printTaskList();
+            writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
             break;
         case 2:
             std::cout << "Here are the robots:\n" << std::endl;
@@ -250,18 +259,21 @@ do {
             newSimulation.printRoomList();
             break;
         case 4:
-            std::cout << "we should add an 'add robot' method" << std::endl;
-            std::cout << "" << std::endl;
+            std::cout << "What room ID do you not want to be cleaned: ";
+            std::cin >> mmInput;
+            newSimulation.setRoomDNC(mmInput);
+            std::cout << "Room " << mmInput << " is set to DO NOT CLEAN \n" << std::endl;
             break;
         case 5:
             newSimulation.setRoomsDirty();
             break;
         case 6:
             std::cout << "Closing Application" << std::endl;
+            writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
             simEnd = true;
             break;
         default:
-            std::cout << "Invalid option. Please enter a number between 1 and 5." << std::endl;
+            std::cout << "Invalid option. Please enter a number between 1 and 6." << std::endl;
             break;
     }
 } while(!simEnd);

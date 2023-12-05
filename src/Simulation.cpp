@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 
+vector<Robot> helperRobots;
 Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks):
     allRobots(robots),
     roomList(rooms),
@@ -20,19 +21,21 @@ Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Tas
             for(int i = 0; i < robots.size(); i++) {
                 availableMap[robots[i].getID()] = true;
             }
+            for(int i = 0; i < 10; i++) {
+                taskMap[i] = helperRobots;
+            }
     }
 
 std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY LIFE - 10 >
 std::map<int, int> helperDict; //tester
-vector<Robot> helpVector;
-int id = 0;
+std::vector<Robot> helperVect;
 int myTime = 0; // logical time
 
 void Simulation::timeThread(int time) {
     while(true) {
-        for(const auto& id: availableMap) {
-            if(dict.find(id.first) == dict.end()) {
-                dict[id.first] = myTime + this->idToRobot(id.first).getBattery() - 10;
+        for(const auto& entry : availableMap) {
+            if(dict.find(entry.first) == dict.end() && entry.second == false) {
+                dict[entry.first] = myTime + this->idToRobot(entry.first).getBattery() - 10;
             }
         }
         helperDict = dict;
@@ -40,6 +43,20 @@ void Simulation::timeThread(int time) {
             if(helperEntry.second == myTime) {
                 availableMap[helperEntry.first] = true;
                 dict.erase(helperEntry.first);
+            }
+        }
+        for(auto& task : taskMap) {
+            if(task.second.size() != 0) {
+                helperVect = helperRobots;
+                for(int i = 0; i < task.second.size(); i++) {
+                    if(dict.find(task.second[i].getID()) != dict.end()) {
+                        helperVect.push_back(task.second[i]);
+                    }
+                }
+                if(helperVect.size() == 0) {
+                    roomList[task.first].setClean(cleanStatus::clean);
+                    taskMap[task.first] = helperRobots;
+                }
             }
         }
 
@@ -64,7 +81,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
     if(taskLocation.getClean() != cleanStatus::dirty){
         std::cout << "This room does not need to be cleaned! \n";
         
-        Task newTask(taskRobots, taskLocation);
+        Task newTask;
         return newTask;
     }
 
@@ -84,16 +101,19 @@ Task Simulation::createTaskHelper(Room taskLocation){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialMop += (addingRobot.getBattery() - 10);
+            taskRobots.push_back(addingRobot);
         }
         else if(addingRobot.getRobotType() == RobotType::scrubber && potentialScrub < neededScrub && availableMap[addingRobot.getID()] == true){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialScrub += (addingRobot.getBattery() - 10);
+            taskRobots.push_back(addingRobot);
         }
         else if(addingRobot.getRobotType() == RobotType::vacuum && potentialVacuum < neededVacuum && availableMap[addingRobot.getID()] == true){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialVacuum += (addingRobot.getBattery() - 10);
+            taskRobots.push_back(addingRobot);
         }
     }
 
@@ -102,14 +122,16 @@ Task Simulation::createTaskHelper(Room taskLocation){
         for(int i = 0; i < addedID.size(); i++){
             availableMap[addedID[i]] = true;
         }
-        taskRobots.clear(); 
-        Task newTask(taskRobots, taskLocation);                                                                //still have to return something, but don't add to taskList
+        Task newTask;                                                                //still have to return something, but don't add to taskList
         return newTask;                                                                                   
     }
 
     else{
         Task newTask(taskRobots, taskLocation);                                                                //create the task and add it to taskList
+        roomList[taskLocation.getID()].setClean(cleanStatus::cleaning);
         taskList.push_back(newTask);
+        std::cout << newTask.getID() << std::endl;
+        taskMap[newTask.getID()] = taskRobots;
         return newTask;
     }
 }
@@ -130,6 +152,11 @@ map<int, bool> Simulation::getAvailableMap(){
 
 vector<Room> Simulation::getRoomList(){
     return roomList;
+}
+
+// Getter for the task list
+const std::vector<Task>& Simulation::getTasks() const {
+    return taskList;
 }
 
 void Simulation::printAvailableRobots(){
@@ -172,6 +199,10 @@ void Simulation::setRoomsDirty() {
     }
 }
 
+void Simulation::setRoomDNC(int id) {
+    roomList[id].setClean(cleanStatus::doNotClean);
+}
+
 Robot Simulation::idToRobot(int id) {
     int helper = 0;
     for(int i = 0; i < allRobots.size(); i++) {
@@ -180,4 +211,14 @@ Robot Simulation::idToRobot(int id) {
         }
     }
     return allRobots[helper];
+}
+
+Room Simulation::idToRoom(int id) {
+    int helper = 0;
+    for(int i = 0; i < roomList.size(); i++) {
+        if(id == roomList[i].getID()) {
+            helper = i;
+        }
+    }
+    return roomList[helper];
 }
