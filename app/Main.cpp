@@ -147,12 +147,6 @@ int main() {
 
         Room newRoom(sizeEnum);
 
-        std::cout <<"Would you like to prevent the robots from cleaning this room? (1: yes)" ;
-        std::cin >> sizeInput;
-        if(sizeInput == 1){
-            newRoom.setClean(cleanStatus::doNotClean);
-        }
-
         rooms.push_back(newRoom);
         count++;
     }
@@ -172,7 +166,7 @@ do {
     std::cout << "Create new task (1)" << std::endl;
     std::cout << "Print Available Robots (2)" << std::endl;
     std::cout << "Print Available Rooms (3)" << std::endl;
-    std::cout << "Add Robot to Fleet (4)" << std::endl;
+    std::cout << "Set Room To DO NOT CLEAN (4)" << std::endl;
     std::cout << "Make all clean rooms dirty (5)" << std::endl;
     std::cout << "Exit App / Simulation (6)" << std::endl;
     std::cout << "Enter what you would like to do: ";
@@ -203,8 +197,10 @@ do {
             newSimulation.printRoomList();
             break;
         case 4:
-            std::cout << "we should add an 'add robot' method" << std::endl;
-            std::cout << "" << std::endl;
+            std::cout << "What room ID do you not want to be cleaned: ";
+            std::cin >> mmInput;
+            newSimulation.setRoomDNC(mmInput);
+            std::cout << "Room " << mmInput << " is set to DO NOT CLEAN \n" << std::endl;
             break;
         case 5:
             newSimulation.setRoomsDirty();
