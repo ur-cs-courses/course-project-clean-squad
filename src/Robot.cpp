@@ -107,11 +107,21 @@ void Robot::printRobot() {                                                      
         std::cout << "Prob Failure: " << probFailure << std::endl;
 }
 
-bool Robot::checkFail(){                                                                           //returns true if the robot fails
+int Robot::failGrade(){                                                                            // grade of failure from 1-5 (0 = no fail)
         std::random_device randNum;
         std::mt19937 gen(randNum());
         std::uniform_real_distribution<> distribution(0,100);
         int fail = distribution(gen);
 
-        return (fail <= this-> probFailure);
+        if(probFailure != 0){
+                int section = probFailure / 5;
+                for(int i = 1; i < 6; i++){
+                        if(fail < i * section){
+                                return (6- i);
+                                break;
+                        }
+                }
+        }
+        
+        return 0;
 }
