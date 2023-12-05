@@ -113,10 +113,11 @@ int Robot::failGrade(){                                                         
         std::uniform_real_distribution<> distribution(0,100);
         int fail = distribution(gen);
 
-        if(probFailure != 0){
-                int section = probFailure / 5;
+        if(this -> probFailure != 0){
+                int section = this -> probFailure / 5;
                 for(int i = 1; i < 6; i++){
                         if(fail < i * section){
+                                std::cout << "Robot" << this -> robotID << "has had a malfunction of grade " << 6 - i;
                                 return (6- i);
                                 break;
                         }
