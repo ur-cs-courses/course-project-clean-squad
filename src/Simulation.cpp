@@ -199,6 +199,10 @@ void Simulation::setRoomsDirty() {
     }
 }
 
+void Simulation::setRoomDNC(int id) {
+    roomList[id].setClean(cleanStatus::doNotClean);
+}
+
 Robot Simulation::idToRobot(int id) {
     int helper = 0;
     for(int i = 0; i < allRobots.size(); i++) {

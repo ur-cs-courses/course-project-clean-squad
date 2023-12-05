@@ -38,4 +38,5 @@ class Simulation {
         Robot idToRobot(int);
         Room idToRoom(int);
         void setRoomsDirty();  
+        void setRoomDNC(int);
 };
