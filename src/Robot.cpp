@@ -17,7 +17,7 @@ Robot::Robot(RobotType type, RobotSize size) :
         {
                 std::random_device randNum;
                 std::mt19937 gen(randNum());
-                std::uniform_real_distribution<> distribution(0,100);
+                std::uniform_real_distribution<> distribution(0,5);
                 int output = distribution(gen);
                 probFailure = output;                                                              // sets probFailure to random %
 
@@ -108,20 +108,16 @@ void Robot::printRobot() {                                                      
 }
 
 int Robot::failGrade(){                                                                            // grade of failure from 1-5 (0 = no fail)
-        std::random_device randNum;
-        std::mt19937 gen(randNum());
-        std::uniform_real_distribution<> distribution(0,100);
-        int fail = distribution(gen);
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distribution100(0, 100);                                //chance of if it fails or not
+        int failChance = distribution100(gen);
+        std::uniform_int_distribution<int> distribution5(0, 5);                                    //grade of failure if it does fail
+        int gradeOfFail = distribution5(gen);
 
-        if(this -> probFailure != 0){
-                int section = this -> probFailure / 5;
-                for(int i = 1; i < 6; i++){
-                        if(fail < i * section){
-                                std::cout << "Robot" << this -> robotID << "has had a malfunction of grade " << 6 - i;
-                                return (6- i);
-                                break;
-                        }
-                }
+        if(failChance < this -> probFailure){
+                std::cout << "Robot" << this -> robotID << "has had a malfunction of grade " << gradeOfFail;
+                return gradeOfFail;
         }
         
         return 0;
