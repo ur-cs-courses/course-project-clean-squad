@@ -24,6 +24,7 @@ Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Tas
             for(int i = 0; i < robots.size(); i++) {
                 helperBool[i] = false;
             }
+            taskMap[0] = helperBool;
     }
 
 std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY LIFE - 10 >
@@ -46,25 +47,25 @@ void Simulation::timeThread(int time) {
                 dict.erase(helperEntry.first);
             }
         }
+
         bool done = false;
         helperTaskDict = taskMap;
         for(auto& task : helperTaskDict) {
-            if(task.second.size() != 0) {
-                done = true;
-                for(int i = 0; i < task.second.size(); i++) {
-                    if(task.second[i] == true && dict.find(i) == dict.end()) {
-                        task.second[i] = false;
-                    }
-                    else if(task.second[i] == true && dict.find(i) != dict.end()) {
-                        done = false;
-                    }
+            done = true;
+            for(int i = 0; i < task.second.size(); i++) {
+                if(task.second[i] == true && dict.find(i) == dict.end()) {
+                    task.second[i] = false;
                 }
-                if(done == true) {
-                    roomList[task.first].setClean(cleanStatus::clean);
-                    taskMap.erase(task.first);
+                else if(task.second[i] == true && dict.find(i) != dict.end()) {
+                    done = false;
                 }
             }
+            if(done == true) {
+                roomList[task.first].setClean(cleanStatus::clean);
+                taskMap.erase(task.first);
+            }
         }
+        
         
         myTime = myTime + 10;
         //std::cout << myTime << std::endl;
@@ -140,7 +141,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
         for(int i = 0; i < taskRobots.size(); i++) {
             helperBool[taskRobots[i].getID()] = true;
         }
-        taskMap[newTask.getID()] = helperBool;
+        taskMap[taskLocation.getID()] = helperBool;
         return newTask;
     }
 }
