@@ -9,12 +9,24 @@ TEST_CASE( "Robot is working") {
     
     REQUIRE( newRobot.getRobotType() == RobotType::mopper );
     REQUIRE( newRobot.getRobotSize() == RobotType::small );
+    REQUIRE( newRobot.getActive() == false);
+    REQUIRE( newRobot.getBrokenStatus() == false);
+    REQUIRE( newRobot.getBattery() == 50);
 
-     SECTION( "Getters and setters" ) {
-        newRobot.
+    SECTION( "Break robot" ) {
+        newRobot.setBrokenStatus(true);
 
-        REQUIRE( newRobot.getRobotType() == RobotType::mopper );
-        REQUIRE( newRobot.getRobotSize() == RobotType::small );
+        REQUIRE( newRobot.getBrokenStatus() == true);
     }
+
+    SECTION( "Charge robot" ) {
+        newRobot.charge();
+
+        REQUIRE( newRobot.getBattery() == 50);
+    }
+
+    SECTION( "Charge robot" ) {
+        REQUIRE( newRobot.failGrade() < 6);
+    }                 
 }
 
