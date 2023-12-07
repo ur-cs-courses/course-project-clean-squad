@@ -11,7 +11,6 @@
 
 Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks):
     allRobots(robots),
-    inTaskRobots(robots),
     roomList(rooms),
     taskList(tasks),
     waitingQueue(),
