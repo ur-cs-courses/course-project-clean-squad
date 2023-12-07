@@ -80,23 +80,23 @@ int Robot::getTaskDuration() {
 
 void Robot::setTaskDuration(int taskTime) {
         if(this->robotSize == RobotSize::small) {
-                if(taskTime > 50){
-                        this->taskDuration = 40;
+                if(taskTime > this->getBattery()){
+                        this->taskDuration = this->getBattery() - 10;
                 }else{
                         this->taskDuration = taskTime;
                 }
         }     
         if(this->robotSize == RobotSize::medium) {
-                if(taskTime > 100){
-                        this->taskDuration = 90;
+                if(taskTime > this->getBattery()){
+                        this->taskDuration = this->getBattery() - 10;
                 }
                 else{
                         this->taskDuration = taskTime;
                 }
         }
        if(this->robotSize == RobotSize::large) {
-                if(taskTime > 200){
-                        this->taskDuration = 190;
+                if(taskTime > this->getBattery()){
+                        this->taskDuration = this->getBattery() - 10;
                 }else{
                         this->taskDuration = taskTime;
                 }
