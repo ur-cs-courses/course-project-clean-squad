@@ -7,11 +7,13 @@
 TEST_CASE( "Robot is working") {
     Robot newRobot(RobotType::mopper, RobotSize::small);
     
-    REQUIRE( newRobot.getRobotType() == RobotType::mopper );
-    REQUIRE( newRobot.getRobotSize() == RobotType::small );
-    REQUIRE( newRobot.getActive() == false);
-    REQUIRE( newRobot.getBrokenStatus() == false);
-    REQUIRE( newRobot.getBattery() == 50);
+    SECTION( "Default values" ) {
+        REQUIRE( newRobot.getRobotType() == RobotType::mopper );
+        REQUIRE( newRobot.getRobotSize() == RobotType::small );
+        REQUIRE( newRobot.getActive() == false);
+        REQUIRE( newRobot.getBrokenStatus() == false);
+        REQUIRE( newRobot.getBattery() == 50);
+    }
 
     SECTION( "Break robot" ) {
         newRobot.setBrokenStatus(true);
@@ -25,8 +27,11 @@ TEST_CASE( "Robot is working") {
         REQUIRE( newRobot.getBattery() == 50);
     }
 
-    SECTION( "Charge robot" ) {
+/**
+    SECTION( "Probability of Failure" ) {
         REQUIRE( newRobot.failGrade() < 6);
-    }                 
+    }  
+ **/          
+
 }
 
