@@ -242,6 +242,9 @@ void Simulation::updateRobotBattery(){
     int size = allRobots.size();
     for (int i = 0; i < size; i++) { 
         Robot& updatingRobot = allRobots[i];
-        updatingRobot.updateBattery(updatingRobot.getTaskDuration());
+        if(updatingRobot.getTaskDuration() != 0) {
+            updatingRobot.updateBattery(updatingRobot.getTaskDuration() + 10);
+            updatingRobot.setTaskDuration(0);
+        }
     }
 }
