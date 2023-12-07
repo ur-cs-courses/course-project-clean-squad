@@ -13,7 +13,8 @@ class Simulation {
     private:
         map<int, bool> availableMap;
         map<int, vector<Robot>> taskMap;
-        vector<Robot> allRobots; 
+        vector<Robot> allRobots;
+        vector<Robot> inTaskRobots; 
         vector<Room> roomList; 
         vector<Task> taskList;
         vector<Room> waitingQueue;
@@ -39,4 +40,5 @@ class Simulation {
         Room idToRoom(int);
         void setRoomsDirty();  
         void setRoomDNC(int);
+        void updateRobotBattery(Task&);
 };

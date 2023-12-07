@@ -30,6 +30,7 @@ Robot::Robot(RobotType type, RobotSize size) :
                 } else {
                         batteryLife = 0;
                 }
+                taskDuration = 0;
         }
 
 Robot::Robot(const Robot& other) :
@@ -38,6 +39,7 @@ Robot::Robot(const Robot& other) :
         robotType(other.robotType),
         robotSize(other.robotSize),
         batteryLife(other.batteryLife),
+        taskDuration(other.taskDuration),
         robotID(other.robotID),
         destination(nullptr)
         {
@@ -72,6 +74,35 @@ RobotSize Robot::getRobotSize() const{
         return this->robotSize;
 }
 
+int Robot::getTaskDuration() {
+        return this->taskDuration;
+}
+
+void Robot::setTaskDuration(int taskTime) {
+        if(this->robotSize == RobotSize::small) {
+                if(taskTime > 50){
+                        this->taskDuration = 50;
+                }else{
+                        this->taskDuration = taskTime;
+                }
+        }     
+        if(this->robotSize == RobotSize::medium) {
+                if(taskTime > 100){
+                        this->taskDuration = 100;
+                }
+                else{
+                        this->taskDuration = taskTime;
+                }
+        }
+       if(this->robotSize == RobotSize::large) {
+                if(taskTime > 200){
+                        this->taskDuration = 200;
+                }else{
+                        this->taskDuration = taskTime;
+                }
+        }
+}
+
 int Robot::getBattery() {
         return this->batteryLife;
 }
@@ -87,6 +118,15 @@ std::string Robot::getRobotID() const {
 
 int Robot::getID() {
         return this->robotID;
+}
+
+void Robot::updateBattery(int amountTime) {
+    if (this->batteryLife > 0) {
+        this->batteryLife -= amountTime;
+    } else {
+        this->batteryLife = 0;
+        setBrokenStatus(true);
+    }
 }
 
 void Robot::printRobot() {                                                                         //prints ID, size, type, and failure probability
@@ -105,6 +145,8 @@ void Robot::printRobot() {                                                      
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
         std::cout << "Prob Failure: " << probFailure << std::endl;
+        std::cout << "Assigned Task Duration: " << taskDuration << std::endl;
+        std::cout << "Battery Remain: " << batteryLife << std::endl;
 }
 
 int Robot::failGrade(){                                                                            // grade of failure from 1-5 (0 = no fail)

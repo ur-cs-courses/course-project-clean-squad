@@ -28,6 +28,7 @@ class Robot {
         Robot(const Robot& other);
         ~Robot();
         int robotID;
+        int         taskDuration;
 
         bool getActive();
         bool getBrokenStatus();
@@ -35,7 +36,10 @@ class Robot {
         RobotType getRobotType() const;
         RobotSize getRobotSize() const;
         int getBattery();
+        void updateBattery(int);
         std::string getRobotID() const;
+        int getTaskDuration();
+        void setTaskDuration(int);
         int getID();
         void charge();                                                                             // sets battery to 100
         int failGrade();                                                                           // grade of failure from 1-5s
