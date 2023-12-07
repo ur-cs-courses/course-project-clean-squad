@@ -237,3 +237,11 @@ Room Simulation::idToRoom(int id) {
     }
     return roomList[helper];
 }
+
+void Simulation::updateRobotBattery(){
+    int size = allRobots.size();
+    for (int i = 0; i < size; i++) { 
+        Robot& updatingRobot = allRobots[i];
+        updatingRobot.updateBattery(updatingRobot.getTaskDuration());
+    }
+}

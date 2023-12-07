@@ -40,5 +40,5 @@ class Simulation {
         Room idToRoom(int);
         void setRoomsDirty();  
         void setRoomDNC(int);
-        void updateRobotBattery(Task&);
+        void updateRobotBattery();
 };
