@@ -17,9 +17,9 @@ Robot::Robot(RobotType type, RobotSize size) :
         {
                 std::random_device randNum;
                 std::mt19937 gen(randNum());
-                std::uniform_real_distribution<> distribution(0,5);
+                std::uniform_real_distribution<> distribution(0,100);
                 int output = distribution(gen);
-                probFailure = output;
+                probFailure = output;                                                              // sets probFailure to random %
 
                 if(size == RobotSize::small) {
                         batteryLife = 50;
@@ -45,7 +45,7 @@ Robot::Robot(const Robot& other) :
                 std::mt19937 gen(randNum());
                 std::uniform_real_distribution<> distribution(0,5);
                 int output = distribution(gen);
-                probFailure = output;
+                probFailure = output;                                                              // sets probFailure to random %
         }
 
 
@@ -89,7 +89,7 @@ int Robot::getID() {
         return this->robotID;
 }
 
-void Robot::printRobot() {
+void Robot::printRobot() {                                                                         //prints ID, size, type, and failure probability
         string size  = "";
         string type = "";
 
@@ -105,4 +105,23 @@ void Robot::printRobot() {
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
         std::cout << "Prob Failure: " << probFailure << std::endl;
+}
+
+int Robot::failGrade(){                                                                            // grade of failure from 1-5 (0 = no fail)
+        std::random_device randNum;
+        std::mt19937 gen(randNum());
+        std::uniform_real_distribution<> distribution(0,100);
+        int fail = distribution(gen);
+
+        if(probFailure != 0){
+                int section = probFailure / 5;
+                for(int i = 1; i < 6; i++){
+                        if(fail < i * section){
+                                return (6- i);
+                                break;
+                        }
+                }
+        }
+        
+        return 0;
 }

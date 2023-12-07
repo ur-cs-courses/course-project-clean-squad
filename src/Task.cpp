@@ -1,12 +1,9 @@
 #include "libclean/Task.hpp"
 #include <iostream>
 
-// Constructor
-/*
-Task::Task()
-    : numRobots(0), mopTime(0), vacuumTime(0), scrubTime(0), isCompleted(false) {}
-*/
-int nextID = 0;
+int Task::nextID = 1;
+Task::Task() {}
+
 Task::Task(std::vector<Robot> robots, Room taskLocation) {
     roomID = taskLocation.getID();
     this->numRobots = robots.size();
@@ -20,6 +17,9 @@ Task::Task(std::vector<Robot> robots, Room taskLocation) {
 
     id = nextID;
     nextID++;
+    if(robots.size() == 0) {
+        nextID--;
+    }
 }
 
 // Getters
@@ -51,6 +51,10 @@ void Task::setNumRobots(int numRobots) {
 void Task::setMopTime(int mopTime) {
     this->mopTime = mopTime;
 }
+int Task::getId() const {
+    return nextID;
+}
+int Task::getRoomID() const { return roomID; }
 
 void Task::setVacuumTime(int vacuumTime) {
     this->vacuumTime = vacuumTime;
@@ -72,3 +76,8 @@ void Task::printTask() {
     std::cout << "Required Scrub Time: " << this->scrubTime << std::endl;
     std::cout << "Required Vacuum Time: " << this->vacuumTime << std::endl;
 }
+
+int Task::getID() {
+    return id;
+}
+

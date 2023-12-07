@@ -90,6 +90,8 @@ class Task {
 
 Robot "0..." o--> "0...1" Room
 Robot "0..." o--> "0...1" Task
+Simulation "0..." o--> "0...n" Room
+Simulation "0..." o--> "0...n" Task
 
 
 @enduml
