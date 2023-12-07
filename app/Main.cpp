@@ -244,7 +244,8 @@ do {
             break;
         case 2:
             std::cout << "Here are the robots:\n" << std::endl;
-            newSimulation.printAvailableRobots(); 
+            newSimulation.updateRobotBattery();
+            newSimulation.printAvailableRobots();
             break;
         case 3:
             std::cout << "Here are the rooms:\n" << std::endl;

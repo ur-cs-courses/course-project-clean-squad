@@ -4,7 +4,7 @@
 int Task::nextID = 1;
 Task::Task() {}
 
-Task::Task(std::vector<Robot> robots, Room taskLocation) {
+Task::Task(std::vector<Robot> robots, Room taskLocation){
     roomID = taskLocation.getID();
     this->numRobots = robots.size();
     this->mopTime = taskLocation.getMopTime();
@@ -79,5 +79,9 @@ void Task::printTask() {
 
 int Task::getID() {
     return id;
+}
+
+std::vector<Robot> Task::getRobots() const {
+    return robots;
 }
 

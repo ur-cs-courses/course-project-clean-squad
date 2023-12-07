@@ -31,6 +31,7 @@ public:
     int getVacuumTime() const;
     int getScrubTime() const;
     bool getIsCompleted() const;
+    std::vector<Robot> getRobots() const;
 
     // Setters
     void setNumRobots(int numRobots);

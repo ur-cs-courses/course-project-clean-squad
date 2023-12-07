@@ -11,6 +11,7 @@
 
 Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks):
     allRobots(robots),
+    inTaskRobots(robots),
     roomList(rooms),
     taskList(tasks),
     waitingQueue(),
@@ -98,28 +99,37 @@ Task Simulation::createTaskHelper(Room taskLocation){
     int neededMop = taskLocation.getMopTime();
     int neededScrub = taskLocation.getScrubTime();
     int neededVacuum = taskLocation.getVacuumTime();
+    int currMop = neededMop;
+    int currScrub = neededScrub;
+    int currVacuum = neededVacuum;
 
     vector<int> addedID;
 
     int size = allRobots.size();
     for (int i = 0; i < size; i++) {                                     //find available mop robots to add to task
-        Robot addingRobot = allRobots[i];
+        Robot& addingRobot = allRobots[i];
         if(addingRobot.getRobotType() == RobotType::mopper && potentialMop < neededMop && availableMap[addingRobot.getID()] == true){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialMop += (addingRobot.getBattery() - 10);
+            addingRobot.setTaskDuration(currMop);
+            currMop -= addingRobot.getTaskDuration();
             taskRobots.push_back(addingRobot);
         }
         else if(addingRobot.getRobotType() == RobotType::scrubber && potentialScrub < neededScrub && availableMap[addingRobot.getID()] == true){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialScrub += (addingRobot.getBattery() - 10);
+            addingRobot.setTaskDuration(currScrub);
+            currScrub -= addingRobot.getTaskDuration();
             taskRobots.push_back(addingRobot);
         }
         else if(addingRobot.getRobotType() == RobotType::vacuum && potentialVacuum < neededVacuum && availableMap[addingRobot.getID()] == true){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialVacuum += (addingRobot.getBattery() - 10);
+            addingRobot.setTaskDuration(currVacuum);
+            currVacuum -= addingRobot.getTaskDuration();
             taskRobots.push_back(addingRobot);
         }
     }
@@ -153,6 +163,11 @@ void Simulation::createTask(){
     }
     std::cout << "Enter the ID for room to clean: ";
     std::cin >> inputRoomID;
+
+    if (inputRoomID < 0 || inputRoomID >= roomList.size()) {
+        std::cout << "Invalid room ID." << std::endl;
+        return;
+    }
     Task newTask = createTaskHelper(roomList[inputRoomID]);
 }
 
@@ -243,4 +258,15 @@ Room Simulation::idToRoom(int id) {
         }
     }
     return roomList[helper];
+}
+
+void Simulation::updateRobotBattery(){
+    int size = allRobots.size();
+    for (int i = 0; i < size; i++) { 
+        Robot& updatingRobot = allRobots[i];
+        if(updatingRobot.getTaskDuration() != 0) {
+            updatingRobot.updateBattery(updatingRobot.getTaskDuration() + 10);
+            updatingRobot.setTaskDuration(0);
+        }
+    }
 }
