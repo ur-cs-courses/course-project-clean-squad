@@ -12,14 +12,14 @@ using namespace std;
 class Simulation {
     private:
         map<int, bool> availableMap;
-        map<int, vector<Robot>> taskMap;
         vector<Robot> allRobots;
-        vector<Robot> inTaskRobots; 
+        map<int, vector<bool>> taskMap;
         vector<Room> roomList; 
         vector<Task> taskList;
         vector<Room> waitingQueue;
         vector<Room> cleaningRooms;
         vector<Room> completeRooms;
+        vector<bool> helperBool;
     public:
         Simulation(std::vector<Robot> robots, std::vector<Room> rooms, std::vector<Task> tasks);
         ~Simulation();

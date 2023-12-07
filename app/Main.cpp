@@ -151,12 +151,6 @@ int main() {
                 }
 
             Room newRoom(sizeEnum);
-
-            std::cout <<"Would you like to prevent the robots from cleaning this room? (1: yes)" ;
-            std::cin >> sizeInput;
-            if(sizeInput == 1){
-                newRoom.setClean(cleanStatus::doNotClean);
-            }
             rooms.push_back(newRoom);
             count++;
         }
@@ -166,11 +160,11 @@ int main() {
         std::cout << "Here is the default simulator.";
         numRobots = 13;
 
-        Robot newRobot1(RobotType::mopper, RobotSize::small);                                       //robot 1
+        Robot newRobot1(RobotType::mopper, RobotSize::small);                                        //robot 1
         robots.push_back(newRobot1);
-        Robot newRobot2(RobotType::mopper, RobotSize::medium);                                      //robot 2
+        Robot newRobot2(RobotType::mopper, RobotSize::medium);                                       //robot 2
         robots.push_back(newRobot2);
-        Robot newRobot3(RobotType::mopper, RobotSize::large);                                       //robot 3
+        Robot newRobot3(RobotType::mopper, RobotSize::large);                                        //robot 3
         robots.push_back(newRobot3);
         Robot newRobot4(RobotType::vacuum, RobotSize::small);                                        //robot 4
         robots.push_back(newRobot4);
@@ -184,14 +178,12 @@ int main() {
         robots.push_back(newRobot8);
         Robot newRobot9(RobotType::scrubber, RobotSize::large);                                      //robot 9
         robots.push_back(newRobot9);
-        Robot newRobot0(RobotType::scrubber, RobotSize::medium);                                     //robot 10
+        Robot newRobot0(RobotType::mopper, RobotSize::large);                                        //robot 10
         robots.push_back(newRobot0);
-        Robot newRobot11(RobotType::mopper, RobotSize::large);                                        //robot 11
+        Robot newRobot11(RobotType::vacuum, RobotSize::large);                                       //robot 11
         robots.push_back(newRobot11);
-        Robot newRobot12(RobotType::vacuum, RobotSize::small);                                        //robot 12
+        Robot newRobot12(RobotType::scrubber, RobotSize::large);                                     //robot 12
         robots.push_back(newRobot12);
-        Robot newRobot13(RobotType::vacuum, RobotSize::small);                                        //robot 13
-        robots.push_back(newRobot13);
        
         numRooms = 6;
 
@@ -263,7 +255,6 @@ do {
             std::cout << "What room ID do you not want to be cleaned: ";
             std::cin >> mmInput;
             newSimulation.setRoomDNC(mmInput);
-            std::cout << "Room " << mmInput << " is set to DO NOT CLEAN \n" << std::endl;
             break;
         case 5:
             newSimulation.setRoomsDirty();
