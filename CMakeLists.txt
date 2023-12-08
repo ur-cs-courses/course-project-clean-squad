@@ -20,3 +20,4 @@ target_link_libraries(libclean
 )
 
 add_subdirectory(app)
+add_subdirectory(tests)

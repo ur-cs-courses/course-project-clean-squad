@@ -77,11 +77,11 @@ int Robot::getBattery() {
 }
 
 void Robot::charge() {
-       if(size == RobotSize::small) {
+       if(robotSize == RobotSize::small) {
                 this -> batteryLife = 50;
-        } else if(size == RobotSize::medium) {
+        } else if(robotSize == RobotSize::medium) {
                 this -> batteryLife = 100;
-        } else if (size == RobotSize::large) {
+        } else if (robotSize == RobotSize::large) {
                 this -> batteryLife = 200;
         }
         else{ 
