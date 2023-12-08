@@ -8,6 +8,7 @@
 #include <thread>
 #include <iostream>
 #include <cstdlib>
+#include <mutex>
 
 Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Task> tasks):
     allRobots(robots),
@@ -31,7 +32,10 @@ std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY L
 std::map<int, int> helperDict; //tester
 std::map<int, vector<bool>> helperTaskDict;
 std::vector<Robot> helperVect;
+std::vector<Task> helperTasks;
 int myTime = 0; // logical time
+
+std::mutex taskListMutex;
 
 void Simulation::timeThread(int time) {
     while(true) {
@@ -62,6 +66,15 @@ void Simulation::timeThread(int time) {
             }
             if(done == true) {
                 roomList[task.first].setClean(cleanStatus::clean);
+
+                std::unique_lock<std::mutex> lock(taskListMutex);
+                for(int i = 0; i < taskList.size(); i++) {
+                    if(taskList[i].getRoomID() == task.first) {
+                        taskList[i].setIsCompleted(true);
+                    }
+                }
+                lock.unlock();
+
                 taskMap.erase(task.first);
             }
         }
@@ -145,7 +158,11 @@ Task Simulation::createTaskHelper(Room taskLocation){
     else {
         Task newTask(taskRobots, taskLocation);                                                                //create the task and add it to taskList
         roomList[taskLocation.getID()].setClean(cleanStatus::cleaning);
+
+        std::unique_lock<std::mutex> lock(taskListMutex);
         taskList.push_back(newTask);
+        lock.unlock();
+        
         std::cout << newTask.getID() << std::endl;
         for(int i = 0; i < taskRobots.size(); i++) {
             helperBool[taskRobots[i].getID()] = true;
