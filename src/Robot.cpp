@@ -95,6 +95,7 @@ void Robot::setTaskDuration(int taskTime) {
                         this->taskDuration = taskTime;
                 }
         }
+        return;
 }
 
 int Robot::getBattery() {
@@ -102,7 +103,15 @@ int Robot::getBattery() {
 }
 
 void Robot::charge() {
-        this->batteryLife = 100;
+        if(this->robotSize == RobotSize::small) {
+                this->batteryLife = 50;
+        }     
+        if(this->robotSize == RobotSize::medium) {
+                this->batteryLife = 100;
+        }
+        if(this->robotSize == RobotSize::large) {
+                this->batteryLife = 200;
+        }
         return;
 }
 
@@ -121,6 +130,7 @@ void Robot::updateBattery(int amountTime) {
         this->batteryLife = 0;
         setBrokenStatus(true);
     }
+    return;
 }
 
 void Robot::printRobot() {                                                                         //prints ID, size, type, and failure probability
@@ -139,7 +149,6 @@ void Robot::printRobot() {                                                      
         std::cout << "Robot Size: " << size << std::endl;
         std::cout << "Robot Type: " << type << std::endl;
         std::cout << "Prob Failure: " << probFailure << std::endl;
-        std::cout << "Assigned Task Duration: " << taskDuration << std::endl;
         std::cout << "Battery Remain: " << batteryLife << std::endl;
 }
 
