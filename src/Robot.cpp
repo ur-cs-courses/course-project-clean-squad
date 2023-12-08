@@ -39,15 +39,9 @@ Robot::Robot(const Robot& other) :
         robotSize(other.robotSize),
         batteryLife(other.batteryLife),
         robotID(other.robotID),
-        destination(nullptr)
-        {
-                std::random_device randNum;
-                std::mt19937 gen(randNum());
-                std::uniform_real_distribution<> distribution(0,5);
-                int output = distribution(gen);
-                probFailure = output;                                                              // sets probFailure to random %
-        }
-
+        destination(nullptr),
+        probFailure(other.probFailure)
+        {}
 
 Robot::~Robot() {}
 
