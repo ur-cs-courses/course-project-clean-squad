@@ -41,4 +41,5 @@ class Simulation {
         void setRoomsDirty();  
         void setRoomDNC(int);
         void updateRobotBattery();
+        void chargeRobots();
 };

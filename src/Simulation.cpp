@@ -107,7 +107,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
     int size = allRobots.size();
     for (int i = 0; i < size; i++) {                                     //find available mop robots to add to task
         Robot& addingRobot = allRobots[i];
-        if(addingRobot.getRobotType() == RobotType::mopper && potentialMop < neededMop && availableMap[addingRobot.getID()] == true){
+        if(addingRobot.getRobotType() == RobotType::mopper && potentialMop < neededMop && availableMap[addingRobot.getID()] == true && addingRobot.getBattery() >= 20){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialMop += (addingRobot.getBattery() - 10);
@@ -115,7 +115,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
             currMop -= addingRobot.getTaskDuration();
             taskRobots.push_back(addingRobot);
         }
-        else if(addingRobot.getRobotType() == RobotType::scrubber && potentialScrub < neededScrub && availableMap[addingRobot.getID()] == true){
+        else if(addingRobot.getRobotType() == RobotType::scrubber && potentialScrub < neededScrub && availableMap[addingRobot.getID()] == true && addingRobot.getBattery() >= 20){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialScrub += (addingRobot.getBattery() - 10);
@@ -123,7 +123,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
             currScrub -= addingRobot.getTaskDuration();
             taskRobots.push_back(addingRobot);
         }
-        else if(addingRobot.getRobotType() == RobotType::vacuum && potentialVacuum < neededVacuum && availableMap[addingRobot.getID()] == true){
+        else if(addingRobot.getRobotType() == RobotType::vacuum && potentialVacuum < neededVacuum && availableMap[addingRobot.getID()] == true && addingRobot.getBattery() >= 20){
             availableMap[addingRobot.getID()] = false;
             addedID.push_back(addingRobot.getID());
             potentialVacuum += (addingRobot.getBattery() - 10);
@@ -267,5 +267,13 @@ void Simulation::updateRobotBattery(){
             updatingRobot.updateBattery(updatingRobot.getTaskDuration() + 10);
             updatingRobot.setTaskDuration(0);
         }
+    }
+}
+
+void Simulation::chargeRobots(){
+    int size = allRobots.size();
+    for (int i = 0; i < size; i++) {
+        Robot& chargingRobot = allRobots[i];
+        chargingRobot.charge();
     }
 }

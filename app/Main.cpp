@@ -222,7 +222,8 @@ do {
     std::cout << "Print Available Rooms (3)" << std::endl;
     std::cout << "Set Room To DO NOT CLEAN (4)" << std::endl;
     std::cout << "Make all clean rooms dirty (5)" << std::endl;
-    std::cout << "Exit App / Simulation (6)" << std::endl;
+    std::cout << "Charge all robots (6)" << std::endl;
+    std::cout << "Exit App / Simulation (7)" << std::endl;
     std::cout << "Enter what you would like to do: ";
     std::cin >> mmInput;
 
@@ -260,6 +261,9 @@ do {
             newSimulation.setRoomsDirty();
             break;
         case 6:
+            newSimulation.chargeRobots();
+            break;
+        case 7:
             std::cout << "Closing Application" << std::endl;
             writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
             simEnd = true;
