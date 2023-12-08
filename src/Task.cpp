@@ -75,6 +75,12 @@ void Task::printTask() {
     std::cout << "Required Mop Time: " << this->mopTime << std::endl;
     std::cout << "Required Scrub Time: " << this->scrubTime << std::endl;
     std::cout << "Required Vacuum Time: " << this->vacuumTime << std::endl;
+    if(this->isCompleted == true) {
+        std::cout << "Task Completed: True" << std::endl;
+    }
+    else {
+        std::cout << "Task Completed: False" << std::endl;
+    }
 }
 
 int Task::getID() {
