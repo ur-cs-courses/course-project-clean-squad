@@ -28,7 +28,7 @@ Simulation::Simulation(vector<Robot> robots, vector<Room> rooms, std::vector<Tas
             taskMap[0] = helperBool;
     }
 
-std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + BATTERY LIFE - 10 >
+std::map<int, int> dict; //map that has the <ROBOT ID , CURRENT TIME + TaskDuration
 std::map<int, int> helperDict; //tester
 std::map<int, vector<bool>> helperTaskDict;
 std::vector<Robot> helperVect;
@@ -37,11 +37,13 @@ int myTime = 0; // logical time
 
 std::mutex taskListMutex;
 
+int failGrade = 0;
+
 void Simulation::timeThread(int time) {
     while(true) {
         for(const auto& entry : availableMap) {
             if(dict.find(entry.first) == dict.end() && entry.second == false) {
-                dict[entry.first] = myTime + this->idToRobot(entry.first).getBattery() - 10;
+                dict[entry.first] = myTime + this->idToRobot(entry.first).getTaskDuration();
             }
         }
         helperDict = dict;
@@ -50,6 +52,12 @@ void Simulation::timeThread(int time) {
                 availableMap[helperEntry.first] = true;
                 dict.erase(helperEntry.first);
             }
+            failGrade = this->idToRobot(helperEntry.first).failGrade();
+            if(failGrade != 0) {
+                std::cout << "Robot " << helperEntry.first << " failed: Fail grade " << failGrade << std::endl;
+                dict[helperEntry.first] = helperEntry.second + (failGrade * 20);
+            }
+            failGrade = 0;
         }
 
         bool done = false;
@@ -69,7 +77,7 @@ void Simulation::timeThread(int time) {
 
                 std::unique_lock<std::mutex> lock(taskListMutex);
                 for(int i = 0; i < taskList.size(); i++) {
-                    if(taskList[i].getRoomID() == task.first) {
+                    if(taskList[i].getRoomID() == task.first && taskList[i].getIsCompleted() == false) {
                         taskList[i].setIsCompleted(true);
                     }
                 }
