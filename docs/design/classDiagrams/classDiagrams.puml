@@ -8,43 +8,59 @@ class Robot {
     - batteryLife: int
     - probFailure: int
     - destination: Room
-    - currentTask: Task
-    - completedTasks: vector<Task>
-    + getActive(): bool
+    - robotMutex: mutex
+    - robotID: int
+    - nextRobotID: int
+
+    + getActive(): bool 
+    + setActive(bool): void
     + getBrokenStatus(): bool
-    + setBrokenStatus(brokenStatus: bool): void
-    + getRobotType(): string
-    + getRobotSize(): string
-    + getBattery(): int
+    + setBrokenStatus(bool): void 
+    + getRobotType(): RobotType  
+    + getRobotSize(): RobotSize  
+    + getBattery(): int 
+    + updateBattery(int amountTime): void 
+    + getRobotID(): string 
+    + getRobotBattery(): string  
+    + getProbFailureString(): string  
+    + getTaskDuration(): int 
+    + setTaskDuration(int): void 
+    + getID(): int 
     + charge(): void
+    + failGrade(): int 
     + getDestination(): Room
-    + setDestination(destination: Room): void
-    + getCompletedTasks(): vector<Task>
-    + getTask(): Task
-    + setTask(task: Task): void
+    + printRobot(): void  
+    + getRobotTypeString(): string  
+    + getRobotSizeString(): string
 }
 
-class Room {
-    - int mopTime
-    - int vacuumTime
-    - int scrubTime
-    - int mopping
-    - int vacuum
-    - int scrubber
-    - string size
-    - int area
 
-    + setSize(): void
-    + getSize(): int
+class Room {
+    - mopTime: int
+    - vacuumTime: int
+    - scrubTime: int
+    - mopping: int
+    - vacuum: int
+    - scrubber: int
+    - roomSize: int
+    - area: int 
+    - id: int
+    - cleanLevel: cleanStatus
+
+    + getID(): int
+    + setRoomSize(RoomSize newSize): void
+    + getSize(): RoomSize
     + getMopTime(): int
     + getVacuumTime(): int
     + getScrubTime(): int
     + getNumMopping(): int
     + getNumVacuum(): int
     + getNumScrubber(): int
-    + getWaitingRooms(): vector<Room>
-    + getCompletedRooms(): vector<Room>
-    + getCurrentCleaning(): vector<Room>
+    + getClean(): cleanStatus
+    + setClean(cleanStatus level): void 
+    + getIDAsString(): string  
+    + printRoom(): void 
+    + printCurrentRobots(): void
     
 }
 
@@ -91,26 +107,30 @@ class Simulation {
 
 class Task {
   - numRobots: int
-  - workingRobots: vector<Robot>
   - int mopTime
   - int vacuumTime
   - int scrubTime
-  - taskLocation: Room
   - isCompleted: boolean
+  - robots: vector<Robot>
+  - robotsIDs: vector<string>
+  - taskLocation: Room
+  - roomID: int
+  - id: int
+
   + setNumRobots(numRobots: int)
-  + getNumRobots(): int
-  + addWorkingRobot(robot: Robot)
-  + removeWorkingRobot(robot: Robot)
   + setMopTime(): int
   + setVacuumTime(): int
   + setScrubTime(): int
+  + setIsCompleted(isCompleted: boolean)
+  + getNumRobots(): int
   + getMopTime(): int
   + getVacuumTime(): int
   + getScrubTime(): int
-  + setTaskLocation(location: Room)
-  + getTaskLocation(): Room
-  + setIsCompleted(isCompleted: boolean)
+  + getRoomID(): int
   + getIsCompleted(): boolean
+  + getRobots(): vector<Robot> 
+  + printTask(): void
+  + getID(): int
 }
 
 Robot "0..." o--> "0...1" Room
