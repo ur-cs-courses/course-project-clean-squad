@@ -4,7 +4,7 @@ This use case is about robot information and data. It demonstrates how the users
 
 
 ![Use case 2](uc2.png)
-This use case is about sending the robots to perform tasks. It demonstrates how the user uses the command-line interface to interact with the robots and how the user communicates with the robots.
+This use case is about sending the robots to perform tasks. It demonstrates how the user uses the command-line interface in Simulation to assign tasks and how the Simulation controls robots and simulates failures for robots.
 
 
 ![Use case 3](uc3.png)

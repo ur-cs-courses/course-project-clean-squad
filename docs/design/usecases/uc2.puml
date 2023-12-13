@@ -7,10 +7,15 @@ User << User >> #DodgerBlue
 Actor Robot
 Robot << Robot >> #Yellow
 
-:User: -- (Use command line to control robots) #DodgerBlue
-:User: -- (Report Robots' failures) #DodgerBlue
-:Robot: -- (Use command line to control robots)
-:Robot: -- (Report Robots' failures)
+Actor Simulation
+Simulation << Simulation >> #Red
+
+:User: -- (Make tasks) #DodgerBlue
+:Simulation: -- (Make tasks) #Red
+:Simulation: -- (Simulation Control) #Red
+:Robot: -- (Simulation Control)
+:Simulation: -- (Simulate Robots' failures) #Red
+:Robot: -- (Simulate Robots' failures)
 :Robot: -- (Return home after clean)
 :User: -- (Check robot alerts if mulfunction) #DodgerBlue
 @enduml
