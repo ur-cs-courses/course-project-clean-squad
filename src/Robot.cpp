@@ -116,9 +116,20 @@ void Robot::charge() {
         return;
 }
 
+// methods to add robots stuffs to the database
 std::string Robot::getRobotID() const {
     return std::to_string(robotID);
 }
+
+std::string Robot::getRobotBattery() const {
+    return std::to_string(batteryLife);
+}
+
+std::string Robot::getProbFailureString() const {
+    return std::to_string(probFailure);
+}
+
+
 
 int Robot::getID() {
         return this->robotID;
