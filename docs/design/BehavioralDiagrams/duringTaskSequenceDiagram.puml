@@ -1,9 +1,10 @@
 @startuml
 Robot -> Room: Go to Room
-loop while roomClean
-Room -> Room: Decrease Timer
-    alt if not active
-    Robot -> Room -- : Go Home, end while loop
+loop while cleanStatus == dirty
+Simulation -> Simulation: increase timer
+    alt if encounters failures
+    Simulation -> Robot: checks failure
+    Robot -> Robot -- : Fix(stay longer in room)
     else else
     Robot -> Robot: Clean
     end
