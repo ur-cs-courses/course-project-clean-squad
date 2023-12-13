@@ -40,6 +40,8 @@ class Robot {
         int getBattery();
         void updateBattery(int amountTime);
         std::string getRobotID() const;
+        std::string getRobotBattery() const;
+        std::string getProbFailureString() const;
         int getTaskDuration();
         void setTaskDuration(int);
         int getID();
