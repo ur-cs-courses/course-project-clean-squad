@@ -3,7 +3,7 @@
 This is a sequence diagram that is showing the steps the user would take to assign a task to a robot and the robot to go start that task.
 
 ![duringTask Sequence Diagram](duringTaskSQ.png) <br>
-This is a sequence diagram that demonstrates basic steps for a robot will behave during its task, and its interactions with the room class.
+This is a sequence diagram that demonstrates basic steps for a robot behaviors during its task, and its interactions with the Room and Simulation class.
 
 ![makeTask Activity Diagram](makeTaskAD.png) <br>
 This is a activity diagram that shows how the simulation creates a task with the user and ensures that it is a valid task.
