@@ -3,28 +3,38 @@ skinparam DefaultFontName Times New Roman
 skinparam actorStyle awesome
 
 actor User #DodgerBlue
+participant Room #BlanchedAlmond
 participant Simulation #LightSeaGreen
 actor Robot #DarkRed
+participant Task #SkyBlue
+
+loop getValidRoom
+User -> Room: getDirty
+group validRoom
+    Room -> Simulation: start creating task
+    else Not Dirty / Invalid ID
+        Room -> User: ask for new roomid
+    end
+end
+
 
 loop findValidRobots
-    group checkFreeRobots
-        User -> Simulation: getFree
-        Simulation -> Simulation: put free Robots in List
-        Simulation -> User: returnFreeList
-    else No Free Robots
-        Simulation -> User: return0
+    Simulation -> Robot: getFree
+    group ifAvailable
+        Robot -> Simulation: put available Robots in task
+    else notAvailable
+        Simulation -> Simulation: move to the next robot
     end
 end
 
 group queryTask
-    User -> Simulation: queryTask
-    Simulation -> Simulation: check if specific robots are free
+    Simulation -> Simulation: check if enough robots are assigned to task
         group ifTaskValid
-            Simulation -> Simulation: create the task
-            Simulation -> Robot: assign the task
-            Robot -> Robot: go to assigned room
+            Simulation -> Task: assign robots to task
+            Task -> Task: create task
+            Task -> Simulation: send task to simulation
         else
-            Simulation -> User: report invalid task
+            Simulation -> User: return not enough Robots for task
         end
 end
 
