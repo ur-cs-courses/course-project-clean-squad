@@ -10,12 +10,12 @@ Database_Manager << Manager >> #LightSeaGreen
 
 package Data {
     usecase "View robot's individual performance" as (robot_performance) #LightGrey
-    usecase "See paths/efficiency of robots" as (paths_efficiency) #LightGrey
+    usecase "View robot's past tasks" as (paths_efficiency) #LightGrey
 }
 
 package RobotList {
-    usecase "View active/free status of robots" as (active_free_status) #LightGrey
-    usecase "View broken status of robots" as (broken_status) #LightGrey
+    usecase "View active list of robots" as (active_free_status) #LightGrey
+    usecase "Get notified when robots break" as (broken_status) #LightGrey
 }
 
 :User: --> (active_free_status) #DodgerBlue
