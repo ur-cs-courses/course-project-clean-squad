@@ -51,6 +51,10 @@ bool Robot::getActive() {
         return this->isActive;
 }
 
+void Robot::setActive(bool val) {
+        this->isActive = val;
+}
+
 bool Robot::getBrokenStatus() {
         return this->isBroken;
 };

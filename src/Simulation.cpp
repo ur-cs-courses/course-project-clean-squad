@@ -50,6 +50,7 @@ void Simulation::timeThread(int time) {
         for(const auto& helperEntry : helperDict) {
             if(helperEntry.second == myTime) {
                 availableMap[helperEntry.first] = true;
+                allRobots[helperEntry.first].setActive(false);
                 dict.erase(helperEntry.first);
             }
             failGrade = this->idToRobot(helperEntry.first).failGrade();
@@ -158,12 +159,14 @@ Task Simulation::createTaskHelper(Room taskLocation){
             currVacuum -= addingRobot.getTaskDuration();
             taskRobots.push_back(addingRobot);
         }
+        allRobots[addingRobot.getID()].setActive(true);
     }
 
     if((potentialMop < neededMop) || (potentialScrub < neededScrub) || (potentialVacuum < neededVacuum)){      //if there's not enough robots
         std::cout << "There are not enough robots to clean this room. \n";
         for(int i = 0; i < addedID.size(); i++){
             availableMap[addedID[i]] = true;
+            this->idToRobot(addedID[i]).setActive(false);
         }
         Task newTask;                                                                //still have to return something, but don't add to taskList
         return newTask;                                                                                   
@@ -333,7 +336,7 @@ void Simulation::chargeRobots(){
         if(robot.getRobotSize() == RobotSize::large) {
             maxBattery = 200;
         }
-        if (robot.getBattery() < maxBattery) {
+        if (robot.getBattery() < maxBattery && robot.getActive() == false) {
             chargingThreads.push_back(std::thread(&Simulation::chargeIndividual, this, std::ref(robot)));
         }
     }

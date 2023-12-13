@@ -33,6 +33,7 @@ class Robot {
         int         taskDuration;
 
         bool getActive();
+        void setActive(bool);
         bool getBrokenStatus();
         void setBrokenStatus(bool);
         RobotType getRobotType() const;
