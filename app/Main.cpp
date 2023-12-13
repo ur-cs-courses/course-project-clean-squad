@@ -15,13 +15,15 @@ void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms
     }
 
      // Writing headers to the CSV file for Robots
-    csvFile << "Robot ID,Robot Type,Robot Size\n";
+    csvFile << "Robot ID,Robot Type,Robot Size,ProbFailure,BatteryLife\n";
 
     // Write robot details to the CSV
     for (const auto& robot : robots) {
         csvFile << robot.getRobotID() << ","
                 << robot.getRobotTypeString() << ","
-                << robot.getRobotSizeString()<< "\n";
+                << robot.getRobotSizeString()<< ","
+                << robot.getProbFailureString()<< ","
+                << robot.getRobotBattery() << "\n";
     }
 
     // Writing headers to the CSV file for Rooms
@@ -35,7 +37,7 @@ void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms
                 << rooms[i].getScrubTime() << "\n";
     }
     // Writing headers to the CSV file for Tasks
-    csvFile << "\nTask ID,Room ID,Mop Time,Vacuum Time,Scrub Time,Is Completed,Assigned Robots\n";
+    csvFile << "\nTask ID,Room ID,Mop Time,Vacuum Time,Scrub Time,Is Completed\n";
 
     // Iterate over the tasks and write their details
     for (const Task& task : tasks) {
