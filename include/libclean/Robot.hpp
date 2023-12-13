@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <mutex>
 
 class Room;
 
@@ -22,6 +23,7 @@ class Robot {
         int         batteryLife;
         int         probFailure;                                                                   // higher number = higher chance of failure (must be < 5)
         Room*       destination;
+        std::mutex  robotMutex;
 
     public:
         Robot(RobotType type, RobotSize size);
@@ -36,7 +38,7 @@ class Robot {
         RobotType getRobotType() const;
         RobotSize getRobotSize() const;
         int getBattery();
-        void updateBattery(int);
+        void updateBattery(int amountTime);
         std::string getRobotID() const;
         int getTaskDuration();
         void setTaskDuration(int);

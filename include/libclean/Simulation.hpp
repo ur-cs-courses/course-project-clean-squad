@@ -20,6 +20,7 @@ class Simulation {
         vector<Room> cleaningRooms;
         vector<Room> completeRooms;
         vector<bool> helperBool;
+        std::vector<std::thread> chargingThreads;
     public:
         Simulation(std::vector<Robot> robots, std::vector<Room> rooms, std::vector<Task> tasks);
         ~Simulation();
@@ -42,4 +43,5 @@ class Simulation {
         void setRoomDNC(int);
         void updateRobotBattery();
         void chargeRobots();
+        void chargeIndividual(Robot&);
 };

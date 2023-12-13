@@ -103,17 +103,14 @@ int Robot::getBattery() {
 }
 
 void Robot::charge() {
-       if(robotSize == RobotSize::small) {
+        std::lock_guard<std::mutex> lock(robotMutex);
+        if(robotSize == RobotSize::small) {
                 this -> batteryLife = 50;
         } else if(robotSize == RobotSize::medium) {
                 this -> batteryLife = 100;
         } else if (robotSize == RobotSize::large) {
                 this -> batteryLife = 200;
         }
-        else{ 
-                this -> batteryLife = 0;
-        }
-        return;
 }
 
 std::string Robot::getRobotID() const {
@@ -125,13 +122,11 @@ int Robot::getID() {
 }
 
 void Robot::updateBattery(int amountTime) {
-    if (this->batteryLife > 0) {
-        this->batteryLife -= amountTime;
-    } else {
-        this->batteryLife = 0;
+    std::lock_guard<std::mutex> lock(robotMutex);
+    this->batteryLife = std::max(0, this->batteryLife - amountTime);
+    if (this->batteryLife == 0) {
         setBrokenStatus(true);
     }
-    return;
 }
 
 void Robot::printRobot() {                                                                         //prints ID, size, type, and failure probability

@@ -91,7 +91,13 @@ void Simulation::start() {
     time_thread = std::thread(std::bind(&Simulation::timeThread, this, 10));
 }
 
-Simulation::~Simulation(){}
+Simulation::~Simulation() {
+    for (auto& thread : chargingThreads) {
+        if (thread.joinable()) {
+            thread.join();
+        }
+    }
+}
 
 void Simulation::runSimulation(){};
 
@@ -287,10 +293,40 @@ void Simulation::updateRobotBattery(){
     }
 }
 
+void Simulation::chargeIndividual(Robot& robot){
+    int maxBattery{0};
+    if(robot.getRobotSize() == RobotSize::small) {
+        maxBattery = 50;
+        }     
+    if(robot.getRobotSize() == RobotSize::medium) {
+        maxBattery = 100;
+        }
+    if(robot.getRobotSize() == RobotSize::large) {
+        maxBattery = 200;
+        }
+    while (robot.getBattery() < maxBattery) {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        robot.updateBattery(-10);
+    }
+    robot.charge();
+}
+
 void Simulation::chargeRobots(){
     int size = allRobots.size();
     for (int i = 0; i < size; i++) {
-        Robot& chargingRobot = allRobots[i];
-        chargingRobot.charge();
+        Robot& robot = allRobots[i];
+        int maxBattery{0};
+        if(robot.getRobotSize() == RobotSize::small) {
+            maxBattery = 50;
+        }     
+        if(robot.getRobotSize() == RobotSize::medium) {
+            maxBattery = 100;
+        }
+        if(robot.getRobotSize() == RobotSize::large) {
+            maxBattery = 200;
+        }
+        if (robot.getBattery() < maxBattery) {
+            chargingThreads.push_back(std::thread(&Simulation::chargeIndividual, this, std::ref(robot)));
+        }
     }
 }
