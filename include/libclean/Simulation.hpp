@@ -44,4 +44,5 @@ class Simulation {
         void updateRobotBattery();
         void chargeRobots();
         void chargeIndividual(Robot&);
+        void setActive();
 };
