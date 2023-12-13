@@ -162,7 +162,6 @@ int Robot::failGrade(){                                                         
         int gradeOfFail = distribution5(gen);
 
         if(failChance < this -> probFailure){
-                std::cout << "Robot" << this -> robotID << "has had a malfunction of grade " << gradeOfFail;
                 return gradeOfFail;
         }
         
