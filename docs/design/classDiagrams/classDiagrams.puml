@@ -49,12 +49,16 @@ class Room {
 }
 
 class Simulation {
-    - availableRobots: vector<Robot>
-    - unavailableRobots: vector<Robot>
-    - roomList: vector<Room>
-    - vector<Room> waitingQueue
-    - vector<Room> cleaningRooms
-    - vector<Room> completeRooms
+    - availableMap: map<int, bool> 
+    - allRobots: vector<Robot> 
+    - taskMap: map<int, vector<bool>> 
+    - roomList: vector<Room>  
+    - taskList: vector<Task> 
+    - waitingQueue: vector<Room> 
+    - cleaningRooms: vector<Room> 
+    - completeRooms: vector<Room> 
+    - helperBool: vector<bool> 
+    - chargingThreads: vector<thread> 
 
     + runSimulation(): void
     + getInput(): void
@@ -62,6 +66,27 @@ class Simulation {
     + getAvailableRobots(): vector<Robot>
     + getUnavailableRobots(): vector<Robot>
     + getRoomList(): vector<Room>
+
+    + runSimulation(): void 
+    + getAvailableMap(): map<int, bool> 
+    + getRoomList(): vector<Room> 
+    + printAvailableRobots(): void 
+    + printUnavailableRobots(): void 
+    + printRoomList(): void 
+    + printTaskList(): void 
+    + getTasks(): vector<Task>& 
+    + createTask(): void 
+    + createTaskHelper(Room taskLocation): Task 
+    + start(): void 
+    + timeThread(int): void     
+    + idToRobot(int): Robot 
+    + idToRoom(int): Room 
+    + setRoomsDirty(): void   
+    + setRoomDNC(int): void 
+    + updateRobotBattery(): void 
+    + chargeRobots(): void 
+    + chargeIndividual(Robot&): void 
+    + setActive(): void 
 }
 
 class Task {
