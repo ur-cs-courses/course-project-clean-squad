@@ -7,7 +7,7 @@ Next, navigate to the app folder inside of build and then compile the actual sim
 To run the simulation executable run the `./main` command.
 
 ### Troubleshooting
-If you run into errors with building the program, remove the build folder and add the directory back. Start from the root directory and run 'rm -rf build/' then `mkdir build`, then follow the instructions above.
+If you run into errors with building the program, remove the build folder and add the directory back. Start from the root directory and run `rm -rf build/` then `mkdir build`, then follow the instructions above.
 
 ## The Simulation
 
