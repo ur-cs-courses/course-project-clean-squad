@@ -166,7 +166,7 @@ Task Simulation::createTaskHelper(Room taskLocation){
         std::cout << "There are not enough robots to clean this room. \n";
         for(int i = 0; i < addedID.size(); i++){
             availableMap[addedID[i]] = true;
-            this->idToRobot(addedID[i]).setActive(false);
+            allRobots[addedID[i]].setActive(false);
         }
         Task newTask;                                                                //still have to return something, but don't add to taskList
         return newTask;                                                                                   
