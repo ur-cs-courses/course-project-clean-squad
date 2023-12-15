@@ -30,3 +30,22 @@ After some time, the rooms that the robots have cleaned may get dirty again, and
 Our robots are very smart, but they cannot charge themselves, so you will need to plug them in. The sixth option, Charge all robots, will start charging all of the robots that are not currently cleaning a room. They charge at a rate of 10 battery per second.   
 
 When you are done with the simulation and want to exit, choose option seven, Exit the App / Simulation.  
+
+## MongoDB installation and changes
+
+### Installation
+1. Make sure your local machine has mongodb installed -> this can be done with homebrew
+2. No changes in the program except for the root CMAKELists.txt file:
+ ![cmakelist.txt changes ](cmake.png)
+ 
+The last two lines must be replaced by the paths to where your mongocxx and bsoncxx are installed in the local machine. Everything else stays the same.
+
+### Running your Mongodb Server
+This can be done in either terminal or a MongoDB vs code extension, we went with the latter. 
+1. Add the extension, then launch your server: you can use a localhost (port 27017) or create your own port
+2. Then,run your simulation
+3. The Database will now update all the rooms, robots, and tasks information as they take place.
+4. It also has creates schemas for all the features
+   
+
+
