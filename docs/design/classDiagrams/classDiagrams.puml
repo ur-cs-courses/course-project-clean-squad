@@ -35,6 +35,17 @@ class Robot {
 }
 
 
+class MongoDBConnector {
+    + MongoDBConnector()
+    + void insertRobot(const Robot& robot)
+    + void insertRoom(const Room& room)
+    + void insertTask(const Task& task)
+    + void connect(std::string uri)
+    - mongocxx::instance instance{}
+    - mongocxx::client conn{}
+}
+
+
 class Room {
     - mopTime: int
     - vacuumTime: int
@@ -132,6 +143,10 @@ class Task {
   + printTask(): void
   + getID(): int
 }
+
+MongoDBConnector "1" -- "0..n" Robot 
+MongoDBConnector "1" -- "0..n" Room 
+MongoDBConnector "1" -- "0..n" Task 
 
 Robot "0..." o--> "0...1" Room
 Robot "0..." o--> "0...1" Task

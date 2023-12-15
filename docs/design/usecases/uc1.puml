@@ -1,4 +1,4 @@
-@startuml
+@startuml uc1
 skinparam DefaultFontName Times New Roman
 skinparam actorStyle awesome
 
@@ -10,7 +10,8 @@ Database_Manager << Manager >> #LightSeaGreen
 
 package Data {
     usecase "View robot's individual performance" as (robot_performance) #LightGrey
-    usecase "View robot's past tasks" as (paths_efficiency) #LightGrey
+    usecase "View robot's past tasks and their statuses" as (paths_efficiency) #LightGrey
+    usecase "View rooms data" as (rooms_data) #LightGrey
 }
 
 package RobotList {
@@ -22,4 +23,5 @@ package RobotList {
 :User: --> (broken_status) #DodgerBlue
 :Database_Manager: --> (robot_performance) #LightSeaGreen
 :Database_Manager: --> (paths_efficiency) #LightSeaGreen
+:Database_Manager: --> (rooms_data) #LightSeaGreen
 @enduml
