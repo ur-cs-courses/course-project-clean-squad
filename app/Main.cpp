@@ -2,57 +2,28 @@
 #include "libclean/Robot.hpp"
 #include "libclean/Task.hpp"
 #include "libclean/Simulation.hpp"
+#include "libclean/mongoDB.hpp"
 #include <iostream>
 #include <vector>
 #include <fstream> 
 
-void writeToCSV(const std::vector<Robot>& robots, const std::vector<Room>& rooms,const std::vector<Task>& tasks,const std::string& filename) {
-    std::ofstream csvFile(filename, std::ofstream::trunc);  // Open in truncate mode to overwrite existing contents
-
-    if (!csvFile) {
-        std::cerr << "Error opening " << filename << " for writing." << std::endl;
-        return;
-    }
-
-     // Writing headers to the CSV file for Robots
-    csvFile << "Robot ID,Robot Type,Robot Size,ProbFailure,BatteryLife\n";
-
-    // Write robot details to the CSV
-    for (const auto& robot : robots) {
-        csvFile << robot.getRobotID() << ","
-                << robot.getRobotTypeString() << ","
-                << robot.getRobotSizeString()<< ","
-                << robot.getProbFailureString()<< ","
-                << robot.getRobotBattery() << "\n";
-    }
-
-    // Writing headers to the CSV file for Rooms
-    csvFile << "\nRoom ID,Mop Time,Sweep Time,Scrub Time\n";
-
-    // Write room details to the CSV
-    for (size_t i = 0; i < rooms.size(); ++i) {
-        csvFile << i << ","  // Assuming room ID is its index in the room vector
-                << rooms[i].getMopTime() << ","
-                << rooms[i].getVacuumTime() << ","
-                << rooms[i].getScrubTime() << "\n";
-    }
-    // Writing headers to the CSV file for Tasks
-    csvFile << "\nTask ID,Room ID,Mop Time,Vacuum Time,Scrub Time,Is Completed\n";
-
-    // Iterate over the tasks and write their details
-    for (const Task& task : tasks) {
-        csvFile << task.getId() << ","
-                << task.getRoomID()<< ","
-                << task.getMopTime() << ","
-                << task.getVacuumTime() << ","
-                << task.getScrubTime() << ","
-                << (task.getIsCompleted() ? "Completed" : "Not Completed") << "\n";
-    }
-
+// Function to save data to MongoDB
+void writeToDatabase(const std::vector<Robot>& robots, const std::vector<Room>& rooms, const std::vector<Task>& tasks) {
+    MongoDBConnector dbConnector;
+    dbConnector.connect("mongodb://localhost:27017"); // URI for MongoDB
     
-    csvFile.close();
-}
+    for (const auto& robot : robots) {
+        dbConnector.insertRobot(robot);
+    }
 
+    for (const auto& room : rooms) {
+        dbConnector.insertRoom(room);
+    }
+
+    for (const auto& task : tasks) {
+        dbConnector.insertTask(task);
+    }
+}
  
 
 int main() {
@@ -208,9 +179,6 @@ int main() {
     }    
     
     Simulation newSimulation(robots, rooms, tasks);
-
-// Write initial state to CSV
-writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
 bool simEnd = false;
 int mmInput = 0;
 
@@ -243,7 +211,6 @@ do {
             std::cout << "Task creation:" << std::endl;
             newSimulation.createTask();
             newSimulation.printTaskList();
-            writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
             break;
         case 2:
             std::cout << "Here are the robots:\n" << std::endl;
@@ -266,8 +233,8 @@ do {
             newSimulation.chargeRobots();
             break;
         case 7:
+            writeToDatabase(robots, rooms, newSimulation.getTasks());
             std::cout << "Closing Application" << std::endl;
-            writeToCSV(robots, rooms, newSimulation.getTasks(), "output.csv");
             simEnd = true;
             break;
         default:
