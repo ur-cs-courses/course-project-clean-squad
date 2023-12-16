@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <mutex>
 
 class Room;
 
@@ -20,27 +21,36 @@ class Robot {
         RobotType   robotType;
         RobotSize   robotSize;
         int         batteryLife;
-        int         probFailure;
+        int         probFailure;                                                                   // higher number = higher chance of failure (must be < 5)
         Room*       destination;
+        std::mutex  robotMutex;
 
     public:
         Robot(RobotType type, RobotSize size);
         Robot(const Robot& other);
         ~Robot();
         int robotID;
+        int         taskDuration;
 
         bool getActive();
+        void setActive(bool);
         bool getBrokenStatus();
         void setBrokenStatus(bool);
         RobotType getRobotType() const;
         RobotSize getRobotSize() const;
         int getBattery();
-        void charge();
+        void updateBattery(int amountTime);
         std::string getRobotID() const;
+        std::string getRobotBattery() const;
+        std::string getProbFailureString() const;
+        int getTaskDuration();
+        void setTaskDuration(int);
         int getID();
+        void charge();                                                                             // sets battery to 100
+        int failGrade();                                                                           // grade of failure from 1-5s
            
         Room getDestination();
-        void printRobot();
+        void printRobot();                                                                         // prints ID, size, type, and failure probability
 
         //A method to convert enum robotType to string
         std::string getRobotTypeString() const {

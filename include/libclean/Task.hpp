@@ -6,6 +6,9 @@
 #include "Room.hpp"
 
 class Task {
+    
+static int nextID;
+
 private:
     int numRobots;
     int mopTime;
@@ -28,15 +31,19 @@ public:
     int getVacuumTime() const;
     int getScrubTime() const;
     bool getIsCompleted() const;
+    std::vector<Robot> getRobots() const;
 
     // Setters
     void setNumRobots(int numRobots);
     void setMopTime(int mopTime);
+    int getId() const;
+    int getRoomID() const;
     void setVacuumTime(int vacuumTime);
     void setScrubTime(int scrubTime);
     void setIsCompleted(bool isCompleted);
     
     void printTask();
+    int getID();
 };
 #endif
 

@@ -1,4 +1,4 @@
-@startuml
+@startuml usecase3
 skinparam DefaultFontName Times New Roman
 skinparam actorStyle awesome
 Actor User
@@ -7,19 +7,15 @@ User << User >> #DodgerBlue
 Actor Building_manager
 Building_manager << Building_manager >> #Yellow
 
-Actor Fleet_Manager
-Fleet_Manager << Fleet_Manager >> #IndianRed
 
 package Building {
-    usecase "Set locations to be cleaned" as (set_location) #LightGrey
+    usecase "Set rooms that can not be cleaned" as (set_location) #LightGrey
 }
 
-package Robots {
-    usecase "Send robots to perfom tasks " as (robot_tasks) #LightGrey
-    usecase "Take control of the robots" as (control_robots) #LightGrey
+package Rooms {
+    usecase "Picks room to be cleaned " as (robot_tasks) #LightGrey
 }
 
 :User: -- (robot_tasks) #DodgerBlue
 :Building_manager: -- (set_location) #DodgerBlue
-:Fleet_Manager: -- (control_robots)#DodgerBlue
 @enduml
